@@ -1,6 +1,4 @@
-﻿using Firebase.Authentication.Client;
-using Firebase.Authentication.Configuration;
-using Firebase.Authentication.Requests.Base;
+﻿using Firebase.Authentication.Requests.Base;
 using Firebase.Authentication.Responses.Base;
 
 namespace Firebase.Authentication.Client.Interfaces;
@@ -21,17 +19,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.createAuthUri response</returns>
     Task<CreateAuthUrlResponse> CreateAuthUriAsync(
         CreateAuthUriRequest request,
@@ -44,17 +42,18 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <returns>A new accounts.delete response</returns>
     Task DeleteAsync(
         DeleteRequest request,
         CancellationToken cancellationToken = default);
@@ -66,17 +65,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.lookup response</returns>
     Task<LookupResponse> LookupAsync(
         LookupRequest request,
@@ -89,17 +88,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.resetPassword response</returns>
     Task<ResetPasswordResponse> ResetPasswordASync(
         ResetPasswordRequest request,
@@ -113,17 +112,17 @@ public interface IAuthenticationBase
     /// <param name="request">The request to send</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.sendOobCode response</returns>
     Task<SendOobCodeResponse> SendOobCodeAsync(
         SendOobCodeRequest request,
@@ -138,17 +137,17 @@ public interface IAuthenticationBase
     /// <param name="request">The request to send</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.sendVerificationCode response</returns>
     Task<SendVerificationCodeResponse> SendVerificationCodeAsync(
         SendVerificationCodeRequest request,
@@ -162,17 +161,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.signInWithCustomToken response</returns>
     Task<SignInWithCustomTokenResponse> SignInWithCustomTokenAsync(
         SignInWithCustomTokenRequest request,
@@ -185,17 +184,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.signInWithEmailLink response</returns>
     Task<SignInWithEmailLinkResponse> SignInWithEmailLinkAsync(
         SignInWithEmailLinkRequest request,
@@ -208,17 +207,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.signInWithIdp response</returns>
     Task<SignInWithIdpResponse> SignInWithIdpAsync(
         SignInWithIdpRequest request,
@@ -231,17 +230,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.signInWithPassword response</returns>
     Task<SignInWithPasswordResponse> SignInWithPasswordAsync(
         SignInWithPasswordRequest request,
@@ -254,17 +253,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.signInWithPhoneNumber response</returns>
     Task<SignInWithPhoneNumberResponse> SignInWithPhoneNumberAsync(
         SignInWithPhoneNumberRequest request,
@@ -277,17 +276,17 @@ public interface IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.signUp response</returns>
     Task<SignUpResponse> SignUpAsync(
         SignUpRequest request,
@@ -301,17 +300,17 @@ public interface IAuthenticationBase
     /// <param name="request">The request to send</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     /// <returns>A new accounts.update response</returns>
     Task<UpdateResponse> UpdateAsync(
         UpdateRequest request,
@@ -324,17 +323,17 @@ public interface IAuthenticationBase
     /// <see href="https://firebase.google.com/docs/reference/rest/auth#section-refresh-token"/>
     /// </summary>
     /// <returns>A new securetoken.token response response</returns>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
+    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
     Task<SecureTokenResponse> SecureTokenAsync(
         SecureTokenRequest request,
         CancellationToken cancellationToken = default);
