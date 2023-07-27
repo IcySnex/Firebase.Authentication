@@ -5,8 +5,9 @@ using Firebase.Authentication.Responses.Base;
 using Firebase.Authentication.Exceptions;
 using System.Globalization;
 using Firebase.Authentication.Client.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace Firebase.Authentication.Client.Base;
+namespace Firebase.Authentication.Client;
 
 /// <summary>
 /// Base client for all low level identity platform accounts actions
@@ -20,11 +21,12 @@ public class AuthenticationBase : IAuthenticationBase
     /// <summary>
     /// Creates a new AuthenticationBase client
     /// </summary>
-    /// <param name="config">The configuration the AuthenticationClient should be created with</param>
+    /// <param name="config">The configuration the AuthenticationBase should be created with</param>
     public AuthenticationBase(
-        AuthenticationConfig config)
+        AuthenticationConfig config,
+        ILogger? logger = null)
     {
-        requestHelper = new(config);
+        requestHelper = new(config, logger);
     }
 
 

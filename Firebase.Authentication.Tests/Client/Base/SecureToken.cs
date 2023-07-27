@@ -1,4 +1,4 @@
-﻿using Firebase.Authentication.Client.Base;
+﻿using Firebase.Authentication.Client;
 using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Configuration;
 using Firebase.Authentication.Requests.Base;
@@ -16,6 +16,7 @@ internal class SecureToken
         // Mock config/base
         HttpConfig httpConfig = new(TestData.Timeout, TestData.Proxy);
         AuthenticationConfig config = new(TestData.ApiKey, httpConfig);
+
         client = new AuthenticationBase(config);
     }
 

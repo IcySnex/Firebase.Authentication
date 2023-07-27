@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 
-namespace Firebase.Authentication.Responses;
+namespace Firebase.Authentication.Responses.Base;
 
 /// <summary>
 /// Model to recieve an error response

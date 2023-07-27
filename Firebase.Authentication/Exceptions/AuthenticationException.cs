@@ -1,5 +1,5 @@
 ﻿using Firebase.Authentication.Internal.Json;
-using Firebase.Authentication.Responses;
+using Firebase.Authentication.Responses.Base;
 
 namespace Firebase.Authentication.Exceptions;
 

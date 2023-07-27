@@ -1,4 +1,6 @@
-﻿using Firebase.Authentication.Requests.Base;
+﻿using Firebase.Authentication.Client;
+using Firebase.Authentication.Configuration;
+using Firebase.Authentication.Requests.Base;
 using Firebase.Authentication.Responses.Base;
 
 namespace Firebase.Authentication.Client.Interfaces;
