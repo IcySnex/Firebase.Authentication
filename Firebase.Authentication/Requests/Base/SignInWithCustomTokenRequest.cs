@@ -1,11 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Firebase.Authentication.Types;
+using System.Text.Json.Serialization;
 
 namespace Firebase.Authentication.Requests.Base;
 
 /// <summary>
 /// Model to send a accounts.ignInWithCustomToken request
 /// </summary>
-public class SignInWithCustomTokenRequest
+public class SignInWithCustomTokenRequest : SignInRequest
 {
     /// <summary>
     /// Creates a new SignInWithCustomTokenRequest

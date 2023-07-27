@@ -3,7 +3,7 @@
 public class MissingCredentialException : AuthenticationException
 {
     /// <summary>
-    /// Credentials are missing. A login is required before calling this function.
+    /// Credentials are missing. You first have to sign in.
     /// </summary>
-    public MissingCredentialException() : base("MISSING_CREDENTIAL", "Credentials are missing. A login is required before calling this function.") { }
+    public MissingCredentialException() : base("MISSING_CREDENTIAL", "Credentials are missing. You first have to sign in.") { }
 }

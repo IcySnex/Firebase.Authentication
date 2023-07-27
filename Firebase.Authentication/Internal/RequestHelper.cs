@@ -32,7 +32,7 @@ internal class RequestHelper
             httpClient.Timeout = config.HttpConfiguration.Timeout.Value;
 
         this.logger = logger;
-        logger?.LogInformation($"[RequestHelper-.ctor] RequestHelper has been initialized");
+        logger?.LogInformation($"[RequestHelper-.ctor] RequestHelper has been initialized.");
     }
 
 
@@ -60,7 +60,7 @@ internal class RequestHelper
         };
 
         // Send HTTP request
-        logger?.LogInformation($"[RequestHelper-GetAsync] Sending HTTP reuqest [GET: {uri}]");
+        logger?.LogInformation($"[RequestHelper-GetAsync] Sending HTTP reuqest. GET: {uri}.");
         return httpClient.SendAsync(request, cancellationToken);
     }
 
@@ -101,7 +101,7 @@ internal class RequestHelper
                 request.Headers.Add(key, value);
 
         // Send HTTP request
-        logger?.LogInformation($"[RequestHelper-PostBodyAsync] Sending HTTP reuqest [POST: {uri}]");
+        logger?.LogInformation($"[RequestHelper-PostBodyAsync] Sending HTTP reuqest. POST: {uri}.");
         return httpClient.SendAsync(request, cancellationToken);
     }
 
@@ -142,7 +142,7 @@ internal class RequestHelper
         // Check for exception
         if (!httpResponse.IsSuccessStatusCode)
         {
-            logger?.LogError($"[RequestHelper-PostBodyAndValidateAsync] HTTP request failed. Statuscode: {httpResponse.StatusCode}");
+            logger?.LogError($"[RequestHelper-PostBodyAndValidateAsync] HTTP request failed. Statuscode: {httpResponse.StatusCode}.");
             throw AuthenticationException.FromResponseData(httpResponseData);
         }
 

@@ -38,7 +38,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/createAuthUri"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -68,7 +68,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/delete"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -98,7 +98,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/lookup"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -128,7 +128,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/resetPassword"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -159,7 +159,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -194,7 +194,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -228,7 +228,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithCustomToken"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -258,7 +258,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithEmailLink"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -288,7 +288,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithIdp"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -318,7 +318,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithPassword"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -348,7 +348,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithPhoneNumber"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -378,7 +378,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signUp"/>
     /// </summary>
     /// <param name="request">The request to send</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
@@ -409,7 +409,7 @@ public class AuthenticationBase : IAuthenticationBase
     /// </summary>
     /// <param name="request">The request to send</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
-    /// <param name="cancellationToken">The token to cancel this actioun</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>

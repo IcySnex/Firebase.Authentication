@@ -5,7 +5,7 @@ namespace Firebase.Authentication.Requests.Base;
 /// <summary>
 /// Model to send a accounts.signInWithPassword request
 /// </summary>
-public class SignInWithPasswordRequest
+public class SignInWithPasswordRequest : SignInRequest
 {
     /// <summary>
     /// Creates a new SignInWithPasswordRequest
