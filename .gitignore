@@ -1,0 +1,16 @@
+.vs/
+packages/
+
+*.suo
+*.user
+_ReSharper.*
+
+Firebase.Authentication/bin/
+Firebase.Authentication/obj/
+Firebase.Authentication/Properties/
+
+Firebase.Authentication.Tests/bin/
+Firebase.Authentication.Tests/obj/
+Firebase.Authentication.Tests/Properties/
+
+Development/
