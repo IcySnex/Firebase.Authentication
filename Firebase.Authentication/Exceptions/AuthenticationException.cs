@@ -10,6 +10,9 @@ public class AuthenticationException : Exception
     /// </summary>
     public AuthenticationException(string message, string innerMessage) : base(message, new(innerMessage)) { }
 
+    /// <summary>
+    /// The response data of the authentication request
+    /// </summary>
     public string? ResponseData { get; private set; }
 
 

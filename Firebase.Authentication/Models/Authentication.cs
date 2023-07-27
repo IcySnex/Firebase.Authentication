@@ -1,17 +1,17 @@
 ﻿namespace Firebase.Authentication.Models;
 
 /// <summary>
-/// Model for an Authentication
+/// Contains information about the current users authentication tokens
 /// </summary>
-public class Authentication
+public class Credential
 {
     /// <summary>
-    /// Creates a new Authentication
+    /// Creates a new Credential
     /// </summary>
     /// <param name="idToken">An Identity Platform ID token for the authenticated user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the authenticated user</param>
     /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
-    public Authentication(
+    public Credential(
         string idToken,
         string refreshToken,
         TimeSpan expiresIn)

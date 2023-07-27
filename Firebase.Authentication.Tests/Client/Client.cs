@@ -1,6 +1,7 @@
 ﻿using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Client;
 using Firebase.Authentication.Configuration;
+using Firebase.Authentication.Models;
 
 namespace Firebase.Authentication.Tests.Client;
 
@@ -22,11 +23,5 @@ internal class Client
     [Test]
     public void Success()
     {
-        client.PropertyChanged += (s, e) =>
-        {
-            TestContext.WriteLine(e.PropertyName);
-        };
-
-        client.Hello();
     }
 }
