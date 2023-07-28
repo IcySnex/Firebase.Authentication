@@ -41,12 +41,9 @@ internal class RequestHelper
     /// </summary>
     /// <param name="uri">The uri the request should be made to</param>
     /// <param name="cancellationToken">The cancellation token to cancel the action</param>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>The HTTP response message</returns>
     public Task<HttpResponseMessage> GetAsync(
         string uri,
@@ -72,12 +69,10 @@ internal class RequestHelper
     /// <param name="body">The body which should be serialized</param>
     /// <param name="headers">The optional headers for the request</param>
     /// <param name="cancellationToken">The cancellation token to cancel the action</param>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>The HTTP response message</returns>
     public Task<HttpResponseMessage> PostBodyAsync(
         string uri,
@@ -114,17 +109,11 @@ internal class RequestHelper
     /// <param name="body">The body which should be serialized</param>
     /// <param name="headers">The optional headers for the request</param>
     /// <param name="cancellationToken">The cancellation token to cancel the action</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
-    /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>The validated HTTP response data</returns>
     public async Task<string> PostBodyAndValidateAsync(
         string uri,
@@ -159,17 +148,13 @@ internal class RequestHelper
     /// <param name="body">The body which should be serialized</param>
     /// <param name="headers">The optional headers for the request</param>
     /// <param name="cancellationToken">The cancellation token to cancel the action</param>
-    /// <exception cref="AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
     /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
-    /// <exception cref="NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>The parsed Type T</returns>
     public async Task<T> PostBodyAndParseAsync<T>(
         string uri,

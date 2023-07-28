@@ -15,10 +15,10 @@ internal class JsonHelper
     /// <param name="input">The json string to convert</param>
     /// <param name="options">Options to control the conversion behavior</param>
     /// <returns>A converted object representing the json string</returns>
-    /// <exception cref="ArgumentNullException">Occurs when json null is</exception>
-    /// <exception cref="JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
+    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
+    /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
     public static T Deserialize<T>(
         string input,
         JsonSerializerOptions? options = null)
@@ -33,7 +33,7 @@ internal class JsonHelper
     /// <param name="input">The json string to convert</param>
     /// <param name="options">Options to control the conversion behavior</param>
     /// <returns>A json string representing the object</returns>
-    /// <exception cref="NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
+    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
     public static string Serialize(
         object input,
         JsonSerializerOptions? options = null)
