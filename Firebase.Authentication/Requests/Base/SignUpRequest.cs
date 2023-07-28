@@ -6,7 +6,7 @@ namespace Firebase.Authentication.Requests.Base;
 /// <summary>
 /// Model to send a accounts.signUp request
 /// </summary>
-public class SignUpRequest
+public class SignUpRequest : Requests.SignUpRequest
 {
     /// <summary>
     /// Creates a new SignUpRequest

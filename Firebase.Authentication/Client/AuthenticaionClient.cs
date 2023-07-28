@@ -126,16 +126,10 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <returns>An always valid authenticaion credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
-    /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public async Task<Credential> GetFreshCredentialAsync(
         CancellationToken cancellationToken = default)
     {
@@ -179,16 +173,10 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
-    /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public async Task<UserInfo> GetFreshUserAsync(
         TimeSpan? validityPeriod = null,
         CancellationToken cancellationToken = default)
@@ -220,22 +208,44 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
 
     /// <summary>
+    /// Signs up an user with the given method and refreshes the current user
+    /// </summary>
+    /// <param name="request">The sign up request</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task SignUpAsync(
+        Requests.SignUpRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        // Validation
+        ThrowIfCredentialAlreadyExist();
+
+        // Send request
+        SignUpResponse response = await baseClient.SignUpAsync((Requests.Base.SignUpRequest)request, cancellationToken);
+        CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
+
+        logger?.LogInformation("[AuthenticaionClient-SignUpAsync] Signed up.");
+
+        // Refresh current user
+        await GetFreshUserAsync();
+    }
+
+    /// <summary>
     /// Signs in an user with the given method and refreshes the current user
     /// </summary>
     /// <param name="request">The sign in request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="System.ArgumentNullException">Occurs when json null is</exception>
-    /// <exception cref="System.Text.Json.JsonException">Occurs when the JSON is invalid. -or- TValue is not compatible with the JSON. -or- There is remaining data in the string beyond a single JSON value.</exception>
-    /// <exception cref="System.NotSupportedException">Occurs when there is no compatible System.Text.Json.Serialization.JsonConverter for TValue</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.JsonObjectIsNullException">Occurs when deserialized object does not represent the Type T (is null)</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="System.FormatException">May occurs when adding a header fails</exception>
-    /// <exception cref="System.ArgumentNullException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.InvalidOperationException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the post request fails</exception>
-    /// <exception cref="System.Threading.Tasks.TaskCanceledException">May occurs when sending the post request fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public async Task SignInAsync(
         SignInRequest request,
         CancellationToken cancellationToken = default)
