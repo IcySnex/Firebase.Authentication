@@ -3,7 +3,7 @@
 internal class AuthenticationConfig
 {
     [Test]
-    public void Create_NewConfiguration_Success()
+    public void Success()
     {
         // Create new Configuration
         Authentication.Configuration.AuthenticationConfig config = new(TestData.ApiKey);

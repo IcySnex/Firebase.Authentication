@@ -29,6 +29,9 @@ internal class RequestHelper
             responseData = await response.Content.ReadAsStringAsync();
         });
 
+        // Write result
+        TestData.Write(responseData);
+
         // Run Test: Expected behaviour: Proxy address is equal IP address
         if (TestData.Proxy is null)
         {
