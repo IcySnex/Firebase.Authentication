@@ -18,7 +18,7 @@ public class SignInWithPasswordResponse
     /// <param name="profilePicture">The user's profile picture stored in the account's attributes</param>
     /// <param name="idToken">An Identity Platform ID token for the authenticated user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the authenticated user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     /// <param name="mfaPendingCredential">An opaque string that functions as proof that the user has successfully passed the first factor authentication</param>
     /// <param name="mfaInfos">Info on which multi-factor authentication providers are enabled for the account. Present if the user needs to complete the sign-in using multi-factor authentication</param>
     [JsonConstructor]
@@ -81,7 +81,7 @@ public class SignInWithPasswordResponse
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     [JsonConverter(typeof(SecondsJsonConverter))]
     [JsonPropertyName("expiresIn")]

@@ -16,7 +16,7 @@ public class SignUpResponse
     /// <param name="displayName">The created user's display name</param>
     /// <param name="idToken">An Identity Platform ID token for the created user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the created user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     [JsonConstructor]
     public SignUpResponse(
         string localId,
@@ -65,7 +65,7 @@ public class SignUpResponse
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     [JsonConverter(typeof(SecondsJsonConverter))]
     [JsonPropertyName("expiresIn")]

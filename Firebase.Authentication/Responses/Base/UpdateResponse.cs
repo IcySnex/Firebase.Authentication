@@ -17,7 +17,7 @@ public class UpdateResponse
     /// <param name="newEmail">The new email that has been set on the user's account attributes</param>
     /// <param name="idToken">An Identity Platform ID token for the created user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the created user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     /// <param name="isEmailVerified">Whether the account's email has been verified</param>
     [JsonConstructor]
     public UpdateResponse(
@@ -69,7 +69,7 @@ public class UpdateResponse
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     [JsonConverter(typeof(SecondsJsonConverter))]
     [JsonPropertyName("expiresIn")]

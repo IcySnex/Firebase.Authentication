@@ -13,7 +13,7 @@ public class SignInWithPhoneNumberResponse
     /// </summary>
     /// <param name="idToken">An Identity Platform ID token for the authenticated user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the authenticated user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     /// <param name="localId">The ID of the authenticated user</param>
     /// <param name="isNewUser">Whether the authenticated user was created by this request</param>
     /// <param name="temporaryProof">A proof of the phone number verification, provided if a phone authentication is successful but the user operation fails</param>
@@ -53,7 +53,7 @@ public class SignInWithPhoneNumberResponse
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     [JsonConverter(typeof(SecondsJsonConverter))]
     [JsonPropertyName("expiresIn")]

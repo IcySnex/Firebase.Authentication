@@ -10,7 +10,7 @@ public class Credential
     /// </summary>
     /// <param name="idToken">An Identity Platform ID token for the authenticated user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the authenticated user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     public Credential(
         string idToken,
         string refreshToken,
@@ -32,18 +32,18 @@ public class Credential
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     public TimeSpan ExpiresIn { get; }
 
 
     /// <summary>
-    /// The date and time when this authenticaion was recieved
+    /// The date and time when this credential was recieved
     /// </summary>
     public DateTime Recieved { get; } = DateTime.Now;
 
     /// <summary>
-    /// A boolean wether the authenticaion is expired
+    /// A boolean wether the credential is expired
     /// </summary>
     public bool IsExpired =>
         DateTime.Now > Recieved.Add(ExpiresIn);

@@ -14,7 +14,7 @@ public class SecureTokenResponse
     /// <param name="tokenType">The type of the refresh token, always "Bearer".</param>
     /// <param name="idToken">An Identity Platform ID token for the created user</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the created user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     /// <param name="userId">The uid corresponding to the provided ID token</param>
     /// <param name="projectId">The Firebase project ID</param>
     [JsonConstructor]
@@ -53,7 +53,7 @@ public class SecureTokenResponse
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     [JsonConverter(typeof(SecondsJsonConverter))]
     [JsonPropertyName("expires_in")]

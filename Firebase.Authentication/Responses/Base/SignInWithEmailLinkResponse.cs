@@ -15,7 +15,7 @@ public class SignInWithEmailLinkResponse
     /// <param name="idToken">An Identity Platform ID token for the authenticated user</param>
     /// <param name="email">The email the user signed in with. Always present in the response</param>
     /// <param name="refreshToken">An Identity Platform refresh token for the authenticated user</param>
-    /// <param name="expiresIn">The expiration timespan for the RefreshToken</param>
+    /// <param name="expiresIn">The expiration timespan for the ID token</param>
     /// <param name="localId">The ID of the authenticated user</param>
     /// <param name="isNewUser">Whether the authenticated user was created by this request</param>
     /// <param name="mfaPendingCredential">An opaque string that functions as proof that the user has successfully passed the first factor check</param>
@@ -60,7 +60,7 @@ public class SignInWithEmailLinkResponse
     public string RefreshToken { get; }
 
     /// <summary>
-    /// The expiration timespan for the RefreshToken
+    /// The expiration timespan for the ID token
     /// </summary>
     [JsonConverter(typeof(SecondsJsonConverter))]
     [JsonPropertyName("expiresIn")]
