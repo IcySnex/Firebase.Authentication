@@ -123,6 +123,9 @@ public class AuthenticationException : Exception
             case "USER_NOT_FOUND":
                 return new UserNotFoundException();
 
+            case "SESSION_EXPIRED":
+                return new SessionExpiredException();
+
             default:
                 if (message.StartsWith("WEAK_PASSWORD"))
                     return new WeakPasswordException();
@@ -147,6 +150,9 @@ public class AuthenticationException : Exception
 
                 if (message.StartsWith("OPERATION_NOT_ALLOWED"))
                     return new OperationNotAllowedException();
+
+                if (message.StartsWith("CAPTCHA_CHECK_FAILED"))
+                    return new CaptchaCheckFailedException();
 
 
                 return new("UNDEFINDED", $"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})") { ResponseData = responseData };

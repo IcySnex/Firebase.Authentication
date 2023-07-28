@@ -16,7 +16,9 @@ public abstract class SignInRequest
     public static SignInWithPasswordRequest WithEmailPassword(
         string email,
         string password) =>
-        new(email, password);
+        new(email: email,
+            password: password);
+
 
     /// <summary>
     /// Sign in with a custom token
@@ -25,5 +27,18 @@ public abstract class SignInRequest
     /// <returns>A new SignInWithCustomTokenRequest</returns>
     public static SignInWithCustomTokenRequest WithCustomToken(
         string token) =>
-        new(token);
+        new(token: token);
+
+
+    /// <summary>
+    /// Sign in with a phone number
+    /// </summary>
+    /// <param name="sessionInfo">Encrypted session information from the response of sendVerificationCode</param>
+    /// <param name="code">User-entered verification code from an SMS sent to the user's phone</param>
+    /// <returns>A new SignInWithPhoneNumberRequest</returns>
+    public static SignInWithPhoneNumberRequest WithPhoneNumber(
+        string sessionInfo,
+        string code) =>
+        new(sessionInfo: sessionInfo,
+            code: code);
 }

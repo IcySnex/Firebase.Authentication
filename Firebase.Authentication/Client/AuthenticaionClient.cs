@@ -45,6 +45,32 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         logger?.LogInformation($"[AuthenticaionClient-.ctor] AuthenticaionClient has been initialized.");
     }
 
+    /// <summary>
+    /// Creates a new AuthenticaionClient
+    /// </summary>
+    /// <param name="baseClient">Underlaying base client used for all low level identity platform accounts actions</param>
+    public AuthenticaionClient(
+        IAuthenticationBase baseClient)
+    {
+        this.baseClient = baseClient;
+    }
+
+    /// <summary>
+    /// Creates a new AuthenticaionClient with extendended logging functions
+    /// </summary>
+    /// <param name="baseClient">Underlaying base client used for all low level identity platform accounts actions</param>
+    /// <param name="logger">The logger which will be used to log</param>
+    public AuthenticaionClient(
+        IAuthenticationBase baseClient,
+        ILogger<IAuthenticationClient>? logger)
+    {
+        this.baseClient = baseClient;
+
+        this.logger = logger;
+        logger?.LogInformation($"[AuthenticaionClient-.ctor] AuthenticaionClient has been initialized.");
+    }
+
+
 
     /// <summary>
     /// Occurrs when a property value changes
@@ -270,6 +296,14 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with custom token.");
                 break;
+
+            // Send sign in with phonenumber request
+            case SignInWithPhoneNumberRequest phoneNumberRequest:
+                SignInWithPhoneNumberResponse phoneNumberResponse = await baseClient.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
+                CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
+
+                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
+                break;
         }
 
         // Refresh current user
@@ -283,5 +317,33 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     {
         CurrentCredential = null;
         CurrentUser = null;
+    }
+
+
+    /// <summary>
+    /// Sends a SMS verification code for phone number sign-in.
+    /// </summary>
+    /// <param name="phoneNumber">The phone number to send the verification code to in E.164 format</param>
+    /// <param name="recaptchaToken">Recaptcha token for app verification. To easily get an official Google reCAPTCHA token on WPF, WinUI, UWP, WinForms or console you can use <see href="https://icysnex.github.io/ReCaptcha.Desktop/"/></param>
+    /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>The Encrypted session information which can be used to sign in with the phone number</returns>
+    public async Task<string> SendVerificationCodeAsync(
+        string phoneNumber,
+        string recaptchaToken,
+        string? locale = null,
+        CancellationToken cancellationToken = default)
+    {
+        // Send request
+        SendVerificationCodeRequest request = new(phoneNumber, recaptchaToken);
+        SendVerificationCodeResponse response = await baseClient.SendVerificationCodeAsync(request, locale, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-SendVerificationCodeAsync] Sent verification code to phone number.");
+        return response.SessionInfo;
     }
 }

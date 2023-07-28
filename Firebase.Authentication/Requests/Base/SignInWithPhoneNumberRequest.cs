@@ -5,7 +5,7 @@ namespace Firebase.Authentication.Requests.Base;
 /// <summary>
 /// Model to send a accounts.signInWithPhoneNumber request
 /// </summary>
-public class SignInWithPhoneNumberRequest
+public class SignInWithPhoneNumberRequest : SignInRequest
 {
     /// <summary>
     /// Creates a new SignInWithPhoneNumberRequest

@@ -53,6 +53,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         TimeSpan? validityPeriod = null,
         CancellationToken cancellationToken = default);
 
+
     /// <summary>
     /// Signs up an user with the given method and refreshes the current user
     /// </summary>
@@ -87,4 +88,24 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// Signs out the current user by deleting the current credential and user info
     /// </summary>
     public void SignOut();
+
+
+    /// <summary>
+    /// Sends a SMS verification code for phone number sign-in.
+    /// </summary>
+    /// <param name="phoneNumber">The phone number to send the verification code to in E.164 format</param>
+    /// <param name="recaptchaToken">Recaptcha token for app verification. To easily get an official Google reCAPTCHA token on WPF, WinUI, UWP, WinForms or console you can use <see href="https://icysnex.github.io/ReCaptcha.Desktop/"/></param>
+    /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>The Encrypted session information which can be used to sign in with the phone number</returns>
+    public Task<string> SendVerificationCodeAsync(
+        string phoneNumber,
+        string recaptchaToken,
+        string? locale = null,
+        CancellationToken cancellationToken = default);
 }
