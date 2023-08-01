@@ -239,6 +239,7 @@ public interface IAuthenticationBase
         string? locale = null,
         CancellationToken cancellationToken = default);
 
+
     /// <summary>
     /// Exchange a refresh token for an ID token
     /// <para/>
@@ -252,5 +253,20 @@ public interface IAuthenticationBase
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     Task<SecureTokenResponse> SecureTokenAsync(
         SecureTokenRequest request,
+        CancellationToken cancellationToken = default);
+
+
+    /// <summary>
+    /// Gets parameters needed for generating a reCAPTCHA challenge
+    /// <para/>
+    /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/TopLevel/getRecaptchaParams"/>
+    /// </summary>
+    /// <returns>A new securetoken.token response response</returns>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    Task<RecaptchaParamsResponse> GetRecaptchaParamsAsync(
         CancellationToken cancellationToken = default);
 }

@@ -359,6 +359,7 @@ public class AuthenticationBase : IAuthenticationBase
         return requestHelper.PostBodyAndParseAsync<UpdateResponse>(endpoint, request, headers, cancellationToken);
     }
 
+
     /// <summary>
     /// Exchange a refresh token for an ID token
     /// <para/>
@@ -379,5 +380,27 @@ public class AuthenticationBase : IAuthenticationBase
 
         // Send HTTP request and return authentication
         return requestHelper.PostBodyAndParseAsync<SecureTokenResponse>(endpoint, request, null, cancellationToken);
+    }
+
+
+    /// <summary>
+    /// Gets parameters needed for generating a reCAPTCHA challenge
+    /// <para/>
+    /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/TopLevel/getRecaptchaParams"/>
+    /// </summary>
+    /// <returns>A new securetoken.token response response</returns>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public Task<RecaptchaParamsResponse> GetRecaptchaParamsAsync(
+        CancellationToken cancellationToken = default)
+    {
+        // Endpoint URL
+        string endpoint = "https://identitytoolkit.googleapis.com/v1/recaptchaParams";
+
+        // Send HTTP request and return authentication
+        return requestHelper.GetAndParseAsync<RecaptchaParamsResponse>(endpoint, cancellationToken);
     }
 }

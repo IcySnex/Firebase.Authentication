@@ -61,6 +61,60 @@ internal class RequestHelper
         return httpClient.SendAsync(request, cancellationToken);
     }
 
+    /// <summary>
+    /// Sends a new GET request to the given uri and validates it
+    /// </summary>
+    /// <param name="uri">The uri the request should be made to</param>
+    /// <param name="cancellationToken">The cancellation token to cancel the action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>The HTTP response message</returns>
+    public async Task<string> GetAndValidateAsync(
+        string uri,
+        CancellationToken cancellationToken = default)
+    {
+        // Send HTTP request
+        HttpResponseMessage httpResponse = await GetAsync(uri, cancellationToken)
+            .ConfigureAwait(false);
+        // Parse HTTP response data
+        string httpResponseData = await httpResponse.Content.ReadAsStringAsync()
+            .ConfigureAwait(false);
+
+        // Check for exception
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            logger?.LogError($"[RequestHelper-GetAndValidateAsync] HTTP request failed. Statuscode: {httpResponse.StatusCode}.");
+            throw AuthenticationException.FromResponseData(httpResponseData);
+        }
+
+        // Return response data
+        return httpResponseData;
+    }
+
+    /// <summary>
+    /// Sends a new GET request to the given uri, validates it and parses it
+    /// </summary>
+    /// <param name="uri">The uri the request should be made to</param>
+    /// <param name="cancellationToken">The cancellation token to cancel the action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>The HTTP response message</returns>
+    public async Task<T> GetAndParseAsync<T>(
+        string uri,
+        CancellationToken cancellationToken = default)
+    {
+        // Send HTTP request
+        string httpResponseData = await GetAndValidateAsync(uri, cancellationToken)
+            .ConfigureAwait(false);
+
+        // Parse as Type T and return
+        return JsonHelper.Deserialize<T>(httpResponseData);
+    }
+
 
     /// <summary>
     /// Sends a new POST request to the given uri with the serializes body
