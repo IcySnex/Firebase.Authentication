@@ -304,6 +304,14 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
                 break;
+
+            // Send sign in with phonenumber request
+            case SignInWithEmailLinkRequest emailLinkRequest:
+                SignInWithEmailLinkResponse emailLinkResponse = await baseClient.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
+                CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
+
+                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
+                break;
         }
 
         // Refresh current user

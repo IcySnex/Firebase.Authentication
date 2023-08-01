@@ -5,7 +5,7 @@ namespace Firebase.Authentication.Requests.Base;
 /// <summary>
 /// Model to send a accounts.signInWithEmailLink request
 /// </summary>
-public class SignInWithEmailLinkRequest
+public class SignInWithEmailLinkRequest : SignInRequest
 {
     /// <summary>
     /// Creates a new SignInWithEmailLinkRequest

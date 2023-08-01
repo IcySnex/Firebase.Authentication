@@ -41,4 +41,17 @@ public abstract class SignInRequest
         string code) =>
         new(sessionInfo: sessionInfo,
             code: code);
+
+
+    /// <summary>
+    /// Sign in with a phone number
+    /// </summary>
+    /// <param name="email">The email address the sign-in link was sent to</param>
+    /// <param name="code">The out-of-band code from the email link</param>
+    /// <returns>A new SignInWithPhoneNumberRequest</returns>
+    public static SignInWithEmailLinkRequest WithEmailLink(
+        string email,
+        string code) =>
+        new(oobCode: code,
+            email: email);
 }
