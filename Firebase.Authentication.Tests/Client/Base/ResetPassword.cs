@@ -26,7 +26,7 @@ internal class ResetPassword
     {
         // Mock request/response
         ResetPasswordRequest request = new(
-            newPassword: TestData.Password + "-ver2",
+            newPassword: TestData.PasswordSecondary,
             oobCode: TestData.OobCode);
         ResetPasswordResponse response = default!;
 
@@ -45,7 +45,7 @@ internal class ResetPassword
     {
         // Mock request/response
         ResetPasswordRequest request = new(
-            newPassword: TestData.Password + "-ver2",
+            newPassword: TestData.PasswordSecondary,
             oldPassword: TestData.Password,
             email: TestData.Email);
         ResetPasswordResponse response = default!;

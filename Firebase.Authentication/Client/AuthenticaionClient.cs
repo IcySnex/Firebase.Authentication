@@ -169,7 +169,8 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         }
 
         // Send request
-        SecureTokenRequest request = new(CurrentCredential.RefreshToken);
+        SecureTokenRequest request = new(
+            refreshToken: CurrentCredential.RefreshToken);
         SecureTokenResponse response = await baseClient.SecureTokenAsync(request, cancellationToken);
         CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
 
@@ -211,14 +212,15 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         ThrowIfMissingCredential();
         ThrowIfCredentialExpired();
 
-        if (CurrentUser is not null && validityPeriod.HasValue && CurrentUser.Recieved.Add(validityPeriod.Value) > DateTime.Now)
+        if (CurrentUser is not null && CurrentUser.IsValid)
         {
             logger?.LogInformation("[AuthenticaionClient-GetFreshUserAsync] Current user info is still valid: Returned current user info.");
             return CurrentUser;
         }
 
         // Send request
-        LookupRequest request = new(CurrentCredential!.IdToken);
+        LookupRequest request = new(
+            idToken: CurrentCredential!.IdToken);
         LookupResponse response = await baseClient.LookupAsync(request, cancellationToken);
 
         if (response.Users.Length == 0)
@@ -227,6 +229,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             throw new UserNotFoundException();
         }
         CurrentUser = response.Users[0];
+        CurrentUser.ValidityPeriod = validityPeriod;
 
         logger?.LogInformation("[AuthenticaionClient-GetFreshUserAsync] Refreshed the current user info.");
         return CurrentUser;
@@ -258,7 +261,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         logger?.LogInformation("[AuthenticaionClient-SignUpAsync] Signed up.");
 
         // Refresh current user
-        await GetFreshUserAsync();
+        await GetFreshUserAsync(CurrentCredential.ExpiresIn);
     }
 
     /// <summary>
@@ -315,7 +318,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         }
 
         // Refresh current user
-        await GetFreshUserAsync();
+        await GetFreshUserAsync(CurrentCredential!.ExpiresIn);
     }
 
     /// <summary>
@@ -327,6 +330,91 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         CurrentUser = null;
     }
 
+
+    /// <summary>
+    /// Deletes the current users account
+    /// </summary>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task DeleteAsync(
+        CancellationToken cancellationToken = default)
+    {
+        // Validation
+        ThrowIfMissingCredential();
+        ThrowIfCredentialExpired();
+
+        // Send request
+        DeleteRequest request = new(
+            idToken: CurrentCredential!.IdToken);
+        await baseClient.DeleteAsync(request, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-DeleteAsync] Deleted the current user.");
+        SignOut();
+    }
+
+    /// <summary>
+    /// Changes the current users password
+    /// </summary>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task ChangePasswordAsync(
+        string newPassword,
+        string oldPassword,
+        CancellationToken cancellationToken = default)
+    {
+        // Get current account
+        UserInfo currentUser = await GetFreshUserAsync(TimeSpan.FromHours(1));
+
+        // Send request
+        ResetPasswordRequest request = new(
+            newPassword: newPassword,
+            oldPassword: oldPassword,
+            email: currentUser.Email);
+        await baseClient.ResetPasswordASync(request, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Changed the current users password.");
+    }
+
+    
+    /// <summary>
+    /// Deletes the current users account
+    /// </summary>
+    /// <param name="newPassword">The new password to be set for this account</param>
+    /// <param name="code">An out-of-band (OOB) code generated by an prior request</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>The email associated with the password reset</returns>
+    public async Task<string> ResetPasswordAsync(
+        string newPassword,
+        string code,
+        CancellationToken cancellationToken = default)
+    {
+        // Send request
+        ResetPasswordRequest request = new(
+            newPassword: newPassword,
+            oobCode: code);
+        ResetPasswordResponse response = await baseClient.ResetPasswordASync(request, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Reset the users password.");
+        return response.Email;
+    }
 
     /// <summary>
     /// Sends a SMS verification code for phone number sign-in.
@@ -348,7 +436,9 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         CancellationToken cancellationToken = default)
     {
         // Send request
-        SendVerificationCodeRequest request = new(phoneNumber, recaptchaToken);
+        SendVerificationCodeRequest request = new(
+            phoneNumber: phoneNumber,
+            recaptchaToken: recaptchaToken);
         SendVerificationCodeResponse response = await baseClient.SendVerificationCodeAsync(request, locale, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-SendVerificationCodeAsync] Sent verification code to phone number.");
