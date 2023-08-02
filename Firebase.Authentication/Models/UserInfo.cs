@@ -38,6 +38,7 @@ public class UserInfo
     /// <param name="mfaInfos">Information on which multi-factor authentication providers are enabled for this account</param>
     /// <param name="initialEmail">The first email address associated with this account</param>
     /// <param name="lastRefreshAt">The date and time when an ID token was last minted for this account</param>
+    /// <param name="expiresIn">The time span at which the user should be refreshed to maintain up-to-date information. Null if it should never expire</param>
     [JsonConstructor]
     public UserInfo(string localId,
         string email,
@@ -63,7 +64,8 @@ public class UserInfo
         string tenantId,
         MfaEnrollment[] mfaInfos,
         string initialEmail,
-        DateTime lastRefreshAt)
+        DateTime lastRefreshAt,
+        TimeSpan? validityPeriod = null)
     {
         LocalId = localId;
         Email = email;
@@ -90,6 +92,7 @@ public class UserInfo
         MfaInfos = mfaInfos;
         InitialEmail = initialEmail;
         LastRefreshAt = lastRefreshAt;
+        ValidityPeriod = validityPeriod;
     }
 
 
@@ -248,8 +251,20 @@ public class UserInfo
     [JsonPropertyName("lastRefreshAt")]
     public DateTime LastRefreshAt { get; }
 
+
+    /// <summary>
+    /// The time span at which the user should be refreshed to maintain up-to-date information. Null if it should never expire
+    /// </summary>
+    public TimeSpan? ValidityPeriod { get; set; }
+
     /// <summary>
     /// The date and time when this user request was recieved
     /// </summary>
     public DateTime Recieved { get; } = DateTime.Now;
+
+    /// <summary>
+    /// A boolean weither the user should be refreshed to maintain up-to-date information
+    /// </summary>
+    public bool IsValid =>
+        ValidityPeriod.HasValue ? DateTime.Now < Recieved.Add(ValidityPeriod.Value) : true;
 }
