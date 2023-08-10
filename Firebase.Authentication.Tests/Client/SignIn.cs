@@ -2,6 +2,7 @@
 using Firebase.Authentication.Client;
 using Firebase.Authentication.Configuration;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Types;
 
 namespace Firebase.Authentication.Tests.Client;
 
@@ -90,5 +91,22 @@ public class SignIn
         // Write result
         TestData.Write(client.CurrentCredential);
         TestData.Write(client.CurrentUser);
+    }
+
+
+    [Test]
+    public void GetMethods_Success()
+    {
+        // Mock request/response
+        Provider[]? response = default!;
+
+        // Run Test: Expected behaviour: Run without exception
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            response = await client.GetSignInMethods(TestData.Email);
+        });
+
+        // Write result
+        TestData.Write(response is null ? null : string.Join(", ", response));
     }
 }

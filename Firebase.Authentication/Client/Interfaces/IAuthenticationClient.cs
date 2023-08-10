@@ -1,5 +1,6 @@
 ﻿using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Types;
 using System.ComponentModel;
 
 namespace Firebase.Authentication.Client.Interfaces;
@@ -174,5 +175,21 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         string phoneNumber,
         string recaptchaToken,
         string? locale = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Checks and returns if any user account is registered with the email. If there is a registered account, fetches all providers associated with the accounts email
+    /// </summary>
+    /// <param name="email">The email of the users account to fetch associated providers for</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
+    public Task<Provider[]?> GetSignInMethods(
+        string email,
+        string continueUri = "http://localhost",
         CancellationToken cancellationToken = default);
 }
