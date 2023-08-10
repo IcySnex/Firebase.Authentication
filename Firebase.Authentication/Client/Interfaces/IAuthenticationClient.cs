@@ -161,7 +161,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// Sends a SMS verification code for phone number sign-in.
     /// </summary>
     /// <param name="phoneNumber">The phone number to send the verification code to in E.164 format</param>
-    /// <param name="recaptchaToken">Recaptcha token for app verification. To easily get an official Google reCAPTCHA token on WPF, WinUI, UWP, WinForms or console you can use <see href="https://icysnex.github.io/ReCaptcha.Desktop/"/></param>
+    /// <param name="recaptchaToken">Recaptcha token for app verification.<br/> To easily get an official Google reCAPTCHA token on WPF, WinUI, UWP, WinForms or console you can use <see href="https://icysnex.github.io/ReCaptcha.Desktop/"/>.<br/> You can use <see cref="IAuthenticationBase.GetRecaptchaParamsAsync(CancellationToken)"/> to get a reCAPTCHA site key for your current project</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
