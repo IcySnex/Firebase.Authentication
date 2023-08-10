@@ -87,6 +87,9 @@ public class AuthenticationException : Exception
             case "INVALID_REFRESH_TOKEN":
                 return new InvalidRefreshTokenException();
 
+            case "MISSING_CONTINUE_URI":
+                return new MissingContinueUriException();
+                
             case "MISSING_EMAIL":
                 return new MissingEmailException();
 
