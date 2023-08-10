@@ -24,7 +24,7 @@ public class SendOobCodeRequest
     /// <param name="tenantId">The ID of the Identity Platform tenant to create an authorization URI or lookup an email identifier for</param>
     public SendOobCodeRequest(
         OobType requestType,
-        string email,
+        string? email = null,
         string? captchaResp = null,
         string? userIp = null,
         string? newEmail = null,

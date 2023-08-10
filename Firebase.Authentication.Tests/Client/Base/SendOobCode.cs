@@ -28,7 +28,6 @@ internal class SendOobCode
         // Mock request/response
         SendOobCodeRequest request = new(
             requestType: OobType.VerifyEmail,
-            email: TestData.Email,
             idToken: TestData.IdToken);
         SendOobCodeResponse response = default!;
 
@@ -67,7 +66,6 @@ internal class SendOobCode
         // Mock request/response
         SendOobCodeRequest request = new(
             requestType: OobType.VerifyAndChangeEmail,
-            email: TestData.Email,
             newEmail: TestData.EmailSecondary,
             idToken: TestData.IdToken);
         SendOobCodeResponse response = default!;
