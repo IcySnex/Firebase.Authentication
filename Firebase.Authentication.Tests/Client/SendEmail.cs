@@ -31,7 +31,9 @@ internal class SendEmail
         Assert.DoesNotThrowAsync(async () =>
         {
             EmailRequest emailRequest = EmailRequest.Verify();
-            await client.SendEmailAsync(emailRequest, TestData.Locale);
+            string email = await client.SendEmailAsync(emailRequest, TestData.Locale);
+
+            TestData.Write(email);
         });
     }
 
@@ -46,7 +48,9 @@ internal class SendEmail
         Assert.DoesNotThrowAsync(async () =>
         {
             EmailRequest emailRequest = EmailRequest.Change(TestData.EmailSecondary);
-            await client.SendEmailAsync(emailRequest, TestData.Locale);
+            string email = await client.SendEmailAsync(emailRequest, TestData.Locale);
+
+            TestData.Write(email);
         });
     }
 
@@ -57,7 +61,9 @@ internal class SendEmail
         Assert.DoesNotThrowAsync(async () =>
         {
             EmailRequest emailRequest = EmailRequest.ResetPassword(TestData.Email);
-            await client.SendEmailAsync(emailRequest, TestData.Locale);
+            string email = await client.SendEmailAsync(emailRequest, TestData.Locale);
+
+            TestData.Write(email);
         });
     }
 
@@ -68,7 +74,9 @@ internal class SendEmail
         Assert.DoesNotThrowAsync(async () =>
         {
             EmailRequest emailRequest = EmailRequest.SignIn(TestData.Email, TestData.ContinueUrl);
-            await client.SendEmailAsync(emailRequest, TestData.Locale);
+            string email = await client.SendEmailAsync(emailRequest, TestData.Locale);
+
+            TestData.Write(email);
         });
     }
 }

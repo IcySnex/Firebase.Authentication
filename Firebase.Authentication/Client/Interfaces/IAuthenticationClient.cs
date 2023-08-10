@@ -135,7 +135,8 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
-    public Task SendEmailAsync(
+    /// <returns>The email address the email got sent to</returns>
+    public Task<string> SendEmailAsync(
         EmailRequest request,
         string? locale = null,
         CancellationToken cancellationToken = default);

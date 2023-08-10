@@ -402,7 +402,8 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
-    public async Task SendEmailAsync(
+    /// <returns>The email address the email got sent to</returns>
+    public async Task<string> SendEmailAsync(
         EmailRequest request,
         string? locale = null,
         CancellationToken cancellationToken = default)
@@ -424,6 +425,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         SendOobCodeResponse response = await baseClient.SendOobCodeAsync(oobRequest, locale, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-SendEmailAsync] Sent a email to the account.");
+        return response.Email!;
     }
 
 
