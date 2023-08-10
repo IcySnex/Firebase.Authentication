@@ -7,7 +7,7 @@ namespace Firebase.Authentication.Requests.Base;
 /// <summary>
 /// Model to send a accounts.sendOobCode request
 /// </summary>
-public class SendOobCodeRequest
+public class SendOobCodeRequest : EmailRequest
 {
     /// <summary>
     /// Creates a new SendOobCodeRequest

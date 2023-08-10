@@ -121,6 +121,24 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         string oldPassword,
         CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Sends a new verify email to the current users account
+    /// </summary>
+    /// <param name="request">The email request</param>
+    /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">May occurs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">May occurs when the current credential is expired</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public Task SendEmailAsync(
+        EmailRequest request,
+        string? locale = null,
+        CancellationToken cancellationToken = default);
+
 
     /// <summary>
     /// Deletes the current users account

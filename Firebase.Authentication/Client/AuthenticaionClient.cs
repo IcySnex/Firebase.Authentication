@@ -5,6 +5,7 @@ using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
 using Firebase.Authentication.Requests.Base;
 using Firebase.Authentication.Responses.Base;
+using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -388,7 +389,44 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Changed the current users password.");
     }
 
-    
+    /// <summary>
+    /// Sends a new verify email to the current users account
+    /// </summary>
+    /// <param name="request">The email request</param>
+    /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">May occurs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">May occurs when the current credential is expired</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task SendEmailAsync(
+        EmailRequest request,
+        string? locale = null,
+        CancellationToken cancellationToken = default)
+    {
+        // Prepare request and validation
+        SendOobCodeRequest oobRequest = (SendOobCodeRequest)request;
+        switch (oobRequest.RequestType)
+        {
+            case OobType.VerifyEmail:
+            case OobType.VerifyAndChangeEmail:
+                ThrowIfMissingCredential();
+                ThrowIfCredentialExpired();
+
+                oobRequest.IdToken = CurrentCredential!.IdToken;
+                break;
+        }
+
+        // Send request
+        SendOobCodeResponse response = await baseClient.SendOobCodeAsync(oobRequest, locale, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-SendEmailAsync] Sent a email to the account.");
+    }
+
+
     /// <summary>
     /// Deletes the current users account
     /// </summary>
@@ -441,7 +479,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             recaptchaToken: recaptchaToken);
         SendVerificationCodeResponse response = await baseClient.SendVerificationCodeAsync(request, locale, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-SendVerificationCodeAsync] Sent verification code to phone number.");
+        logger?.LogInformation("[AuthenticaionClient-SendSmsCodeAsync] Sent verification code to phone number.");
         return response.SessionInfo;
     }
 }
