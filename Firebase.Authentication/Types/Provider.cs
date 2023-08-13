@@ -53,5 +53,11 @@ public enum Provider
     /// Authentication using Twitter
     /// </summary>
     [EnumMember(Value = "twitter.com")]
-    Twitter
+    Twitter,
+
+    /// <summary>
+    /// Authentication using Microsoft
+    /// </summary>
+    [EnumMember(Value = "microsoft.com")]
+    Microsoft
 }

@@ -193,4 +193,21 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         string email,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates an authorization URI for the given provider, with which the user can sign in
+    /// </summary>
+    /// <param name="provider">The email of the users account to fetch associated providers for</param>
+    /// <param name="continueUri">The url the user will be redirected back</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
+    public Task<ProviderAuth> GetProviderAuthAsync(
+        Provider provider,
+        string continueUri = "http://localhost",
+        CancellationToken cancellationToken = default);
 }

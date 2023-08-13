@@ -481,7 +481,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             recaptchaToken: recaptchaToken);
         SendVerificationCodeResponse response = await baseClient.SendVerificationCodeAsync(request, locale, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-SendSmsCodeAsync] Sent verification code to phone number.");
+        logger?.LogInformation("[AuthenticaionClient-SendVerificationCodeAsync] Sent verification code to phone number.");
         return response.SessionInfo;
     }
 
@@ -489,6 +489,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// Checks and returns if any user account is registered with the email. If there is a registered account, fetches all providers associated with the accounts email
     /// </summary>
     /// <param name="email">The email of the users account to fetch associated providers for</param>
+    /// <param name="continueUri">Required for Firebase, idk why lol</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
@@ -507,14 +508,15 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             identifier: email);
         CreateAuthUrlResponse response = await baseClient.CreateAuthUriAsync(request, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-SendSmsCodeAsync] Sent verification code to phone number.");
+        logger?.LogInformation("[AuthenticaionClient-GetSignInMethodsAsync] Got sign in methods for email.");
         return response.SigninMethods;
     }
 
     /// <summary>
-    /// Checks and returns if any user account is registered with the email. If there is a registered account, fetches all providers associated with the accounts email
+    /// Creates an authorization URI for the given provider, with which the user can sign in
     /// </summary>
-    /// <param name="email">The email of the users account to fetch associated providers for</param>
+    /// <param name="provider">The email of the users account to fetch associated providers for</param>
+    /// <param name="continueUri">The url the user will be redirected back</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
@@ -522,7 +524,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public async Task<string> GetProviderAuthAsync(
+    public async Task<ProviderAuth> GetProviderAuthAsync(
         Provider provider,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default)
@@ -533,8 +535,13 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             provider: provider);
         CreateAuthUrlResponse response = await baseClient.CreateAuthUriAsync(request, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-SendSmsCodeAsync] Sent verification code to phone number.");
-        return response.AuthUri;
+        if (!response.Provider.HasValue || response.AuthUri is null)
+            throw new InvalidProviderIdException();
+
+        ProviderAuth result = new(response.Provider.Value, response.AuthUri, response.SessionId);
+
+        logger?.LogInformation("[AuthenticaionClient-GetProviderAuthAsync] Got provider authenticaion.");
+        return result;
     }
 
 }

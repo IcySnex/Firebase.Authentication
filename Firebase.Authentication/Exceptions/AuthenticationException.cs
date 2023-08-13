@@ -66,9 +66,6 @@ public class AuthenticationException : Exception
             case "INVALID_GRANT_TYPE":
                 return new InvalidGrandTypeException();
 
-            case "INVALID_IDP_RESPONSE":
-                return new InvalidIdpResponseException();
-
             case "INVALID_ID_TOKEN":
                 return new InvalidIdTokenException();
 
@@ -92,6 +89,9 @@ public class AuthenticationException : Exception
                 
             case "MISSING_EMAIL":
                 return new MissingEmailException();
+                
+            case "MISSING_SESSION_ID":
+                return new MissingSessionIdException();
 
             case "MISSING_IDENTIFIER":
                 return new MissingIdentifierException();
@@ -156,6 +156,9 @@ public class AuthenticationException : Exception
 
                 if (message.StartsWith("CAPTCHA_CHECK_FAILED"))
                     return new CaptchaCheckFailedException();
+
+                if (message.StartsWith("INVALID_IDP_RESPONSE"))
+                    return new InvalidIdpResponseException();
 
 
                 return new("UNDEFINDED", $"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})") { ResponseData = responseData };
