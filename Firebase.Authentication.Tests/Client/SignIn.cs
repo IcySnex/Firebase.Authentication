@@ -103,7 +103,7 @@ public class SignIn
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetSignInMethods(TestData.Email);
+            response = await client.GetSignInMethodsAsync(TestData.Email);
         });
 
         // Write result

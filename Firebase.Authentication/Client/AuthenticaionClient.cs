@@ -496,7 +496,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public async Task<Provider[]?> GetSignInMethods(
+    public async Task<Provider[]?> GetSignInMethodsAsync(
         string email,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default)
@@ -510,4 +510,31 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         logger?.LogInformation("[AuthenticaionClient-SendSmsCodeAsync] Sent verification code to phone number.");
         return response.SigninMethods;
     }
+
+    /// <summary>
+    /// Checks and returns if any user account is registered with the email. If there is a registered account, fetches all providers associated with the accounts email
+    /// </summary>
+    /// <param name="email">The email of the users account to fetch associated providers for</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
+    public async Task<string> GetProviderAuthAsync(
+        Provider provider,
+        string continueUri = "http://localhost",
+        CancellationToken cancellationToken = default)
+    {
+        // Send request
+        CreateAuthUriRequest request = new(
+            continueUri: continueUri,
+            provider: provider);
+        CreateAuthUrlResponse response = await baseClient.CreateAuthUriAsync(request, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-SendSmsCodeAsync] Sent verification code to phone number.");
+        return response.AuthUri;
+    }
+
 }
