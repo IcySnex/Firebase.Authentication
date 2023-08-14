@@ -44,7 +44,7 @@ internal class SignUp
     {
         // Mock request/response
         SignUpRequest request = new(
-            email: TestData.EmailSecondary,
+            email: TestData.Email,
             password: TestData.Password,
             displayName: TestData.DisplayName,
             photoUrl: TestData.PhotoUrl);

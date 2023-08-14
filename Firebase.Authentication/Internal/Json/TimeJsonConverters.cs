@@ -56,8 +56,17 @@ internal class SecondsJsonConverter : JsonConverter<TimeSpan>
     public override TimeSpan Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
-        JsonSerializerOptions options) =>
-        TimeSpan.FromSeconds(reader.GetString() is string s ? double.Parse(s) : 0);
+        JsonSerializerOptions options)
+    {
+        double seconds = reader.TokenType switch
+        {
+            JsonTokenType.String => double.Parse(reader.GetString()),
+            JsonTokenType.Number => reader.GetDouble(),
+            _ => 0
+        };
+
+        return TimeSpan.FromSeconds(seconds);
+    }
 
     public override void Write(
         Utf8JsonWriter writer,

@@ -53,9 +53,9 @@ public class GetProviderAuth
         // Write result
         TestData.Write(response);
     }
-
+    
     [Test]
-    public void Microsoft_Success()
+    public void Apple_Success()
     {
         // Mock request/response
         ProviderAuth response = default!;
@@ -63,7 +63,23 @@ public class GetProviderAuth
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Microsoft, TestData.ContinueUrl);
+            response = await client.GetProviderAuthAsync(Provider.Apple, TestData.ContinueUrl);
+        });
+
+        // Write result
+        TestData.Write(response);
+    }
+
+    [Test]
+    public void Facebook_Success()
+    {
+        // Mock request/response
+        ProviderAuth response = default!;
+
+        // Run Test: Expected behaviour: Run without exception
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            response = await client.GetProviderAuthAsync(Provider.Faceook, TestData.ContinueUrl);
         });
 
         // Write result
@@ -85,8 +101,9 @@ public class GetProviderAuth
         // Write result
         TestData.Write(response);
     }
+
     [Test]
-    public void Facebook_Success()
+    public void Microsoft_Success()
     {
         // Mock request/response
         ProviderAuth response = default!;
@@ -94,7 +111,23 @@ public class GetProviderAuth
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Faceook, TestData.ContinueUrl);
+            response = await client.GetProviderAuthAsync(Provider.Microsoft, TestData.ContinueUrl);
+        });
+
+        // Write result
+        TestData.Write(response);
+    }
+
+    [Test]
+    public void Yahoo_Success()
+    {
+        // Mock request/response
+        ProviderAuth response = default!;
+
+        // Run Test: Expected behaviour: Run without exception
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            response = await client.GetProviderAuthAsync(Provider.Yahoo, TestData.ContinueUrl);
         });
 
         // Write result

@@ -59,5 +59,11 @@ public enum Provider
     /// Authentication using Microsoft
     /// </summary>
     [EnumMember(Value = "microsoft.com")]
-    Microsoft
+    Microsoft,
+
+    /// <summary>
+    /// Authentication using Yahoo
+    /// </summary>
+    [EnumMember(Value = "yahoo.com")]
+    Yahoo
 }
