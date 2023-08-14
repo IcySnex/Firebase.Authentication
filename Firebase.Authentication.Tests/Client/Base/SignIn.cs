@@ -64,7 +64,6 @@ internal class SignIn
         // Mock request/response
         SignInWithIdpRequest request = new(
             requestUri: TestData.RequestUri,
-            postBody: TestData.PostBody,
             sessionId: TestData.SessionId);
         SignInWithIdpResponse response = default!;
 

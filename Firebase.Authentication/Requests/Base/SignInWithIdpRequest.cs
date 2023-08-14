@@ -11,8 +11,8 @@ public class SignInWithIdpRequest
     /// Creates a new SignInWithIdpRequest
     /// </summary>
     /// <param name="requestUri">The URL to which the IdP redirects the user back</param>
-    /// <param name="postBody">The body of the HTTP POST callback from the IdP, if present</param>
     /// <param name="sessionId">The session ID returned from a previous accounts.createAuthUri call</param>
+    /// <param name="postBody">The body of the HTTP POST callback from the IdP, if present</param>
     /// <param name="idToken">A valid Identity Platform ID token. If passed, the user's account at the IdP will be linked to the account represented by this ID token</param>
     /// <param name="returnRefreshToken">Whether or not to return the OAuth refresh token from the IdP, if available</param>
     /// <param name="returnIdpCredential">Whether or not to return OAuth credentials from the IdP on the following errors: FEDERATED_USER_ID_ALREADY_LINKED and EMAIL_EXISTS</param>
@@ -22,8 +22,8 @@ public class SignInWithIdpRequest
     /// <param name="pendingToken">An opaque string from a previous accounts.signInWithIdp response</param>
     public SignInWithIdpRequest(
         string requestUri,
-        string postBody,
-        string? sessionId = null,
+        string sessionId,
+        string? postBody = null,
         string? idToken = null,
         bool returnRefreshToken = true,
         bool returnIdpCredential = true,
@@ -51,16 +51,16 @@ public class SignInWithIdpRequest
     public string RequestUri { get; set; }
 
     /// <summary>
-    /// The body of the HTTP POST callback from the IdP, if present
-    /// </summary>
-    [JsonPropertyName("postBody")]
-    public string PostBody { get; set; }
-
-    /// <summary>
     /// The session ID returned from a previous accounts.createAuthUri call
     /// </summary>
     [JsonPropertyName("sessionId")]
-    public string? SessionId { get; set; }
+    public string SessionId { get; set; }
+
+    /// <summary>
+    /// The body of the HTTP POST callback from the IdP, if present
+    /// </summary>
+    [JsonPropertyName("postBody")]
+    public string? PostBody { get; set; }
 
     /// <summary>
     /// A valid Identity Platform ID token
