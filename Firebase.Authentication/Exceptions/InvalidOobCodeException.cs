@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidOobCodeException : AuthenticationException
+public class InvalidOobCodeException : IdentityPlatformException
 {
     /// <summary>
     /// The action code is invalid. This can happen if the code is malformed, expired, or has already been used.

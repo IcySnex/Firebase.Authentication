@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidContinueUrlException : AuthenticationException
+public class InvalidContinueUrlException : IdentityPlatformException
 {
     /// <summary>
     /// The given continue URL is not a valid formatted URI

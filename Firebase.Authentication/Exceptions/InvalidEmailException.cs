@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidEmailException : AuthenticationException
+public class InvalidEmailException : IdentityPlatformException
 {
     /// <summary>
     /// The email address is badly formatted.

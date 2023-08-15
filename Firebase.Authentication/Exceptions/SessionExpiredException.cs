@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class SessionExpiredException : AuthenticationException
+public class SessionExpiredException : IdentityPlatformException
 {
     /// <summary>
     /// The session has expired. Please re-send the verification code to try again.

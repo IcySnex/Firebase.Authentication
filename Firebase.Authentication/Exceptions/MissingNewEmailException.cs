@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class MissingNewEmailException : AuthenticationException
+public class MissingNewEmailException : IdentityPlatformException
 {
     /// <summary>
     /// New email is missing on request. Please specify an email address to change to.

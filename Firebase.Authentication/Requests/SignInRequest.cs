@@ -1,4 +1,4 @@
-﻿using Firebase.Authentication.Requests.Base;
+﻿using Firebase.Authentication.Requests.IdentityPlatform;
 
 namespace Firebase.Authentication.Requests;
 

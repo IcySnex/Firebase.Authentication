@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class UserNotFoundException : AuthenticationException
+public class UserNotFoundException : IdentityPlatformException
 {
     /// <summary>
     /// The user corresponding to the refresh token was not found. It is likely the user was deleted.

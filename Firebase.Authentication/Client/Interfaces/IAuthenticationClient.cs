@@ -22,7 +22,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this actioun</param>
     /// <returns>An always valid authenticaion credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -45,7 +45,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -61,7 +61,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="request">The sign up request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -76,7 +76,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="request">The sign in request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -97,7 +97,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -112,7 +112,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -130,7 +130,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">May occurs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">May occurs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -148,7 +148,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="newPassword">The new password to be set for this account</param>
     /// <param name="code">An out-of-band (OOB) code generated by an prior request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -166,7 +166,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="recaptchaToken">Recaptcha token for app verification.<br/> To easily get an official Google reCAPTCHA token on WPF, WinUI, UWP, WinForms or console you can use <see href="https://icysnex.github.io/ReCaptcha.Desktop/"/>.<br/> You can use <see cref="IAuthenticationBase.GetRecaptchaParamsAsync(CancellationToken)"/> to get a reCAPTCHA site key for your current project</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -183,7 +183,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// </summary>
     /// <param name="email">The email of the users account to fetch associated providers for</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -200,7 +200,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="provider">The email of the users account to fetch associated providers for</param>
     /// <param name="continueUri">The url the user will be redirected back</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>

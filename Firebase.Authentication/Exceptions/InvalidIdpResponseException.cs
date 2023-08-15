@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidIdpResponseException : AuthenticationException
+public class InvalidIdpResponseException : IdentityPlatformException
 {
     /// <summary>
     /// The supplied auth credential is malformed or has expired.

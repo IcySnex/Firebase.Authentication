@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class EmailNotFoundException : AuthenticationException
+public class EmailNotFoundException : IdentityPlatformException
 {
     /// <summary>
     /// There is no user record corresponding to this identifier. The user may have been deleted.

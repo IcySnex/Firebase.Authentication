@@ -3,8 +3,8 @@ using Firebase.Authentication.Configuration;
 using Firebase.Authentication.Exceptions;
 using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
-using Firebase.Authentication.Requests.Base;
-using Firebase.Authentication.Responses.Base;
+using Firebase.Authentication.Requests.IdentityPlatform;
+using Firebase.Authentication.Responses.IdentityPlatform;
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
@@ -17,30 +17,30 @@ namespace Firebase.Authentication.Client;
 /// </summary>
 public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 {
-    readonly IAuthenticationBase baseClient;
+    readonly IIdentityPlatformClient identityPlatform;
 
     readonly ILogger<IAuthenticationClient>? logger;
 
     /// <summary>
     /// Creates a new AuthenticaionClient
     /// </summary>
-    /// <param name="config">The configuration the AuthenticationClient should be created</param>
+    /// <param name="config">The configuration the Identity Platform client should be created with</param>
     public AuthenticaionClient(
         AuthenticationConfig config)
     {
-        baseClient = new AuthenticationBase(config);
+        identityPlatform = new IdentityPlatformClient(config);
     }
 
     /// <summary>
     /// Creates a new AuthenticaionClient with extendended logging functions
     /// </summary>
-    /// <param name="config">The configuration the AuthenticationClient should be created</param>
+    /// <param name="config">The configuration the Identity Platform client should be created with</param>
     /// <param name="logger">The logger which will be used to log</param>
     public AuthenticaionClient(
         AuthenticationConfig config,
         ILogger<IAuthenticationClient>? logger)
     {
-        baseClient = new AuthenticationBase(config, logger);
+        identityPlatform = new IdentityPlatformClient(config, logger);
 
         this.logger = logger;
         logger?.LogInformation($"[AuthenticaionClient-.ctor] AuthenticaionClient has been initialized.");
@@ -49,23 +49,23 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <summary>
     /// Creates a new AuthenticaionClient
     /// </summary>
-    /// <param name="baseClient">Underlaying base client used for all low level identity platform accounts actions</param>
+    /// <param name="identityPlatform">Underlaying Identity Platform client used for all low level identity platform accounts actions</param>
     public AuthenticaionClient(
-        IAuthenticationBase baseClient)
+        IIdentityPlatformClient identityPlatform)
     {
-        this.baseClient = baseClient;
+        this.identityPlatform = identityPlatform;
     }
 
     /// <summary>
     /// Creates a new AuthenticaionClient with extendended logging functions
     /// </summary>
-    /// <param name="baseClient">Underlaying base client used for all low level identity platform accounts actions</param>
+    /// <param name="identityPlatform">Underlaying Identity Platform client used for all low level identity platform accounts actions</param>
     /// <param name="logger">The logger which will be used to log</param>
     public AuthenticaionClient(
-        IAuthenticationBase baseClient,
+        IIdentityPlatformClient identityPlatform,
         ILogger<IAuthenticationClient>? logger)
     {
-        this.baseClient = baseClient;
+        this.identityPlatform = identityPlatform;
 
         this.logger = logger;
         logger?.LogInformation($"[AuthenticaionClient-.ctor] AuthenticaionClient has been initialized.");
@@ -152,7 +152,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <returns>An always valid authenticaion credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -172,7 +172,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         // Send request
         SecureTokenRequest request = new(
             refreshToken: CurrentCredential.RefreshToken);
-        SecureTokenResponse response = await baseClient.SecureTokenAsync(request, cancellationToken);
+        SecureTokenResponse response = await identityPlatform.SecureTokenAsync(request, cancellationToken);
         CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
 
         logger?.LogInformation("[AuthenticaionClient-GetFreshCredentialAsync] Exchanged refresh token for a new ID token.");
@@ -200,7 +200,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -222,7 +222,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         // Send request
         LookupRequest request = new(
             idToken: CurrentCredential!.IdToken);
-        LookupResponse response = await baseClient.LookupAsync(request, cancellationToken);
+        LookupResponse response = await identityPlatform.LookupAsync(request, cancellationToken);
 
         if (response.Users.Length == 0)
         {
@@ -243,7 +243,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="request">The sign up request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -256,7 +256,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         ThrowIfCredentialAlreadyExist();
 
         // Send request
-        SignUpResponse response = await baseClient.SignUpAsync((Requests.Base.SignUpRequest)request, cancellationToken);
+        SignUpResponse response = await identityPlatform.SignUpAsync((Requests.IdentityPlatform.SignUpRequest)request, cancellationToken);
         CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
 
         logger?.LogInformation("[AuthenticaionClient-SignUpAsync] Signed up.");
@@ -271,7 +271,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="request">The sign in request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -287,7 +287,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         {
             // Send sign in with password request
             case SignInWithPasswordRequest passwordRequest:
-                SignInWithPasswordResponse passwordResponse = await baseClient.SignInWithPasswordAsync(passwordRequest, cancellationToken);
+                SignInWithPasswordResponse passwordResponse = await identityPlatform.SignInWithPasswordAsync(passwordRequest, cancellationToken);
                 CurrentCredential = new(passwordResponse.IdToken, passwordResponse.RefreshToken, passwordResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with password.");
@@ -295,7 +295,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
             // Send sign in with custom token request
             case SignInWithCustomTokenRequest customTokenRequest:
-                SignInWithCustomTokenResponse customTokenResponse = await baseClient.SignInWithCustomTokenAsync(customTokenRequest, cancellationToken);
+                SignInWithCustomTokenResponse customTokenResponse = await identityPlatform.SignInWithCustomTokenAsync(customTokenRequest, cancellationToken);
                 CurrentCredential = new(customTokenResponse.IdToken, customTokenResponse.RefreshToken, customTokenResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with custom token.");
@@ -303,7 +303,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
             // Send sign in with phonenumber request
             case SignInWithPhoneNumberRequest phoneNumberRequest:
-                SignInWithPhoneNumberResponse phoneNumberResponse = await baseClient.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
+                SignInWithPhoneNumberResponse phoneNumberResponse = await identityPlatform.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
                 CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
@@ -311,7 +311,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
             // Send sign in with phonenumber request
             case SignInWithEmailLinkRequest emailLinkRequest:
-                SignInWithEmailLinkResponse emailLinkResponse = await baseClient.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
+                SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
                 CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
@@ -338,7 +338,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -353,7 +353,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         // Send request
         DeleteRequest request = new(
             idToken: CurrentCredential!.IdToken);
-        await baseClient.DeleteAsync(request, cancellationToken);
+        await identityPlatform.DeleteAsync(request, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-DeleteAsync] Deleted the current user.");
         SignOut();
@@ -366,7 +366,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -384,7 +384,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             newPassword: newPassword,
             oldPassword: oldPassword,
             email: currentUser.Email);
-        await baseClient.ResetPasswordASync(request, cancellationToken);
+        await identityPlatform.ResetPasswordASync(request, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Changed the current users password.");
     }
@@ -397,7 +397,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">May occurs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">May occurs when the current credential is expired</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -422,7 +422,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         }
 
         // Send request
-        SendOobCodeResponse response = await baseClient.SendOobCodeAsync(oobRequest, locale, cancellationToken);
+        SendOobCodeResponse response = await identityPlatform.SendOobCodeAsync(oobRequest, locale, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-SendEmailAsync] Sent a email to the account.");
         return response.Email!;
@@ -435,7 +435,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="newPassword">The new password to be set for this account</param>
     /// <param name="code">An out-of-band (OOB) code generated by an prior request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -450,7 +450,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         ResetPasswordRequest request = new(
             newPassword: newPassword,
             oobCode: code);
-        ResetPasswordResponse response = await baseClient.ResetPasswordASync(request, cancellationToken);
+        ResetPasswordResponse response = await identityPlatform.ResetPasswordASync(request, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Reset the users password.");
         return response.Email;
@@ -463,7 +463,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="recaptchaToken">Recaptcha token for app verification.<br/> To easily get an official Google reCAPTCHA token on WPF, WinUI, UWP, WinForms or console you can use <see href="https://icysnex.github.io/ReCaptcha.Desktop/"/>.<br/> You can use <see cref="IAuthenticationBase.GetRecaptchaParamsAsync(CancellationToken)"/> to get a reCAPTCHA site key for your current project</param>
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -479,7 +479,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         SendVerificationCodeRequest request = new(
             phoneNumber: phoneNumber,
             recaptchaToken: recaptchaToken);
-        SendVerificationCodeResponse response = await baseClient.SendVerificationCodeAsync(request, locale, cancellationToken);
+        SendVerificationCodeResponse response = await identityPlatform.SendVerificationCodeAsync(request, locale, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-SendVerificationCodeAsync] Sent verification code to phone number.");
         return response.SessionInfo;
@@ -491,7 +491,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="email">The email of the users account to fetch associated providers for</param>
     /// <param name="continueUri">Required for Firebase, idk why lol</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -506,7 +506,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         CreateAuthUriRequest request = new(
             continueUri: continueUri,
             identifier: email);
-        CreateAuthUrlResponse response = await baseClient.CreateAuthUriAsync(request, cancellationToken);
+        CreateAuthUrlResponse response = await identityPlatform.CreateAuthUriAsync(request, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-GetSignInMethodsAsync] Got sign in methods for email.");
         return response.SigninMethods;
@@ -518,7 +518,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="provider">The email of the users account to fetch associated providers for</param>
     /// <param name="continueUri">The url the user will be redirected back</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.AuthenticationException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
@@ -533,7 +533,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         CreateAuthUriRequest request = new(
             continueUri: continueUri,
             provider: provider);
-        CreateAuthUrlResponse response = await baseClient.CreateAuthUriAsync(request, cancellationToken);
+        CreateAuthUrlResponse response = await identityPlatform.CreateAuthUriAsync(request, cancellationToken);
 
         if (!response.Provider.HasValue || response.AuthUri is null)
             throw new InvalidProviderIdException();

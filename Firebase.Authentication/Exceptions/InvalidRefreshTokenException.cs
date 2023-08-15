@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidRefreshTokenException : AuthenticationException
+public class InvalidRefreshTokenException : IdentityPlatformException
 {
     /// <summary>
     /// An invalid refresh token is provided.

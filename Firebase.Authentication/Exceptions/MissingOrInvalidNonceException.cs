@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class MissingOrInvalidNonceException : AuthenticationException
+public class MissingOrInvalidNonceException : IdentityPlatformException
 {
     /// <summary>
     /// Duplicate credential received. Please try again with a new credential.

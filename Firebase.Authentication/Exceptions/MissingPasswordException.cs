@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class MissingPasswordException : AuthenticationException
+public class MissingPasswordException : IdentityPlatformException
 {
     /// <summary>
     /// No password provided.

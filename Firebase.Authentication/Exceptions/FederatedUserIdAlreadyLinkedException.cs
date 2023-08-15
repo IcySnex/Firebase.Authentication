@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class FederatedUserIdAlreadyLinkedException : AuthenticationException
+public class FederatedUserIdAlreadyLinkedException : IdentityPlatformException
 {
     /// <summary>
     /// This credential is already associated with a different user account.

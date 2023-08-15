@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class EmailExistsException : AuthenticationException
+public class EmailExistsException : IdentityPlatformException
 {
     /// <summary>
     /// The email address is already in use by another account.

@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class CaptchaCheckFailedException : AuthenticationException
+public class CaptchaCheckFailedException : IdentityPlatformException
 {
     /// <summary>
     /// The Recaptcha verification failed. It may be invalid or expired.

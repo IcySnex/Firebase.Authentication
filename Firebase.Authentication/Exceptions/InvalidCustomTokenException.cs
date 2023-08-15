@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidCustomTokenException : AuthenticationException
+public class InvalidCustomTokenException : IdentityPlatformException
 {
     /// <summary>
     /// The custom token format is incorrect or the token is invalid for some reason (e.g. expired, invalid signature etc.)

@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class OperationNotAllowedException : AuthenticationException
+public class OperationNotAllowedException : IdentityPlatformException
 {
     /// <summary>
     /// The corresponding provider is disabled for this project.

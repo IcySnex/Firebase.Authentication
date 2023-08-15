@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidProviderIdException : AuthenticationException
+public class InvalidProviderIdException : IdentityPlatformException
 {
     /// <summary>
     /// Third-party Auth Providers: PostBody does not contain or contains invalid Authentication Provider string.

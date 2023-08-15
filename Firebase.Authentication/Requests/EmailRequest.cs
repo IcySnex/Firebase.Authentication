@@ -1,4 +1,5 @@
-﻿using Firebase.Authentication.Types;
+﻿using Firebase.Authentication.Requests.IdentityPlatform;
+using Firebase.Authentication.Types;
 
 namespace Firebase.Authentication.Requests;
 
@@ -11,7 +12,7 @@ public abstract class EmailRequest
     /// Send a verify email to the current users account
     /// </summary>
     /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static Base.SendOobCodeRequest Verify() =>
+    public static SendOobCodeRequest Verify() =>
         new(requestType: OobType.VerifyEmail);
 
     /// <summary>
@@ -19,7 +20,7 @@ public abstract class EmailRequest
     /// </summary>
     /// <param name="newEmail">The new email the user is changing to</param>
     /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static Base.SendOobCodeRequest Change(
+    public static SendOobCodeRequest Change(
         string newEmail) =>
         new(requestType: OobType.VerifyAndChangeEmail,
             newEmail: newEmail);
@@ -29,7 +30,7 @@ public abstract class EmailRequest
     /// </summary>
     /// <param name="email">The email the user is changing to</param>
     /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static Base.SendOobCodeRequest ResetPassword(
+    public static SendOobCodeRequest ResetPassword(
         string email) =>
         new(requestType: OobType.ResetPassword,
             email: email);
@@ -39,7 +40,7 @@ public abstract class EmailRequest
     /// </summary>
     /// <param name="email">The email the user is changing to</param>
     /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static Base.SendOobCodeRequest SignIn(
+    public static SendOobCodeRequest SignIn(
         string email,
         string continueUrl) =>
         new(requestType: OobType.SignInEmail,

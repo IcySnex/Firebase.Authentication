@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class MissingContinueUriException : AuthenticationException
+public class MissingContinueUriException : IdentityPlatformException
 {
     /// <summary>
     /// No continue uri provided.

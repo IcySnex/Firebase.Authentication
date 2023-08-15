@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class TooManyAttemptsException : AuthenticationException
+public class TooManyAttemptsException : IdentityPlatformException
 {
     /// <summary>
     /// We have blocked all requests from this device due to unusual activity. Try again later.

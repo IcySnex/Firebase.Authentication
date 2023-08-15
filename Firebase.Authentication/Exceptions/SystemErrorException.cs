@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class SystemErrorException : AuthenticationException
+public class SystemErrorException : IdentityPlatformException
 {
     /// <summary>
     /// A system error has occurred - missing or invalid postBody

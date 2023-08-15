@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class ExpiredOobCodeException : AuthenticationException
+public class ExpiredOobCodeException : IdentityPlatformException
 {
     /// <summary>
     /// The action code has expired.

@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class InvalidIdentifierException : AuthenticationException
+public class InvalidIdentifierException : IdentityPlatformException
 {
     /// <summary>
     /// An invalid identifier was passed.

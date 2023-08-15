@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class MissingIdentifierException : AuthenticationException
+public class MissingIdentifierException : IdentityPlatformException
 {
     /// <summary>
     /// Request contains an invalid value for parameter: identifier.

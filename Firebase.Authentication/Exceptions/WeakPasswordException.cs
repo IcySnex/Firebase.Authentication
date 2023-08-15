@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class WeakPasswordException : AuthenticationException
+public class WeakPasswordException : IdentityPlatformException
 {
     /// <summary>
     /// The password must be 6 characters long or more.

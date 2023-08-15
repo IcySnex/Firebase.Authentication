@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class AdminOnlyOperationException : AuthenticationException
+public class AdminOnlyOperationException : IdentityPlatformException
 {
     /// <summary>
     /// This operation is for admins only.

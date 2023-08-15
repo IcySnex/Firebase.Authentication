@@ -1,6 +1,6 @@
 ﻿namespace Firebase.Authentication.Exceptions;
 
-public class MissingEmailException : AuthenticationException
+public class MissingEmailException : IdentityPlatformException
 {
     /// <summary>
     /// No email provided.
