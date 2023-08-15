@@ -195,7 +195,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Creates an authorization URI for the given provider, with which the user can sign in
+    /// Creates an authorization URI for the given provider, to which the user can be redirected to for signing in
     /// </summary>
     /// <param name="provider">The email of the users account to fetch associated providers for</param>
     /// <param name="continueUri">The url the user will be redirected back</param>
@@ -205,8 +205,8 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
-    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public Task<ProviderAuth> GetProviderAuthAsync(
+    /// <returns>An authorization URI for the requested provider with the respective session id</returns>
+    public Task<ProviderRedirect> CreateProviderRedirectAsync(
         Provider provider,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default);

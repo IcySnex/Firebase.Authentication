@@ -48,10 +48,23 @@ public abstract class SignInRequest
     /// </summary>
     /// <param name="email">The email address the sign-in link was sent to</param>
     /// <param name="code">The out-of-band code from the email link</param>
-    /// <returns>A new SignInWithPhoneNumberRequest</returns>
+    /// <returns>A new SignInWithEmailLinkRequest</returns>
     public static SignInWithEmailLinkRequest WithEmailLink(
         string email,
         string code) =>
         new(oobCode: code,
             email: email);
+
+
+    /// <summary>
+    /// Sign in with a provider redirected url
+    /// </summary>
+    /// <param name="redirectedUri">The url to which the provider redirected the user back to</param>
+    /// <param name="sessionId">The respective session id from a previous call</param>
+    /// <returns>A new SignInWithIdpRequest</returns>
+    public static SignInWithIdpRequest WithProviderRedirect(
+        string redirectedUri,
+        string sessionId) =>
+        new(requestUri: redirectedUri,
+            sessionId: sessionId);
 }

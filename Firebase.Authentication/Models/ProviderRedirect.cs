@@ -3,17 +3,17 @@
 namespace Firebase.Authentication.Models;
 
 /// <summary>
-/// Represents an authenticaion at a provider
+/// Represents an authenticaion redirect at a provider
 /// </summary>
-public class ProviderAuth
+public class ProviderRedirect
 {
     /// <summary>
-    /// Creates a new ProviderAuth
+    /// Creates a new ProviderRedirect
     /// </summary>
     /// <param name="provider">The provider for the authenticaion request</param>
     /// <param name="uri">The authorization URI for the requested provider</param>
     /// <param name="sessionId"></param>
-    public ProviderAuth(
+    public ProviderRedirect(
         Provider provider,
         string uri,
         string sessionId)

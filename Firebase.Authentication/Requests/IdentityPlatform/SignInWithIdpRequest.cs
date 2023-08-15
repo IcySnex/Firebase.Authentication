@@ -5,7 +5,7 @@ namespace Firebase.Authentication.Requests.IdentityPlatform;
 /// <summary>
 /// Model to send a accounts.signInWithIdp request
 /// </summary>
-public class SignInWithIdpRequest
+public class SignInWithIdpRequest : SignInRequest
 {
     /// <summary>
     /// Creates a new SignInWithIdpRequest

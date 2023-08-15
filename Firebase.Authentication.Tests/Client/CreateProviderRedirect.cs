@@ -1,13 +1,12 @@
 ﻿using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Client;
 using Firebase.Authentication.Configuration;
-using Firebase.Authentication.Requests;
 using Firebase.Authentication.Types;
 using Firebase.Authentication.Models;
 
 namespace Firebase.Authentication.Tests.Client;
 
-public class GetProviderAuth
+public class CreateProviderRedirect
 {
     IAuthenticationClient client;
 
@@ -26,12 +25,12 @@ public class GetProviderAuth
     public void Google_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Google, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Google, TestData.ContinueUrl);
         });
 
         // Write result
@@ -42,12 +41,12 @@ public class GetProviderAuth
     public void Github_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Github, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Github, TestData.ContinueUrl);
         });
 
         // Write result
@@ -58,12 +57,12 @@ public class GetProviderAuth
     public void Apple_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Apple, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Apple, TestData.ContinueUrl);
         });
 
         // Write result
@@ -74,12 +73,12 @@ public class GetProviderAuth
     public void Facebook_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Faceook, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Faceook, TestData.ContinueUrl);
         });
 
         // Write result
@@ -90,12 +89,12 @@ public class GetProviderAuth
     public void Twitter_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Twitter, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Twitter, TestData.ContinueUrl);
         });
 
         // Write result
@@ -106,12 +105,12 @@ public class GetProviderAuth
     public void Microsoft_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Microsoft, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Microsoft, TestData.ContinueUrl);
         });
 
         // Write result
@@ -122,12 +121,12 @@ public class GetProviderAuth
     public void Yahoo_Success()
     {
         // Mock request/response
-        ProviderAuth response = default!;
+        ProviderRedirect response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetProviderAuthAsync(Provider.Yahoo, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Yahoo, TestData.ContinueUrl);
         });
 
         // Write result

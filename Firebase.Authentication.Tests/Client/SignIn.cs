@@ -92,6 +92,24 @@ public class SignIn
         TestData.Write(client.CurrentCredential);
         TestData.Write(client.CurrentUser);
     }
+    
+    [Test]
+    public void WithProviderRedirect_Success()
+    {
+        // Run Test: Expected behaviour: Run without exception
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            SignInRequest signInRequest = SignInRequest.WithProviderRedirect(TestData.RequestUri, TestData.SessionId);
+            await client.SignInAsync(signInRequest);
+
+            Assert.That(client.CurrentCredential, Is.Not.Null);
+            Assert.That(client.CurrentUser, Is.Not.Null);
+        });
+
+        // Write result
+        TestData.Write(client.CurrentCredential);
+        TestData.Write(client.CurrentUser);
+    }
 
 
     [Test]

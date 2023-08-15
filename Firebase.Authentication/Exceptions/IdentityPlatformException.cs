@@ -93,9 +93,6 @@ public class IdentityPlatformException : Exception
             case "MISSING_EMAIL":
                 return new MissingEmailException();
                 
-            case "MISSING_SESSION_ID":
-                return new MissingSessionIdException();
-
             case "MISSING_IDENTIFIER":
                 return new MissingIdentifierException();
 
@@ -162,6 +159,9 @@ public class IdentityPlatformException : Exception
 
                 if (message.StartsWith("INVALID_IDP_RESPONSE"))
                     return new InvalidIdpResponseException();
+
+                if (message.StartsWith("MISSING_SESSION_ID"))
+                    return new MissingSessionIdException();
 
 
                 return new("UNDEFINDED", $"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})") { ResponseData = responseData };

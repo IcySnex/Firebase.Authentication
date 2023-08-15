@@ -314,7 +314,15 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
                 SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
                 CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
+                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with email link.");
+                break;
+
+            // Send sign in with phonenumber request
+            case SignInWithIdpRequest idpRequest:
+                SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
+                CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
+
+                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with idp.");
                 break;
         }
 
@@ -513,7 +521,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Creates an authorization URI for the given provider, with which the user can sign in
+    /// Creates an authorization URI for the given provider, to which the user can be redirected to for signing in
     /// </summary>
     /// <param name="provider">The email of the users account to fetch associated providers for</param>
     /// <param name="continueUri">The url the user will be redirected back</param>
@@ -523,8 +531,8 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
-    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public async Task<ProviderAuth> GetProviderAuthAsync(
+    /// <returns>An authorization URI for the requested provider with the respective session id</returns>
+    public async Task<ProviderRedirect> CreateProviderRedirectAsync(
         Provider provider,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default)
@@ -538,10 +546,10 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         if (!response.Provider.HasValue || response.AuthUri is null)
             throw new InvalidProviderIdException();
 
-        ProviderAuth result = new(response.Provider.Value, response.AuthUri, response.SessionId);
+        ProviderRedirect redirect = new(response.Provider.Value, response.AuthUri, response.SessionId);
 
         logger?.LogInformation("[AuthenticaionClient-GetProviderAuthAsync] Got provider authenticaion.");
-        return result;
+        return redirect;
     }
 
 }
