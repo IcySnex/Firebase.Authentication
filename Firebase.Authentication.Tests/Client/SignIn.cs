@@ -113,7 +113,7 @@ public class SignIn
 
 
     [Test]
-    public void GetMethods_Success()
+    public void GetProviders_Success()
     {
         // Mock request/response
         Provider[]? response = default!;
@@ -121,7 +121,7 @@ public class SignIn
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetSignInMethodsAsync(TestData.Email);
+            response = await client.GetSignInProvidersAsync(TestData.Email);
         });
 
         // Write result
