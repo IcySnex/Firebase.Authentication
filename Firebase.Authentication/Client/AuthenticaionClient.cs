@@ -122,19 +122,6 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         throw new CredentialAlreadyExistException();
     }
 
-    /// <summary>
-    /// Checks if current credential is expired and throws if so
-    /// </summary>
-    /// <exception cref="CredentialTooOldException">Occurrs when the current credential is expired</exception>
-    void ThrowIfCredentialExpired()
-    {
-        if (!CurrentCredential!.IsExpired)
-            return;
-
-        logger?.LogError("[AuthenticaionClient-ThrowIfCredentialExpired] CREDENTIAL_TOO_OLD_LOGIN_AGAIN: The user's credential is no longer valid. The user must sign in again.");
-        throw new CredentialTooOldException();
-    }
-
 
     /// <summary>
     /// The current users authenitcaion credential
@@ -174,7 +161,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         // Send request
         SecureTokenRequest request = new(
-            refreshToken: CurrentCredential.RefreshToken);
+            refreshToken: CurrentCredential!.RefreshToken);
         SecureTokenResponse response = await identityPlatform.SecureTokenAsync(request, cancellationToken);
         CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
 
@@ -203,7 +190,6 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <returns>An always uo to date user info</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -215,18 +201,17 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         CancellationToken cancellationToken = default)
     {
         // Validation
-        ThrowIfMissingCredential();
-        ThrowIfCredentialExpired();
-
         if (!forceRefresh && CurrentUser is not null && CurrentUser.IsValid)
         {
             logger?.LogInformation("[AuthenticaionClient-GetFreshUserAsync] Current user info is still valid: Returned current user info.");
             return CurrentUser;
         }
 
+        Credential credential = await GetFreshCredentialAsync();
+
         // Send request
         LookupRequest request = new(
-            idToken: CurrentCredential!.IdToken);
+            idToken: credential.IdToken);
         LookupResponse response = await identityPlatform.LookupAsync(request, cancellationToken);
 
         if (response.Users.Length == 0)
@@ -290,40 +275,38 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         switch (request)
         {
-            // Send sign in with password request
-            case SignInWithPasswordRequest passwordRequest:
+            default: // This should never occur
+                throw new InvalidRequestTypeException();
+
+            case SignInWithPasswordRequest passwordRequest: // Send sign in with password request
                 SignInWithPasswordResponse passwordResponse = await identityPlatform.SignInWithPasswordAsync(passwordRequest, cancellationToken);
                 CurrentCredential = new(passwordResponse.IdToken, passwordResponse.RefreshToken, passwordResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with password.");
                 break;
 
-            // Send sign in with custom token request
-            case SignInWithCustomTokenRequest customTokenRequest:
+            case SignInWithCustomTokenRequest customTokenRequest: // Send sign in with custom token request
                 SignInWithCustomTokenResponse customTokenResponse = await identityPlatform.SignInWithCustomTokenAsync(customTokenRequest, cancellationToken);
                 CurrentCredential = new(customTokenResponse.IdToken, customTokenResponse.RefreshToken, customTokenResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with custom token.");
                 break;
 
-            // Send sign in with phonenumber request
-            case SignInWithPhoneNumberRequest phoneNumberRequest:
+            case SignInWithPhoneNumberRequest phoneNumberRequest: // Send sign in with phonenumber request
                 SignInWithPhoneNumberResponse phoneNumberResponse = await identityPlatform.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
                 CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
                 break;
 
-            // Send sign in with phonenumber request
-            case SignInWithEmailLinkRequest emailLinkRequest:
+            case SignInWithEmailLinkRequest emailLinkRequest: // Send sign in with phonenumber request
                 SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
                 CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with email link.");
                 break;
 
-            // Send sign in with phonenumber request
-            case SignInWithIdpRequest idpRequest:
+            case SignInWithIdpRequest idpRequest: // Send sign in with phonenumber request
                 SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
@@ -332,7 +315,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         }
 
         // Refresh current user
-        await GetFreshUserAsync(CurrentCredential!.ExpiresIn, true);
+        await GetFreshUserAsync(CurrentCredential.ExpiresIn, true);
     }
 
     /// <summary>
@@ -360,51 +343,48 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         LinkRequest request,
         CancellationToken cancellationToken = default)
     {
-        // Validation
-        ThrowIfMissingCredential();
-        ThrowIfCredentialExpired();
+        Credential credential = await GetFreshCredentialAsync();
 
         switch (request)
         {
-            // Send sign in with password request
-            case LinkToPasswordRequest passwordRequest:
-                passwordRequest.IdToken = CurrentCredential!.IdToken;
+            case LinkToPasswordRequest passwordRequest: // Send sign in with password request
+                passwordRequest.IdToken = credential.IdToken;
                 UpdateResponse passwordResponse = await identityPlatform.UpdateAsync(passwordRequest, null, cancellationToken);
-                CurrentCredential = new(passwordResponse.IdToken, CurrentCredential.RefreshToken, TimeSpan.FromHours(1));
+                CurrentCredential = new(passwordResponse.IdToken, credential.RefreshToken, TimeSpan.FromHours(1));
 
                 logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to password.");
                 break;
 
-            // Send sign in with phonenumber request
-            case LinkToPhoneNumberRequest phoneNumberRequest:
-                phoneNumberRequest.IdToken = CurrentCredential!.IdToken;
+            case LinkToPhoneNumberRequest phoneNumberRequest: // Send sign in with phonenumber request
+                phoneNumberRequest.IdToken = credential.IdToken;
                 SignInWithPhoneNumberResponse phoneNumberResponse = await identityPlatform.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
                 CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to phone number.");
                 break;
 
-            // Send sign in with phonenumber request
-            case LinkToEmailLinkRequest emailLinkRequest:
-                emailLinkRequest.IdToken = CurrentCredential!.IdToken;
+            case LinkToEmailLinkRequest emailLinkRequest: // Send sign in with phonenumber request
+                emailLinkRequest.IdToken = credential.IdToken;
                 SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
                 CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to email link.");
                 break;
 
-            // Send sign in with phonenumber request
-            case LinkToIdpRequest idpRequest:
-                idpRequest.IdToken = CurrentCredential!.IdToken;
+            case LinkToIdpRequest idpRequest: // Send sign in with phonenumber request
+                idpRequest.IdToken = credential.IdToken;
                 SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to idp.");
                 break;
+
+            default: // This should never occur
+                throw new InvalidRequestTypeException();
         }
 
         // Refresh current user
-        await GetFreshUserAsync(CurrentCredential!.ExpiresIn, true);
+        await GetFreshUserAsync(CurrentCredential.ExpiresIn, true);
     }
 
     /// <summary>
@@ -412,7 +392,6 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// </summary>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -421,13 +400,11 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     public async Task DeleteAsync(
         CancellationToken cancellationToken = default)
     {
-        // Validation
-        ThrowIfMissingCredential();
-        ThrowIfCredentialExpired();
+        Credential credential = await GetFreshCredentialAsync();
 
         // Send request
         DeleteRequest request = new(
-            idToken: CurrentCredential!.IdToken);
+            idToken: credential.IdToken);
         await identityPlatform.DeleteAsync(request, cancellationToken);
 
         logger?.LogInformation("[AuthenticaionClient-DeleteAsync] Deleted the current user.");
@@ -440,7 +417,6 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -451,7 +427,6 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         string oldPassword,
         CancellationToken cancellationToken = default)
     {
-        // Get current account
         UserInfo currentUser = await GetFreshUserAsync(TimeSpan.FromHours(1));
 
         // Send request
@@ -471,7 +446,6 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">May occurs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">May occurs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -489,10 +463,8 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         {
             case OobType.VerifyEmail:
             case OobType.VerifyAndChangeEmail:
-                ThrowIfMissingCredential();
-                ThrowIfCredentialExpired();
-
-                oobRequest.IdToken = CurrentCredential!.IdToken;
+                Credential credential = await GetFreshCredentialAsync();
+                oobRequest.IdToken = credential.IdToken;
                 break;
         }
 

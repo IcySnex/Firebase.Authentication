@@ -47,7 +47,6 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <returns>An always uo to date user info</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -115,7 +114,6 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// </summary>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -130,7 +128,6 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">Occurrs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
@@ -148,7 +145,6 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">May occurs when the current credential is null</exception>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialTooOldException">May occurs when the current credential is expired</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
