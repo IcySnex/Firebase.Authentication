@@ -46,7 +46,7 @@ internal class Update
     public void LnkEmail_Success()
     {
         // Mock request/response
-        UpdateRequest request = new(
+        LinkToPasswordRequest request = new(
             idToken: TestData.IdToken,
             email: TestData.Email,
             password: TestData.Password);

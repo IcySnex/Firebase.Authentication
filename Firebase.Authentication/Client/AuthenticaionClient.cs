@@ -8,6 +8,7 @@ using Firebase.Authentication.Responses.IdentityPlatform;
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel;
+using System.Net;
 using System.Runtime.CompilerServices;
 
 namespace Firebase.Authentication.Client;
@@ -149,6 +150,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <summary>
     /// Checks if the current credential is expired and if so sends a refresh request 
     /// </summary>
+    /// <param name="forceRefresh">When true the expiration period of the current credential is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <returns>An always valid authenticaion credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
@@ -158,12 +160,13 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public async Task<Credential> GetFreshCredentialAsync(
+        bool forceRefresh = false,
         CancellationToken cancellationToken = default)
     {
         // Validation
         ThrowIfMissingCredential();
 
-        if (!CurrentCredential!.IsExpired)
+        if (!forceRefresh && !CurrentCredential!.IsExpired)
         {
             logger?.LogInformation("[AuthenticaionClient-GetFreshCredentialAsync] Current credential not expired: Returned current credential.");
             return CurrentCredential;
@@ -194,7 +197,8 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <summary>
     /// Checks if the current user is valid based on the given period and if not sends a user data request 
     /// </summary>
-    /// <param name="validityPeriod">The time span at which the user should be refreshed to maintain up-to-date information. Null if it should always return a fresh user</param>
+    /// <param name="validityPeriod">The time span at which the user should be refreshed to maintain up-to-date information. Null if a single time user info is wanted</param>
+    /// <param name="forceRefresh">When true the validity period of the current user info is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <returns>An always uo to date user info</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
@@ -207,13 +211,14 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public async Task<UserInfo> GetFreshUserAsync(
         TimeSpan? validityPeriod = null,
+        bool forceRefresh = false,
         CancellationToken cancellationToken = default)
     {
         // Validation
         ThrowIfMissingCredential();
         ThrowIfCredentialExpired();
 
-        if (CurrentUser is not null && CurrentUser.IsValid)
+        if (!forceRefresh && CurrentUser is not null && CurrentUser.IsValid)
         {
             logger?.LogInformation("[AuthenticaionClient-GetFreshUserAsync] Current user info is still valid: Returned current user info.");
             return CurrentUser;
@@ -327,7 +332,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         }
 
         // Refresh current user
-        await GetFreshUserAsync(CurrentCredential!.ExpiresIn);
+        await GetFreshUserAsync(CurrentCredential!.ExpiresIn, true);
     }
 
     /// <summary>
@@ -339,6 +344,68 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         CurrentUser = null;
     }
 
+
+    /// <summary>
+    /// Links the current user user with the given method and refreshes the current user
+    /// </summary>
+    /// <param name="request">The link user request</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task LinkAsync(
+        LinkRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        // Validation
+        ThrowIfMissingCredential();
+        ThrowIfCredentialExpired();
+
+        switch (request)
+        {
+            // Send sign in with password request
+            case LinkToPasswordRequest passwordRequest:
+                passwordRequest.IdToken = CurrentCredential!.IdToken;
+                UpdateResponse passwordResponse = await identityPlatform.UpdateAsync(passwordRequest, null, cancellationToken);
+                CurrentCredential = new(passwordResponse.IdToken, CurrentCredential.RefreshToken, TimeSpan.FromHours(1));
+
+                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to password.");
+                break;
+
+            // Send sign in with phonenumber request
+            case LinkToPhoneNumberRequest phoneNumberRequest:
+                phoneNumberRequest.IdToken = CurrentCredential!.IdToken;
+                SignInWithPhoneNumberResponse phoneNumberResponse = await identityPlatform.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
+                CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
+
+                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to phone number.");
+                break;
+
+            // Send sign in with phonenumber request
+            case LinkToEmailLinkRequest emailLinkRequest:
+                emailLinkRequest.IdToken = CurrentCredential!.IdToken;
+                SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
+                CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
+
+                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to email link.");
+                break;
+
+            // Send sign in with phonenumber request
+            case LinkToIdpRequest idpRequest:
+                idpRequest.IdToken = CurrentCredential!.IdToken;
+                SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
+                CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
+
+                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to idp.");
+                break;
+        }
+
+        // Refresh current user
+        await GetFreshUserAsync(CurrentCredential!.ExpiresIn, true);
+    }
 
     /// <summary>
     /// Deletes the current users account

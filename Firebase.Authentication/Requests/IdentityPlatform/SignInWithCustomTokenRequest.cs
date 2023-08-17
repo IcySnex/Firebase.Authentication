@@ -1,5 +1,4 @@
-﻿using Firebase.Authentication.Types;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Firebase.Authentication.Requests.IdentityPlatform;
 

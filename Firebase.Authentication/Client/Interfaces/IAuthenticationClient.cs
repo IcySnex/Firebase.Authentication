@@ -19,6 +19,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <summary>
     /// Checks if the current credential is expired and if so sends a refresh request 
     /// </summary>
+    /// <param name="forceRefresh">When true the expiration period of the current credential is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
     /// <returns>An always valid authenticaion credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
@@ -28,6 +29,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public Task<Credential> GetFreshCredentialAsync(
+        bool forceRefresh = false,
         CancellationToken cancellationToken = default);
 
 
@@ -39,7 +41,8 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <summary>
     /// Checks if the current user is valid based on the given period and if not sends a user data request 
     /// </summary>
-    /// <param name="validityPeriod">The time span at which the user should be refreshed to maintain up-to-date information. Null if it should always return a fresh user</param>
+    /// <param name="validityPeriod">The time span at which the user should be refreshed to maintain up-to-date information. Null if a single time user info is wanted</param>
+    /// <param name="forceRefresh">When true the validity period of the current user info is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <returns>An always uo to date user info</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
@@ -52,6 +55,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     public Task<UserInfo> GetFreshUserAsync(
         TimeSpan? validityPeriod = null,
+        bool forceRefresh = false,
         CancellationToken cancellationToken = default);
 
 
@@ -90,6 +94,21 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// </summary>
     public void SignOut();
 
+
+    /// <summary>
+    /// Links the current user user with the given method and refreshes the current user
+    /// </summary>
+    /// <param name="request">The link user request</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public Task LinkAsync(
+        LinkRequest request,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes the current users account

@@ -11,7 +11,7 @@ public abstract class SignInRequest
     /// Sign in with an email and password
     /// </summary>
     /// <param name="email">The email the user is signing in with</param>
-    /// <param name="password">The password for the account</param>
+    /// <param name="password">The password for the user</param>
     /// <returns>A new SignInWithPasswordRequest</returns>
     public static SignInWithPasswordRequest WithEmailPassword(
         string email,
@@ -44,7 +44,7 @@ public abstract class SignInRequest
 
 
     /// <summary>
-    /// Sign in with a phone number
+    /// Sign in with a email via link
     /// </summary>
     /// <param name="email">The email address the sign-in link was sent to</param>
     /// <param name="code">The out-of-band code from the email link</param>

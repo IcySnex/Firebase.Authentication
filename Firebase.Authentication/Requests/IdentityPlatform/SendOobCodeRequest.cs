@@ -59,7 +59,7 @@ public class SendOobCodeRequest : EmailRequest
     /// The account's email address to send the OOB code to, and generally the email address of the account that needs to be updated
     /// </summary>
     [JsonPropertyName("email")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     /// <summary>
     /// For a PASSWORD_RESET request, a reCaptcha response is required when the system detects possible abuse activity

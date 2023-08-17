@@ -136,7 +136,7 @@ public interface IIdentityPlatformClient
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Signs in or signs up a user with a out-of-band code from an email link. If a user does not exist with the given email address, a user record will be created. If the sign-in succeeds, an Identity Platform ID and refresh token are issued for the authenticated user.
+    /// Signs in or signs up a user with a out-of-band code from an email link. If a user does not exist with the given email address, a user record will be created. If the sign-in succeeds, an Identity Platform ID and refresh token are issued for the authenticated user. This method may also be used to link an email to an existing user.
     /// <para/>
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithEmailLink"/>
     /// </summary>
@@ -153,7 +153,24 @@ public interface IIdentityPlatformClient
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Signs in or signs up a user using credentials from an Identity Provider (IdP). This is done by manually providing an IdP credential, or by providing the authorization response obtained via the authorization request from accounts.createAuthUri. If the sign-in succeeds, a new Identity Platform ID token and refresh token are issued for the authenticated user.
+    /// Signs in or signs up a user with a out-of-band code from an email link. If a user does not exist with the given email address, a user record will be created. If the sign-in succeeds, an Identity Platform ID and refresh token are issued for the authenticated user. This method may also be used to link an email to an existing user.
+    /// <para/>
+    /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithEmailLink"/>
+    /// </summary>
+    /// <param name="request">The request to send</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A new accounts.signInWithEmailLink response</returns>
+    Task<SignInWithEmailLinkResponse> SignInWithEmailLinkAsync(
+        LinkToEmailLinkRequest request,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Signs in or signs up a user using credentials from an Identity Provider (IdP). This is done by manually providing an IdP credential, or by providing the authorization response obtained via the authorization request from accounts.createAuthUri. If the sign-in succeeds, a new Identity Platform ID token and refresh token are issued for the authenticated user. This method may also be used to link an IdP to an existing user.
     /// <para/>
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithIdp"/>
     /// </summary>
@@ -167,6 +184,23 @@ public interface IIdentityPlatformClient
     /// <returns>A new accounts.signInWithIdp response</returns>
     Task<SignInWithIdpResponse> SignInWithIdpAsync(
         SignInWithIdpRequest request,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Signs in or signs up a user using credentials from an Identity Provider (IdP). This is done by manually providing an IdP credential, or by providing the authorization response obtained via the authorization request from accounts.createAuthUri. If the sign-in succeeds, a new Identity Platform ID token and refresh token are issued for the authenticated user. This method may also be used to link an IdP to an existing user.
+    /// <para/>
+    /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithIdp"/>
+    /// </summary>
+    /// <param name="request">The request to send</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A new accounts.signInWithIdp response</returns>
+    Task<SignInWithIdpResponse> SignInWithIdpAsync(
+        LinkToIdpRequest request,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -204,6 +238,23 @@ public interface IIdentityPlatformClient
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Completes a phone number authentication attempt. If a user already exists with the given phone number, an ID token is minted for that user. Otherwise, a new user is created and associated with the phone number. This method may also be used to link a phone number to an existing user.
+    /// <para/>
+    /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signInWithPhoneNumber"/>
+    /// </summary>
+    /// <param name="request">The request to send</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A new accounts.signInWithPhoneNumber response</returns>
+    Task<SignInWithPhoneNumberResponse> SignInWithPhoneNumberAsync(
+        LinkToPhoneNumberRequest request,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Signs up a new email and password user or anonymous user, or upgrades an anonymous user to email and password. For an admin request with a Google OAuth 2.0 credential with the proper permissions, creates a new anonymous, email and password, or phone number user.
     /// <para/>
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/signUp"/>
@@ -221,7 +272,7 @@ public interface IIdentityPlatformClient
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates account-related information for the specified user by setting specific fields or applying action codes. Requests from administrators and end users are supported.
+    /// Updates account-related information for the specified user by setting specific fields or applying action codes. Requests from administrators and end users are supported. This method may also be used to link a password to an existing user.
     /// <para/>
     /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/update"/>
     /// </summary>
@@ -236,6 +287,25 @@ public interface IIdentityPlatformClient
     /// <returns>A new accounts.update response</returns>
     Task<UpdateResponse> UpdateAsync(
         UpdateRequest request,
+        string? locale = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Updates account-related information for the specified user by setting specific fields or applying action codes. Requests from administrators and end users are supported. This method may also be used to link a password to an existing user.
+    /// <para/>
+    /// <see href="https://cloud.google.com/identity-platform/docs/reference/rest/v1/accounts/update"/>
+    /// </summary>
+    /// <param name="request">The request to send</param>
+    /// <param name="locale">The language (Two Letter ISO code) in which all emails will be send to the user</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A new accounts.update response</returns>
+    Task<UpdateResponse> UpdateAsync(
+        LinkToPasswordRequest request,
         string? locale = null,
         CancellationToken cancellationToken = default);
 
