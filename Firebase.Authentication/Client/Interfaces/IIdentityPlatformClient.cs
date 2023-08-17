@@ -151,7 +151,6 @@ public interface IIdentityPlatformClient
     Task<SignInWithEmailLinkResponse> SignInWithEmailLinkAsync(
         SignInWithEmailLinkRequest request,
         CancellationToken cancellationToken = default);
-
     /// <summary>
     /// Signs in or signs up a user with a out-of-band code from an email link. If a user does not exist with the given email address, a user record will be created. If the sign-in succeeds, an Identity Platform ID and refresh token are issued for the authenticated user. This method may also be used to link an email to an existing user.
     /// <para/>
@@ -185,7 +184,6 @@ public interface IIdentityPlatformClient
     Task<SignInWithIdpResponse> SignInWithIdpAsync(
         SignInWithIdpRequest request,
         CancellationToken cancellationToken = default);
-
     /// <summary>
     /// Signs in or signs up a user using credentials from an Identity Provider (IdP). This is done by manually providing an IdP credential, or by providing the authorization response obtained via the authorization request from accounts.createAuthUri. If the sign-in succeeds, a new Identity Platform ID token and refresh token are issued for the authenticated user. This method may also be used to link an IdP to an existing user.
     /// <para/>
@@ -236,7 +234,6 @@ public interface IIdentityPlatformClient
     Task<SignInWithPhoneNumberResponse> SignInWithPhoneNumberAsync(
         SignInWithPhoneNumberRequest request,
         CancellationToken cancellationToken = default);
-
     /// <summary>
     /// Completes a phone number authentication attempt. If a user already exists with the given phone number, an ID token is minted for that user. Otherwise, a new user is created and associated with the phone number. This method may also be used to link a phone number to an existing user.
     /// <para/>

@@ -329,7 +329,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
 
     /// <summary>
-    /// Links the current user user with the given method and refreshes the current user
+    /// Links the current user to the given method and refreshes the current user
     /// </summary>
     /// <param name="request">The link user request</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
@@ -385,6 +385,50 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         // Refresh current user
         await GetFreshUserAsync(CurrentCredential.ExpiresIn, true);
+    }
+
+    /// <summary>
+    /// Uninks the current user from the given method and refreshes the current user
+    /// </summary>
+    /// <param name="provider">The provider from which the user is unlinking</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public Task UnlinkAsync(
+        Provider provider,
+        CancellationToken cancellationToken = default) =>
+        UnlinkAsync(new[] { provider }, cancellationToken);
+    /// <summary>
+    /// Uninks the current user from the given method and refreshes the current user
+    /// </summary>
+    /// <param name="providers">The providers from which the user is unlinking</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task UnlinkAsync(
+        Provider[] providers,
+        CancellationToken cancellationToken = default)
+    {
+        Credential credential = await GetFreshCredentialAsync();
+
+        // Send request
+        UpdateRequest request = new(
+            idToken: credential.IdToken,
+            deleteProviders: providers);
+        await identityPlatform.UpdateAsync(request, null, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-UnlinkAsync] Unlinked current user from given providers.");
+
+        // Refresh current user
+        await GetFreshUserAsync(credential.ExpiresIn, true);
     }
 
     /// <summary>

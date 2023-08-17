@@ -18,6 +18,12 @@ public enum Provider
     /// </summary>
     [EnumMember(Value = "password")]
     EmailAndPassword,
+    
+    /// <summary>
+    /// Authentication using phone number
+    /// </summary>
+    [EnumMember(Value = "phone")]
+    PhoneNumber,
 
     /// <summary>
     /// Authentication using email link

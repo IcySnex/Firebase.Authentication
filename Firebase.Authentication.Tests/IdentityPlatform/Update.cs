@@ -68,7 +68,7 @@ internal class Update
         // Mock request/response
         UpdateRequest request = new(
             idToken: TestData.IdToken,
-            deleteProviders: new[] { Provider.EmailAndPassword },
+            deleteProviders: new[] { Provider.PhoneNumber },
             deleteAttributes: new[] { UserAttributeName.Email });
         UpdateResponse response = default!;
 

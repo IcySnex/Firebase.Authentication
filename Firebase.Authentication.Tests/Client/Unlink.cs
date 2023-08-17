@@ -2,10 +2,11 @@
 using Firebase.Authentication.Client;
 using Firebase.Authentication.Configuration;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Types;
 
 namespace Firebase.Authentication.Tests.Client;
 
-public class Link
+public class Unlink
 {
     IAuthenticationClient client;
 
@@ -25,69 +26,62 @@ public class Link
 
 
     [Test]
-    public void ToEmailPassword_Success()
+    public void FromEmailPassword_Success()
     {
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            LinkRequest linkRequest = LinkRequest.ToEmailPassword(TestData.Email, TestData.Password);
-            await client.LinkAsync(linkRequest);
+            await client.UnlinkAsync(Provider.EmailAndPassword, default);
 
-            Assert.That(client.CurrentUser!.ProviderUserInfos.Any(info => info.Provider == Types.Provider.EmailAndPassword));
+            Assert.That(client.CurrentUser!.ProviderUserInfos?.Any(info => info.Provider != Provider.EmailAndPassword) ?? true);
         });
 
         // Write result
-        TestData.Write(client.CurrentCredential);
         TestData.Write(client.CurrentUser);
     }
 
     [Test]
-    public void ToPhoneNumber_Success()
+    public void FromPhoneNumber_Success()
     {
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            LinkRequest linkRequest = LinkRequest.ToPhoneNumber(TestData.SessionInfo, TestData.SmsCode);
-            await client.LinkAsync(linkRequest);
+            await client.UnlinkAsync(Provider.PhoneNumber, default);
 
-            Assert.That(client.CurrentUser!.PhoneNumber, Is.Not.Null);
+            Assert.That(client.CurrentUser!.ProviderUserInfos?.Any(info => info.Provider != Provider.PhoneNumber) ?? true);
         });
 
         // Write result
-        TestData.Write(client.CurrentCredential);
         TestData.Write(client.CurrentUser);
     }
 
     [Test]
-    public void ToEmailLink_Success()
+    public void FromEmailLink_Success()
     {
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            LinkRequest linkRequest = LinkRequest.ToEmailLink(TestData.Email, TestData.OobCode);
-            await client.LinkAsync(linkRequest);
+            await client.UnlinkAsync(Provider.EmailLink, default);
 
-            Assert.That(client.CurrentUser!.ProviderUserInfos.Any(info => info.Provider == Types.Provider.EmailLink));
+            Assert.That(client.CurrentUser!.ProviderUserInfos?.Any(info => info.Provider != Provider.EmailLink) ?? true);
         });
 
         // Write result
-        TestData.Write(client.CurrentCredential);
         TestData.Write(client.CurrentUser);
     }
 
     [Test]
-    public void ToProviderRedirect_Success()
+    public void FromProvider_Success()
     {
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            LinkRequest linkRequest = LinkRequest.ToProviderRedirect(TestData.RequestUri, TestData.SessionId);
-            await client.LinkAsync(linkRequest);
+            await client.UnlinkAsync(TestData.Provider, default);
+
+            Assert.That(client.CurrentUser!.ProviderUserInfos?.Any(info => info.Provider != TestData.Provider) ?? true);
         });
 
         // Write result
-        TestData.Write(client.CurrentCredential);
         TestData.Write(client.CurrentUser);
     }
-
 }
