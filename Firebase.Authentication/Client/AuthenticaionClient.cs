@@ -420,7 +420,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         Credential credential = await GetFreshCredentialAsync();
 
         // Send request
-        UpdateRequest request = new(
+        Requests.IdentityPlatform.UpdateRequest request = new(
             idToken: credential.IdToken,
             deleteProviders: providers);
         await identityPlatform.UpdateAsync(request, null, cancellationToken);
@@ -453,6 +453,39 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         logger?.LogInformation("[AuthenticaionClient-DeleteAsync] Deleted the current user.");
         SignOut();
+    }
+
+    /// <summary>
+    /// Updates the current users account
+    /// </summary>
+    /// <param name="displayName">The new display name. Null if it should be removed</param>
+    /// <param name="photoUrl">The new photo url. Null if it should be removed</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task UpdateAsync(
+        string? displayName,
+        string? photoUrl,
+        CancellationToken cancellationToken = default)
+    {
+        Credential credential = await GetFreshCredentialAsync();
+
+        // Send request
+        UpdateRequest request = new(
+            idToken: credential.IdToken,
+            displayName: displayName,
+            photoUrl: photoUrl,
+            deleteAttributes: displayName is null ? photoUrl is null ? new[] { UserAttributeName.DisplayName, UserAttributeName.PhotoUrl } : new[] { UserAttributeName.DisplayName } : photoUrl is null ? new[] { UserAttributeName.PhotoUrl } : null);
+        await identityPlatform.UpdateAsync(request, null, cancellationToken);
+
+        logger?.LogInformation("[AuthenticaionClient-UpdateAsync] Updated the current user.");
+
+        // Refresh current user
+        await GetFreshUserAsync(credential.ExpiresIn, true);
     }
 
     /// <summary>
@@ -501,7 +534,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         string? locale = null,
         CancellationToken cancellationToken = default)
     {
-        // Prepare request and validation
+        // Prepare request
         SendOobCodeRequest oobRequest = (SendOobCodeRequest)request;
         switch (oobRequest.RequestType)
         {
@@ -634,5 +667,4 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         logger?.LogInformation("[AuthenticaionClient-GetProviderAuthAsync] Got provider authenticaion.");
         return redirect;
     }
-
 }

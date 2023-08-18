@@ -68,8 +68,7 @@ internal class Update
         // Mock request/response
         UpdateRequest request = new(
             idToken: TestData.IdToken,
-            deleteProviders: new[] { Provider.PhoneNumber },
-            deleteAttributes: new[] { UserAttributeName.Email });
+            deleteProviders: new[] { Provider.PhoneNumber });
         UpdateResponse response = default!;
 
         // Run Test: Expected behaviour: Run without exception

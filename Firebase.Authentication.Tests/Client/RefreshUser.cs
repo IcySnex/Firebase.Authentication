@@ -41,6 +41,9 @@ internal class RefreshUser
 
             // Run Test: Expected behaviour: new user does not equal old user
             Assert.That(newUser, Is.Not.EqualTo(oldUser));
+
+            // Write result
+            TestData.Write(newUser);
         });
     }
 
@@ -56,6 +59,9 @@ internal class RefreshUser
 
             // Run Test: Expected behaviour: new user equals old user
             Assert.That(newUser, Is.EqualTo(oldUser));
+
+            // Write result
+            TestData.Write(newUser);
         });
     }
 }

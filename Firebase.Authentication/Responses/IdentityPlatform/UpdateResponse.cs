@@ -24,6 +24,8 @@ public class UpdateResponse
         string localId,
         ProviderUserInfo[] providerUserInfos,
         string newEmail,
+        string displayName,
+        string photoUrl,
         string idToken,
         string refreshToken,
         TimeSpan? expiresIn,
@@ -32,6 +34,8 @@ public class UpdateResponse
         LocalId = localId;
         ProviderUserInfos = providerUserInfos;
         NewEmail = newEmail;
+        DisplayName = displayName;
+        PhotoUrl = photoUrl;
         IdToken = idToken;
         RefreshToken = refreshToken;
         ExpiresIn = expiresIn;
@@ -55,6 +59,18 @@ public class UpdateResponse
     /// </summary>
     [JsonPropertyName("newEmail")]
     public string NewEmail { get; }
+
+    /// <summary>
+    /// The display name of the account
+    /// </summary>
+    [JsonPropertyName("displayName")]
+    public string DisplayName { get; }
+
+    /// <summary>
+    /// The URL of the account's profile photo
+    /// </summary>
+    [JsonPropertyName("photoUrl")]
+    public string PhotoUrl { get; }
 
     /// <summary>
     /// An Identity Platform ID token for the created user

@@ -39,6 +39,9 @@ internal class RefreshCredential
 
             // Run Test: Expected behaviour: new refresh token dont not equal old refresh token
             Assert.That(newCredential.RefreshToken, Is.Not.EqualTo(oldCredential.RefreshToken));
+
+            // Write result
+            TestData.Write(newCredential);
         });
     }
 
@@ -54,6 +57,9 @@ internal class RefreshCredential
 
             // Run Test: Expected behaviour: new refresh token equals old refresh token
             Assert.That(newCredential.RefreshToken, Is.EqualTo(oldCredential.RefreshToken));
+
+            // Write result
+            TestData.Write(newCredential);
         });
     }
 }

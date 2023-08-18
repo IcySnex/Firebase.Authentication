@@ -176,7 +176,7 @@ public class UpdateRequest
     /// <summary>
     /// The account's attributes to be deleted
     /// </summary>
-    [JsonConverter(typeof(UserAttributeNameArrayJsonConverter))]
+    [JsonConverter(typeof(UserAttributeNameListJsonConverter))]
     [JsonPropertyName("deleteAttribute")]
     public UserAttributeName[]? DeleteAttributes { get; set; }
 

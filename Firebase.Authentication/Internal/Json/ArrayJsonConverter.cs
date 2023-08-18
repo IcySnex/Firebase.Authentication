@@ -32,7 +32,11 @@ internal class ArrayStringConverter : JsonConverter<string[]>
         string[] array,
         JsonSerializerOptions options)
     {
+        writer.WriteStartArray();
+
         writer.WriteStringValue(string.Join(",", array));
+
+        writer.WriteEndArray();
     }
 }
 
@@ -65,13 +69,17 @@ internal class ProviderArrayJsonConverter : JsonConverter<Provider[]>
         Provider[] providerArray,
         JsonSerializerOptions options)
     {
+        writer.WriteStartArray();
+
         foreach (Provider provider in providerArray)
             writer.WriteStringValue(EnumHelper.ToString(provider));
+
+        writer.WriteEndArray();
     }
 }
 
 
-internal class UserAttributeNameArrayJsonConverter : JsonConverter<UserAttributeName[]>
+internal class UserAttributeNameListJsonConverter : JsonConverter<UserAttributeName[]>
 {
     public override UserAttributeName[] Read(
         ref Utf8JsonReader reader,
@@ -99,7 +107,11 @@ internal class UserAttributeNameArrayJsonConverter : JsonConverter<UserAttribute
         UserAttributeName[] userAttributeNameArray,
         JsonSerializerOptions options)
     {
+        writer.WriteStartArray();
+
         foreach (UserAttributeName provider in userAttributeNameArray)
             writer.WriteStringValue(EnumHelper.ToString(provider));
+
+        writer.WriteEndArray();
     }
 }
