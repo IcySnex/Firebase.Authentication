@@ -154,8 +154,10 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <summary>
     /// Updates the current users account
     /// </summary>
-    /// <param name="displayName">The new display name. Null if it should be removed</param>
-    /// <param name="photoUrl">The new photo url. Null if it should be removed</param>
+    /// <param name="displayName">The new display name</param>
+    /// <param name="photoUrl">The new photo url</param>
+    /// <param name="deleteDisplayName">Wether the display name of the user should be deleted</param>
+    /// <param name="deletePhotoUrl">Wether the display name of the user should be deleted</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
@@ -166,6 +168,8 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     public Task UpdateAsync(
         string? displayName,
         string? photoUrl,
+        bool deleteDisplayName = false,
+        bool deletePhotoUrl = false,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -221,6 +225,22 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Checks and returns if any user account is registered with the email. If there is a registered account, fetches all providers associated with the accounts email
+    /// </summary>
+    /// <param name="email">The email of the users account to fetch associated providers for</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
+    public Task<Provider[]?> GetSignInProvidersAsync(
+        string email,
+        string continueUri = "http://localhost",
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Sends a SMS verification code for phone number sign-in.
     /// </summary>
     /// <param name="phoneNumber">The phone number to send the verification code to in E.164 format</param>
@@ -237,22 +257,6 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         string phoneNumber,
         string recaptchaToken,
         string? locale = null,
-        CancellationToken cancellationToken = default);
-
-    /// <summary>
-    /// Checks and returns if any user account is registered with the email. If there is a registered account, fetches all providers associated with the accounts email
-    /// </summary>
-    /// <param name="email">The email of the users account to fetch associated providers for</param>
-    /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
-    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
-    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
-    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
-    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
-    /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public Task<Provider[]?> GetSignInProvidersAsync(
-        string email,
-        string continueUri = "http://localhost",
         CancellationToken cancellationToken = default);
 
     /// <summary>

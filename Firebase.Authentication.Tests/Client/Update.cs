@@ -46,7 +46,7 @@ public class Update
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            await client.UpdateAsync(null, null, default);
+            await client.UpdateAsync(null, null, true, true, default);
 
             Assert.That(client.CurrentUser!.DisplayName, Is.Null);
             Assert.That(client.CurrentUser!.PhotoUrl, Is.Null);
