@@ -275,4 +275,18 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         Provider provider,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default);
+
+
+    /// <summary>
+    /// Gets the reCAPTCHA v2 site key for the current project
+    /// </summary>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    /// <returns>A reCAPTCHA v2 site key</returns>
+    public Task<string> GetRecaptchaSiteKeyAsync(
+        CancellationToken cancellationToken = default);
 }
