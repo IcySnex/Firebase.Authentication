@@ -13,4 +13,12 @@ Firebase.Authentication.Tests/bin/
 Firebase.Authentication.Tests/obj/
 Firebase.Authentication.Tests/Properties/
 
+Firebase.Authentication.WPF/bin/
+Firebase.Authentication.WPF/obj/
+Firebase.Authentication.WPF/Properties/
+
+Samples/Firebase.Authentication.Sample.WPF/bin/
+Samples/Firebase.Authentication.Sample.WPF/obj/
+Samples/Firebase.Authentication.Sample.WPF/Properties/
+
 Development/

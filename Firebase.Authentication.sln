@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firebase.Authentication", "Firebase.Authentication\Firebase.Authentication.csproj", "{46569D99-2E74-4914-9839-49FA5B31BD84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebase.Authentication", "Firebase.Authentication\Firebase.Authentication.csproj", "{46569D99-2E74-4914-9839-49FA5B31BD84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firebase.Authentication.Tests", "Firebase.Authentication.Tests\Firebase.Authentication.Tests.csproj", "{5FBD845D-E090-4B53-AC05-74012E8CC760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebase.Authentication.Tests", "Firebase.Authentication.Tests\Firebase.Authentication.Tests.csproj", "{5FBD845D-E090-4B53-AC05-74012E8CC760}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{D57DCD26-95CA-47EE-A509-511BCED592BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebase.Authentication.WPF", "Firebase.Authentication.WPF\Firebase.Authentication.WPF.csproj", "{DEF324C4-A7C1-4440-ABC3-3B96D6FFD24C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firebase.Authentication.Sample.WPF", "Samples\Firebase.Authentication.Sample.WPF\Firebase.Authentication.Sample.WPF.csproj", "{8F208C60-5143-4BEF-84C5-60DEADAF83A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,20 @@ Global
 		{5FBD845D-E090-4B53-AC05-74012E8CC760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FBD845D-E090-4B53-AC05-74012E8CC760}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FBD845D-E090-4B53-AC05-74012E8CC760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF324C4-A7C1-4440-ABC3-3B96D6FFD24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF324C4-A7C1-4440-ABC3-3B96D6FFD24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF324C4-A7C1-4440-ABC3-3B96D6FFD24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF324C4-A7C1-4440-ABC3-3B96D6FFD24C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F208C60-5143-4BEF-84C5-60DEADAF83A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F208C60-5143-4BEF-84C5-60DEADAF83A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F208C60-5143-4BEF-84C5-60DEADAF83A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F208C60-5143-4BEF-84C5-60DEADAF83A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F208C60-5143-4BEF-84C5-60DEADAF83A9} = {D57DCD26-95CA-47EE-A509-511BCED592BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2214225C-8A8D-4652-916B-E3A6617D72DB}
