@@ -32,5 +32,7 @@ public partial class MainWindow : Window
         
         SignInRequest request = SignInRequest.WithProviderFlow(flow);
         await authentication.SignInAsync(request);
+
+        Result.Text = authentication.CurrentUser?.Email ?? "oops";
     }
 }

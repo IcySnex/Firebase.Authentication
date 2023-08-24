@@ -19,7 +19,9 @@ public class GoolgeProviderFlow : ProviderFlow
         WindowConfig windowConfig) :
             base(
                 windowConfig: windowConfig,
-                provider: Provider.Google)
+                provider: Provider.Google,
+                windowSize: (470, 700),
+                redirectTo: "http://localhost")
     { }
 
     /// <summary>
@@ -33,6 +35,8 @@ public class GoolgeProviderFlow : ProviderFlow
             base(
                 windowConfig: windowConfig,
                 provider: Provider.Google,
+                windowSize: (470, 700),
+                redirectTo: "http://localhost",
                 logger: logger)
     { }
 }

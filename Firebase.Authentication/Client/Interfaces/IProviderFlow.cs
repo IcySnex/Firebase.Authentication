@@ -8,7 +8,7 @@ public interface IProviderFlow
     /// <summary>
     /// Signs in the given client with this provider flow
     /// </summary>
-    /// <param name="authentication">The Authentication client to sign into</param>
+    /// <param name="authentication">The authentication client to sign into</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>

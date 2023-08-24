@@ -9,7 +9,8 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Grid>
+    <StackPanel>
         <Button Click="Button_Click">Click</Button>
-    </Grid>
+        <TextBlock Name="Result" />
+    </StackPanel>
 </Window>
