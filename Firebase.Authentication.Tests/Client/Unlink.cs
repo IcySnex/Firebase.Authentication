@@ -17,7 +17,7 @@ public class Unlink
         HttpConfig httpConfig = new(TestData.Timeout, TestData.Proxy);
         AuthenticationConfig config = new(TestData.ApiKey, httpConfig);
 
-        client = new AuthenticaionClient(config);
+        client = new AuthenticationClient(config);
 
         // Sign in
         SignInRequest signInRequest = SignInRequest.WithEmailPassword(TestData.Email, TestData.Password);

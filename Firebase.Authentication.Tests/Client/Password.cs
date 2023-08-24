@@ -16,7 +16,7 @@ public class Password
         HttpConfig httpConfig = new(TestData.Timeout, TestData.Proxy);
         AuthenticationConfig config = new(TestData.ApiKey, httpConfig);
 
-        client = new AuthenticaionClient(config);
+        client = new AuthenticationClient(config);
     }
 
 

@@ -3,14 +3,14 @@
 namespace Firebase.Authentication.Models;
 
 /// <summary>
-/// Represents an authenticaion redirect at a provider
+/// Represents an Authentication redirect at a provider
 /// </summary>
 public class ProviderRedirect
 {
     /// <summary>
     /// Creates a new ProviderRedirect
     /// </summary>
-    /// <param name="provider">The provider for the authenticaion request</param>
+    /// <param name="provider">The provider for the Authentication request</param>
     /// <param name="uri">The authorization URI for the requested provider</param>
     /// <param name="sessionId"></param>
     public ProviderRedirect(
@@ -25,7 +25,7 @@ public class ProviderRedirect
 
 
     /// <summary>
-    /// The provider for the authenticaion request
+    /// The provider for the Authentication request
     /// </summary>
     public Provider Provider { get; }
 
@@ -35,7 +35,7 @@ public class ProviderRedirect
     public string Uri { get; }
 
     /// <summary>
-    /// The session id for this authenticaion
+    /// The session id for this Authentication
     /// </summary>
     public string SessionId { get; }
 }

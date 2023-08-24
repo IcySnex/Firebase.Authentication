@@ -1,7 +1,7 @@
 ﻿namespace Firebase.Authentication.Requests;
 
 /// <summary>
-/// Model to send a new sign up request for different authenticaion methods
+/// Model to send a new sign up request for different Authentication methods
 /// </summary>
 public abstract class SignUpRequest
 {

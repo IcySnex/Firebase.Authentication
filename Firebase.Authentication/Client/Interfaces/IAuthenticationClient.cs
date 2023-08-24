@@ -21,7 +21,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// </summary>
     /// <param name="forceRefresh">When true the expiration period of the current credential is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this actioun</param>
-    /// <returns>An always valid authenticaion credential</returns>
+    /// <returns>An always valid Authentication credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>

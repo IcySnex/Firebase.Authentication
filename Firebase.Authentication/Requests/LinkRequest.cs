@@ -3,7 +3,7 @@
 namespace Firebase.Authentication.Requests;
 
 /// <summary>
-/// Model to send a new link to user for different authenticaion methods
+/// Model to send a new link to user for different Authentication methods
 /// </summary>
 public abstract class LinkRequest
 {
