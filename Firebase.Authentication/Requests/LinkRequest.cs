@@ -12,11 +12,12 @@ public abstract class LinkRequest
     /// </summary>
     /// <param name="email">The email the user is linking to</param>
     /// <param name="password">The password for the use</param>
-    /// <returns>A new UpdateRequest</returns>
-    public static LinkToPasswordRequest ToEmailPassword(
+    /// <returns>A new link to email and password request</returns>
+    public static LinkRequest ToEmailPassword(
         string email,
         string password) =>
-        new(idToken: default!,
+        new LinkToPasswordRequest(
+            idToken: default!,
             email: email,
             password: password);
 
@@ -26,11 +27,12 @@ public abstract class LinkRequest
     /// </summary>
     /// <param name="sessionInfo">Encrypted session information from the response of sendVerificationCode</param>
     /// <param name="code">User-entered verification code from an SMS sent to the user's phone</param>
-    /// <returns>A new SignInWithPhoneNumberRequest</returns>
-    public static LinkToPhoneNumberRequest ToPhoneNumber(
+    /// <returns>A new link to phone number request</returns>
+    public static LinkRequest ToPhoneNumber(
         string sessionInfo,
         string code) =>
-        new(idToken: default!,
+        new LinkToPhoneNumberRequest(
+            idToken: default!,
             sessionInfo: sessionInfo,
             code: code);
 
@@ -40,11 +42,12 @@ public abstract class LinkRequest
     /// </summary>
     /// <param name="email">The email address the link-user link was sent to</param>
     /// <param name="code">The out-of-band code from the email link</param>
-    /// <returns>A new SignInWithEmailLinkRequest</returns>
-    public static LinkToEmailLinkRequest ToEmailLink(
+    /// <returns>A new link to email link request</returns>
+    public static LinkRequest ToEmailLink(
         string email,
         string code) =>
-        new(oobCode: code,
+        new LinkToEmailLinkRequest(
+            oobCode: code,
             email: email,
             idToken: default!);
 
@@ -54,11 +57,12 @@ public abstract class LinkRequest
     /// </summary>
     /// <param name="redirectedUri">The url to which the provider redirected the user back to</param>
     /// <param name="sessionId">The respective session id from a previous call</param>
-    /// <returns>A new SignInWithIdpRequest</returns>
-    public static LinkToIdpRequest ToProviderRedirect(
+    /// <returns>A new link to provider redirect request</returns>
+    public static LinkRequest ToProviderRedirect(
         string redirectedUri,
         string sessionId) =>
-        new(requestUri: redirectedUri,
+        new LinkToIdpRequest(
+            requestUri: redirectedUri,
             sessionId: sessionId,
             idToken: default!);
 }

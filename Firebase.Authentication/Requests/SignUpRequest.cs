@@ -12,13 +12,14 @@ public abstract class SignUpRequest
     /// <param name="password">The password for the account</param>
     /// <param name="displayName">The display name for the account</param>
     /// <param name="photoUrl">The photo url for the account</param>
-    /// <returns>A new Base.SignUpRequest</returns>
-    public static IdentityPlatform.SignUpRequest WithEmailPassword(
+    /// <returns>A new sign up with email and password request</returns>
+    public static SignUpRequest WithEmailPassword(
         string email,
         string password,
         string? displayName = null,
         string? photoUrl = null) =>
-        new(email: email,
+        new IdentityPlatform.SignUpRequest(
+            email: email,
             password:
             password, 
             displayName: displayName,
@@ -29,10 +30,11 @@ public abstract class SignUpRequest
     /// </summary>
     /// <param name="displayName">The display name for the account</param>
     /// <param name="photoUrl">The photo url for the account</param>
-    /// <returns>A new Base.SignUpRequest</returns>
-    public static IdentityPlatform.SignUpRequest Anonymously(
+    /// <returns>A new sign up anonymously request</returns>
+    public static SignUpRequest Anonymously(
         string? displayName = null,
         string? photoUrl = null) =>
-        new(displayName: displayName,
+        new IdentityPlatform.SignUpRequest(
+            displayName: displayName,
             photoUrl: photoUrl);
 }

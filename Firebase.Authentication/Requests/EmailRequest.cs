@@ -11,39 +11,43 @@ public abstract class EmailRequest
     /// <summary>
     /// Send a verify email to the current users account
     /// </summary>
-    /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static SendOobCodeRequest Verify() =>
-        new(requestType: OobType.VerifyEmail);
+    /// <returns>A new email verify email request</returns>
+    public static EmailRequest Verify() =>
+        new SendOobCodeRequest(
+            requestType: OobType.VerifyEmail);
 
     /// <summary>
     /// Send a new change email address email to the current users account
     /// </summary>
     /// <param name="newEmail">The new email the user is changing to</param>
-    /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static SendOobCodeRequest Change(
+    /// <returns>A new email change email request</returns>
+    public static EmailRequest Change(
         string newEmail) =>
-        new(requestType: OobType.VerifyAndChangeEmail,
+        new SendOobCodeRequest(
+            requestType: OobType.VerifyAndChangeEmail,
             newEmail: newEmail);
 
     /// <summary>
     /// Send a new reset password email to the given account
     /// </summary>
     /// <param name="email">The email the user is changing to</param>
-    /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static SendOobCodeRequest ResetPassword(
+    /// <returns>A new reset password email request</returns>
+    public static EmailRequest ResetPassword(
         string email) =>
-        new(requestType: OobType.ResetPassword,
+        new SendOobCodeRequest(
+            requestType: OobType.ResetPassword,
             email: email);
 
     /// <summary>
     /// Send a new sign in with link email to the given account
     /// </summary>
     /// <param name="email">The email the user is changing to</param>
-    /// <returns>A new Base.SendOobCodeRequest</returns>
-    public static SendOobCodeRequest SignIn(
+    /// <returns>A new email sign in email request</returns>
+    public static EmailRequest SignIn(
         string email,
         string continueUrl) =>
-        new(requestType: OobType.SignInEmail,
+        new SendOobCodeRequest(
+            requestType: OobType.SignInEmail,
             email: email,
             continueUrl: continueUrl);
 }
