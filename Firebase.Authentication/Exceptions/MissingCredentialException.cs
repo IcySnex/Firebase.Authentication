@@ -3,7 +3,7 @@
 public class MissingCredentialException : IdentityPlatformException
 {
     /// <summary>
-    /// Credentials are missing. You first have to sign in.
+    /// Credentials are missing. First sign in or validate provider flow.
     /// </summary>
-    public MissingCredentialException() : base("MISSING_CREDENTIAL", "Credentials are missing. You first have to sign in.") { }
+    public MissingCredentialException() : base("MISSING_CREDENTIAL", "Credentials are missing. First sign in or validate provider flow.") { }
 }

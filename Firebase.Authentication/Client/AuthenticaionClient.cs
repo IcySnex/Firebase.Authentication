@@ -16,60 +16,60 @@ namespace Firebase.Authentication.Client;
 /// <summary>
 /// Client for all high level Firebase Authentication actions implementing INotifyPropertyChanged
 /// </summary>
-public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
+public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChanged
 {
     readonly IIdentityPlatformClient identityPlatform;
 
     readonly ILogger<IAuthenticationClient>? logger;
 
     /// <summary>
-    /// Creates a new AuthenticaionClient
+    /// Creates a new AuthenticationClient
     /// </summary>
     /// <param name="config">The configuration the Identity Platform client should be created with</param>
-    public AuthenticaionClient(
+    public AuthenticationClient(
         AuthenticationConfig config)
     {
         identityPlatform = new IdentityPlatformClient(config);
     }
 
     /// <summary>
-    /// Creates a new AuthenticaionClient with extendended logging functions
+    /// Creates a new AuthenticationClient with extendended logging functions
     /// </summary>
     /// <param name="config">The configuration the Identity Platform client should be created with</param>
     /// <param name="logger">The logger which will be used to log</param>
-    public AuthenticaionClient(
+    public AuthenticationClient(
         AuthenticationConfig config,
-        ILogger<IAuthenticationClient>? logger)
+        ILogger<IAuthenticationClient> logger)
     {
         identityPlatform = new IdentityPlatformClient(config, logger);
 
         this.logger = logger;
-        logger?.LogInformation($"[AuthenticaionClient-.ctor] AuthenticaionClient has been initialized.");
+        logger.LogInformation($"[AuthenticationClient-.ctor] AuthenticationClient has been initialized.");
     }
 
     /// <summary>
-    /// Creates a new AuthenticaionClient
+    /// Creates a new AuthenticationClient
     /// </summary>
     /// <param name="identityPlatform">Underlaying Identity Platform client used for all low level identity platform accounts actions</param>
-    public AuthenticaionClient(
+    public AuthenticationClient(
         IIdentityPlatformClient identityPlatform)
     {
         this.identityPlatform = identityPlatform;
     }
 
     /// <summary>
-    /// Creates a new AuthenticaionClient with extendended logging functions
+    /// Creates a new AuthenticationClient with extendended logging functions
     /// </summary>
     /// <param name="identityPlatform">Underlaying Identity Platform client used for all low level identity platform accounts actions</param>
     /// <param name="logger">The logger which will be used to log</param>
-    public AuthenticaionClient(
+    public AuthenticationClient(
         IIdentityPlatformClient identityPlatform,
-        ILogger<IAuthenticationClient>? logger)
+        ILogger<IAuthenticationClient> logger)
     {
         this.identityPlatform = identityPlatform;
 
         this.logger = logger;
-        logger?.LogInformation($"[AuthenticaionClient-.ctor] AuthenticaionClient has been initialized.");
+        logger.LogInformation($"[AuthenticationClient-.ctor] AuthenticationClient has been initialized.");
     }
 
 
@@ -105,7 +105,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         if (CurrentCredential is not null)
             return;
 
-        logger?.LogError("[AuthenticaionClient-ThrowIfMissingCredential] MISSING_CREDENTIAL: You first have to sign in.");
+        logger?.LogError("[AuthenticationClient-ThrowIfMissingCredential] MISSING_CREDENTIAL: You first have to sign in.");
         throw new MissingCredentialException();
     }
 
@@ -118,7 +118,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         if (CurrentCredential is null)
             return;
 
-        logger?.LogError("[AuthenticaionClient-ThrowIfCredentialAlreadyExist] CREDENTIAL_ALREADY_EXIST: You first have to sign out.");
+        logger?.LogError("[AuthenticationClient-ThrowIfCredentialAlreadyExist] CREDENTIAL_ALREADY_EXIST: You first have to sign out.");
         throw new CredentialAlreadyExistException();
     }
 
@@ -139,7 +139,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
     /// </summary>
     /// <param name="forceRefresh">When true the expiration period of the current credential is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <returns>An always valid authenticaion credential</returns>
+    /// <returns>An always valid Authentication credential</returns>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
@@ -155,7 +155,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         if (!forceRefresh && !CurrentCredential!.IsExpired)
         {
-            logger?.LogInformation("[AuthenticaionClient-GetFreshCredentialAsync] Current credential not expired: Returned current credential.");
+            logger?.LogInformation("[AuthenticationClient-GetFreshCredentialAsync] Current credential not expired: Returned current credential.");
             return CurrentCredential;
         }
 
@@ -165,7 +165,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         SecureTokenResponse response = await identityPlatform.SecureTokenAsync(request, cancellationToken);
         CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
 
-        logger?.LogInformation("[AuthenticaionClient-GetFreshCredentialAsync] Exchanged refresh token for a new ID token.");
+        logger?.LogInformation("[AuthenticationClient-GetFreshCredentialAsync] Exchanged refresh token for a new ID token.");
         return CurrentCredential;
     }
 
@@ -203,7 +203,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         // Validation
         if (!forceRefresh && CurrentUser is not null && CurrentUser.IsValid)
         {
-            logger?.LogInformation("[AuthenticaionClient-GetFreshUserAsync] Current user info is still valid: Returned current user info.");
+            logger?.LogInformation("[AuthenticationClient-GetFreshUserAsync] Current user info is still valid: Returned current user info.");
             return CurrentUser;
         }
 
@@ -216,13 +216,13 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         if (response.Users.Length == 0)
         {
-            logger?.LogError("[AuthenticaionClient-GetFreshUserAsync] USER_NOT_FOUND: The user corresponding to the refresh token/identifier was not found. The user may have been deleted.");
+            logger?.LogError("[AuthenticationClient-GetFreshUserAsync] USER_NOT_FOUND: The user corresponding to the refresh token/identifier was not found. The user may have been deleted.");
             throw new UserNotFoundException();
         }
         CurrentUser = response.Users[0];
         CurrentUser.ValidityPeriod = validityPeriod;
 
-        logger?.LogInformation("[AuthenticaionClient-GetFreshUserAsync] Refreshed the current user info.");
+        logger?.LogInformation("[AuthenticationClient-GetFreshUserAsync] Refreshed the current user info.");
         return CurrentUser;
     }
 
@@ -249,7 +249,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         SignUpResponse response = await identityPlatform.SignUpAsync((Requests.IdentityPlatform.SignUpRequest)request, cancellationToken);
         CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn);
 
-        logger?.LogInformation("[AuthenticaionClient-SignUpAsync] Signed up.");
+        logger?.LogInformation("[AuthenticationClient-SignUpAsync] Signed up.");
 
         // Refresh current user
         await GetFreshUserAsync(CurrentCredential.ExpiresIn);
@@ -282,35 +282,43 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
                 SignInWithPasswordResponse passwordResponse = await identityPlatform.SignInWithPasswordAsync(passwordRequest, cancellationToken);
                 CurrentCredential = new(passwordResponse.IdToken, passwordResponse.RefreshToken, passwordResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with password.");
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with password.");
                 break;
 
             case SignInWithCustomTokenRequest customTokenRequest: // Send sign in with custom token request
                 SignInWithCustomTokenResponse customTokenResponse = await identityPlatform.SignInWithCustomTokenAsync(customTokenRequest, cancellationToken);
                 CurrentCredential = new(customTokenResponse.IdToken, customTokenResponse.RefreshToken, customTokenResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with custom token.");
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with custom token.");
                 break;
 
             case SignInWithPhoneNumberRequest phoneNumberRequest: // Send sign in with phonenumber request
                 SignInWithPhoneNumberResponse phoneNumberResponse = await identityPlatform.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
                 CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with phone number.");
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with phone number.");
                 break;
 
             case SignInWithEmailLinkRequest emailLinkRequest: // Send sign in with phonenumber request
                 SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
                 CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with email link.");
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with email link.");
                 break;
 
             case SignInWithIdpRequest idpRequest: // Send sign in with phonenumber request
                 SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-SignInAsync] Signed in with idp.");
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with idp.");
+                break;
+
+            case SignInWithProviderFlowRequest providerFlowRequest:
+                await providerFlowRequest.Flow.SignInAsync(this, cancellationToken);
+                if (CurrentCredential is null)
+                    throw new MissingCredentialException();
+
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with provider flow.");
                 break;
         }
 
@@ -352,7 +360,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
                 UpdateResponse passwordResponse = await identityPlatform.UpdateAsync(passwordRequest, null, cancellationToken);
                 CurrentCredential = new(passwordResponse.IdToken, credential.RefreshToken, TimeSpan.FromHours(1));
 
-                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to password.");
+                logger?.LogInformation("[AuthenticationClient-LinkAsync] Linked current user to password.");
                 break;
 
             case LinkToPhoneNumberRequest phoneNumberRequest: // Send sign in with phonenumber request
@@ -360,7 +368,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
                 SignInWithPhoneNumberResponse phoneNumberResponse = await identityPlatform.SignInWithPhoneNumberAsync(phoneNumberRequest, cancellationToken);
                 CurrentCredential = new(phoneNumberResponse.IdToken, phoneNumberResponse.RefreshToken, phoneNumberResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to phone number.");
+                logger?.LogInformation("[AuthenticationClient-LinkAsync] Linked current user to phone number.");
                 break;
 
             case LinkToEmailLinkRequest emailLinkRequest: // Send sign in with phonenumber request
@@ -368,7 +376,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
                 SignInWithEmailLinkResponse emailLinkResponse = await identityPlatform.SignInWithEmailLinkAsync(emailLinkRequest, cancellationToken);
                 CurrentCredential = new(emailLinkResponse.IdToken, emailLinkResponse.RefreshToken, emailLinkResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to email link.");
+                logger?.LogInformation("[AuthenticationClient-LinkAsync] Linked current user to email link.");
                 break;
 
             case LinkToIdpRequest idpRequest: // Send sign in with phonenumber request
@@ -376,7 +384,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
                 SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
-                logger?.LogInformation("[AuthenticaionClient-LinkAsync] Linked current user to idp.");
+                logger?.LogInformation("[AuthenticationClient-LinkAsync] Linked current user to idp.");
                 break;
 
             default: // This should never occur
@@ -425,7 +433,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             deleteProviders: providers);
         await identityPlatform.UpdateAsync(request, null, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-UnlinkAsync] Unlinked current user from given providers.");
+        logger?.LogInformation("[AuthenticationClient-UnlinkAsync] Unlinked current user from given providers.");
 
         // Refresh current user
         await GetFreshUserAsync(credential.ExpiresIn, true);
@@ -451,7 +459,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             idToken: credential.IdToken);
         await identityPlatform.DeleteAsync(request, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-DeleteAsync] Deleted the current user.");
+        logger?.LogInformation("[AuthenticationClient-DeleteAsync] Deleted the current user.");
         SignOut();
     }
 
@@ -486,7 +494,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             deleteAttributes: deleteDisplayName ? deletePhotoUrl ? new[] { UserAttributeName.DisplayName, UserAttributeName.PhotoUrl } : new[] { UserAttributeName.DisplayName } : photoUrl is null ? new[] { UserAttributeName.PhotoUrl } : null);
         await identityPlatform.UpdateAsync(request, null, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-UpdateAsync] Updated the current user.");
+        logger?.LogInformation("[AuthenticationClient-UpdateAsync] Updated the current user.");
 
         // Refresh current user
         await GetFreshUserAsync(credential.ExpiresIn, true);
@@ -517,7 +525,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             email: currentUser.Email);
         await identityPlatform.ResetPasswordASync(request, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Changed the current users password.");
+        logger?.LogInformation("[AuthenticationClient-ResetPasswordAsync] Changed the current users password.");
     }
 
     /// <summary>
@@ -552,7 +560,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         // Send request
         SendOobCodeResponse response = await identityPlatform.SendOobCodeAsync(oobRequest, locale, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-SendEmailAsync] Sent a email to the account.");
+        logger?.LogInformation("[AuthenticationClient-SendEmailAsync] Sent a email to the account.");
         return response.Email!;
     }
 
@@ -580,7 +588,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             oobCode: code);
         ResetPasswordResponse response = await identityPlatform.ResetPasswordASync(request, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-ResetPasswordAsync] Reset the users password.");
+        logger?.LogInformation("[AuthenticationClient-ResetPasswordAsync] Reset the users password.");
         return response.Email;
     }
 
@@ -607,7 +615,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             identifier: email);
         CreateAuthUrlResponse response = await identityPlatform.CreateAuthUriAsync(request, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-GetSignInMethodsAsync] Got sign in methods for email.");
+        logger?.LogInformation("[AuthenticationClient-GetSignInMethodsAsync] Got sign in methods for email.");
         return response.SigninMethods;
     }
 
@@ -636,7 +644,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
             recaptchaToken: recaptchaToken);
         SendVerificationCodeResponse response = await identityPlatform.SendVerificationCodeAsync(request, locale, cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-SendVerificationCodeAsync] Sent verification code to phone number.");
+        logger?.LogInformation("[AuthenticationClient-SendVerificationCodeAsync] Sent verification code to phone number.");
         return response.SessionInfo;
     }
 
@@ -668,7 +676,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
 
         ProviderRedirect redirect = new(response.Provider.Value, response.AuthUri, response.SessionId);
 
-        logger?.LogInformation("[AuthenticaionClient-GetProviderAuthAsync] Created provider authenticaion.");
+        logger?.LogInformation("[AuthenticationClient-GetProviderAuthAsync] Created provider Authentication.");
         return redirect;
     }
 
@@ -689,7 +697,7 @@ public class AuthenticaionClient : IAuthenticationClient, INotifyPropertyChanged
         // Send request
         RecaptchaParamsResponse response = await identityPlatform.GetRecaptchaParamsAsync(cancellationToken);
 
-        logger?.LogInformation("[AuthenticaionClient-GetRecaptchaSiteKeyAsync] Got reCAPTCHA site key.");
+        logger?.LogInformation("[AuthenticationClient-GetRecaptchaSiteKeyAsync] Got reCAPTCHA site key.");
         return response.RecaptchaSiteKey;
     }
 }

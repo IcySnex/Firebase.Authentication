@@ -1,11 +1,10 @@
 ﻿using Firebase.Authentication.Client.Interfaces;
-using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests.IdentityPlatform;
 
 namespace Firebase.Authentication.Requests;
 
 /// <summary>
-/// Model to send a new sign in request for different authenticaion methods
+/// Model to send a new sign in request for different Authentication methods
 /// </summary>
 public abstract class SignInRequest
 {
@@ -74,4 +73,15 @@ public abstract class SignInRequest
         new SignInWithIdpRequest(
             requestUri: redirectedUri,
             sessionId: sessionId);
+
+
+    /// <summary>
+    /// Sign in with a provider flow
+    /// </summary>
+    /// <param name="flow">The provider flow used to sign in</param>
+    /// <returns></returns>
+    public static SignInRequest WithProviderFlow(
+        IProviderFlow flow) =>
+        new SignInWithProviderFlowRequest(
+            flow: flow);
 }
