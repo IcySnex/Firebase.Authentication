@@ -8,7 +8,7 @@ using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using System.Windows;
 
-namespace Firebase.Authentication.WPF.Internal;
+namespace Firebase.Authentication.WPF.Client;
 
 /// <summary>
 /// Handles 3rd party OAuth provider authentication with a new window
@@ -26,6 +26,8 @@ public abstract class ProviderFlow : IProviderFlow
     /// </summary>
     /// <param name="windowConfig">The configuration the provider flow window will be created with</param>
     /// <param name="provider">The provider used for this flow</param>
+    /// <param name="windowSize">The size of the provider flow window</param>
+    /// <param name="redirectTo">The url to which the provider will redirect the user back to</param>
     public ProviderFlow(
         WindowConfig windowConfig,
         Provider provider,
@@ -44,6 +46,8 @@ public abstract class ProviderFlow : IProviderFlow
     /// <param name="windowConfig">The configuration the provider flow window will be created with</param>
     /// <param name="provider">The provider used for this flow</param>
     /// <param name="logger">The logger which will be used to log</param>
+    /// <param name="windowSize">The size of the provider flow window</param>
+    /// <param name="redirectTo">The url to which the provider will redirect the user back to</param>
     public ProviderFlow(
         WindowConfig windowConfig,
         Provider provider,
@@ -78,11 +82,12 @@ public abstract class ProviderFlow : IProviderFlow
             Title = WindowConfiguration.Title,
             Icon = WindowConfiguration.Icon,
             Owner = WindowConfiguration.Owner,
-            Left = 0,
-            Top = 0,
+            Left = WindowConfiguration.Left,
+            Top = WindowConfiguration.Top,
+            WindowStartupLocation = WindowConfiguration.StartupLocation,
             Width = windowSize.width,
             Height = windowSize.height,
-            ResizeMode = ResizeMode.CanResize,
+            ResizeMode = ResizeMode.NoResize,
             Content = webView
         };
 
@@ -91,17 +96,16 @@ public abstract class ProviderFlow : IProviderFlow
 
 
     /// <summary>
-    /// Signs in the given client with this provider flow
+    /// Authenticates the given client with this provider flow
     /// </summary>
-    /// <param name="authentication">The authentication client to sign into</param>
+    /// <param name="authentication">The authentication client to authenticate</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
-    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
     /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
     /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
-    public async Task SignInAsync(
+    async Task<(string redirectedUrl, string sessionId)> AuthenticateAsync(
         IAuthenticationClient authentication,
         CancellationToken cancellationToken = default)
     {
@@ -117,10 +121,7 @@ public abstract class ProviderFlow : IProviderFlow
         cancelSource.Token.Register(() =>
         {
             taskWaiter.TrySetCanceled();
-
-            // If cancelled and redirectedUrl is still not set close window
-            if (window is not null)
-                window.Dispatcher.BeginInvoke(window.Close);
+            window?.Dispatcher.BeginInvoke(window.Close);
 
             logger?.LogInformation($"[ProviderFlow-OnTokenCancelled] Provider ({provider}) flow authenticaion was cancelled");
         });
@@ -151,7 +152,7 @@ public abstract class ProviderFlow : IProviderFlow
             logger?.LogInformation("[ProviderFlow-OnWindowClosed] Provider flow window was closed and objects were disposed");
         }
 
-        if (WindowConfiguration.ShowAsDialog && WindowConfiguration.Owner is not null)
+        if (WindowConfiguration.ShowAsDialog)
             await Task.Run(() => window.Dispatcher.BeginInvoke(window.ShowDialog));
         else
             window.Show();
@@ -172,8 +173,13 @@ public abstract class ProviderFlow : IProviderFlow
         {
             // If navigation contains redirected back url set result
             if (e.Uri.StartsWith(redirectTo))
+            {
                 taskWaiter.SetResult(e.Uri);
+            }
         }
+
+        if (provider == Provider.Facebook)
+            webView.CoreWebView2.NavigationCompleted += async (s, e) => await webView.CoreWebView2.ExecuteScriptAsync("document.querySelector(`button[title=\"Decline optional cookies\"]`)?.click()");
 
 
         // Authenticate
@@ -182,10 +188,53 @@ public abstract class ProviderFlow : IProviderFlow
         window.Close();
 
         logger?.LogInformation("[ProviderFlow-SignInAsync] Provider flow was successfully authenticated");
+        return (redirectedUrl, redirect.SessionId);
+    }
 
+
+    /// <summary>
+    /// Signs in the given client with this provider flow
+    /// </summary>
+    /// <param name="authentication">The authentication client to sign into</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task SignInAsync(
+        IAuthenticationClient authentication,
+        CancellationToken cancellationToken = default)
+    {
+        // Authenticate
+        (string redirectedUrl, string sessionId) providerInfo = await AuthenticateAsync(authentication, cancellationToken);
 
         // Sign in
-        SignInRequest request = SignInRequest.WithProviderRedirect(redirectedUrl, redirect.SessionId);
+        SignInRequest request = SignInRequest.WithProviderRedirect(providerInfo.redirectedUrl, providerInfo.sessionId);
         await authentication.SignInAsync(request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Links the current user of the given client with this provider flow
+    /// </summary>
+    /// <param name="authentication">The authentication client to sign into</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.CredentialAlreadyExistException">Occurrs when the current credential is not null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task LinkAsync(
+        IAuthenticationClient authentication,
+        CancellationToken cancellationToken = default)
+    {
+        // Authenticate
+        (string redirectedUrl, string sessionId) providerInfo = await AuthenticateAsync(authentication, cancellationToken);
+
+        // Link
+        LinkRequest request = LinkRequest.ToProviderRedirect(providerInfo.redirectedUrl, providerInfo.sessionId);
+        await authentication.LinkAsync(request, cancellationToken);
     }
 }
