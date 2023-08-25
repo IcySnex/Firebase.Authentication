@@ -8,8 +8,86 @@
     Title="MainWindow"
     Width="800"
     Height="450"
+    Background="Gray"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="ImageButton" TargetType="Button">
+            <Setter Property="Width" Value="220" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="#ffffff" />
+            <Setter Property="Foreground" Value="#828282" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="ButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            CornerRadius="2">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="4"
+                                    Direction="270"
+                                    Opacity="0.2"
+                                    ShadowDepth="3" />
+                            </Border.Effect>
+
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="16" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Width="18" Height="18">
+                                    <Image.Source>
+                                        <DrawingImage>
+                                            <DrawingImage.Drawing>
+                                                <DrawingGroup ClipGeometry="M0,0 V120 H118 V0 H0 Z">
+                                                    <DrawingGroup Opacity="1">
+                                                        <DrawingGroup Opacity="1" Transform="1,0,0,1,-332,-639">
+                                                            <DrawingGroup Opacity="1" Transform="1,0,0,1,332,639">
+                                                                <DrawingGroup Opacity="1">
+                                                                    <GeometryDrawing Brush="#FF4285F4" Geometry="F0 M118,120z M0,0z M117.6,61.3636364C117.6,57.1090909,117.218182,53.0181818,116.509091,49.0909091L60,49.0909091 60,72.3 92.2909091,72.3C90.9,79.8,86.6727273,86.1545455,80.3181818,90.4090909L80.3181818,105.463636 99.7090909,105.463636C111.054545,95.0181818,117.6,79.6363636,117.6,61.3636364L117.6,61.3636364z" />
+                                                                    <GeometryDrawing Brush="#FF34A853" Geometry="F0 M118,120z M0,0z M60,120C76.2,120,89.7818182,114.627273,99.7090909,105.463636L80.3181818,90.4090909C74.9454545,94.0090909 68.0727273,96.1363636 60,96.1363636 44.3727273,96.1363636 31.1454545,85.5818182 26.4272727,71.4L6.38181818,71.4 6.38181818,86.9454545C16.2545455,106.554545,36.5454545,120,60,120L60,120z" />
+                                                                    <GeometryDrawing Brush="#FFFBBC05" Geometry="F0 M118,120z M0,0z M26.4272727,71.4C25.2272727,67.8 24.5454545,63.9545455 24.5454545,60 24.5454545,56.0454545 25.2272727,52.2 26.4272727,48.6L26.4272727,33.0545455 6.38181818,33.0545455C2.31818182,41.1545455 0,50.3181818 0,60 0,69.6818182 2.31818182,78.8454545 6.38181818,86.9454545L26.4272727,71.4 26.4272727,71.4z" />
+                                                                    <GeometryDrawing Brush="#FFEA4335" Geometry="F0 M118,120z M0,0z M60,23.8636364C68.8090909,23.8636364,76.7181818,26.8909091,82.9363636,32.8363636L100.145455,15.6272727C89.7545455,5.94545455 76.1727273,0 60,0 36.5454545,0 16.2545455,13.4454545 6.38181818,33.0545455L26.4272727,48.6C31.1454545,34.4181818,44.3727273,23.8636364,60,23.8636364L60,23.8636364z" />
+                                                                </DrawingGroup>
+                                                            </DrawingGroup>
+                                                        </DrawingGroup>
+                                                    </DrawingGroup>
+                                                </DrawingGroup>
+                                            </DrawingImage.Drawing>
+                                        </DrawingImage>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Text="{TemplateBinding Content}" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#dbdbdb" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <StackPanel>
+        <Button
+            Margin="12"
+            Content="Sign in with Google"
+            Style="{StaticResource ImageButton}" />
+
         <Button Click="Button_Click">Click</Button>
         <TextBlock Name="Result" />
     </StackPanel>
