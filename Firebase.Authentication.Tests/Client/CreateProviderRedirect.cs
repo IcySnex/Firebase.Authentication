@@ -78,7 +78,7 @@ public class CreateProviderRedirect
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.CreateProviderRedirectAsync(Provider.Faceook, TestData.ContinueUrl);
+            response = await client.CreateProviderRedirectAsync(Provider.Facebook, TestData.ContinueUrl);
         });
 
         // Write result

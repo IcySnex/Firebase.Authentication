@@ -35,7 +35,7 @@ public enum Provider
     /// Authentication using Facebook
     /// </summary>
     [EnumMember(Value = "facebook.com")]
-    Faceook,
+    Facebook,
 
     /// <summary>
     /// Authentication using Google

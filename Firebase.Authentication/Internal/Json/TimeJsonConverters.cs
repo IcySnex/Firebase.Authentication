@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Firebase.Authentication.Internal.Json;
 
-public class MsJsonConverter : JsonConverter<DateTime>
+internal class MsJsonConverter : JsonConverter<DateTime>
 {
     public override DateTime Read(
         ref Utf8JsonReader reader,
