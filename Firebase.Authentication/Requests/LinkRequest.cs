@@ -1,4 +1,5 @@
-﻿using Firebase.Authentication.Requests.IdentityPlatform;
+﻿using Firebase.Authentication.Client.Interfaces;
+using Firebase.Authentication.Requests.IdentityPlatform;
 
 namespace Firebase.Authentication.Requests;
 
@@ -65,4 +66,14 @@ public abstract class LinkRequest
             requestUri: redirectedUri,
             sessionId: sessionId,
             idToken: default!);
+
+    /// <summary>
+    /// Link to a provider flow
+    /// </summary>
+    /// <param name="flow">The provider flow used to link to</param>
+    /// <returns></returns>
+    public static LinkRequest ToProviderFlow(
+        IProviderFlow flow) =>
+        new LinkToProviderFlowRequest(
+            flow: flow);
 }

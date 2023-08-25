@@ -74,7 +74,6 @@ public abstract class SignInRequest
             requestUri: redirectedUri,
             sessionId: sessionId);
 
-
     /// <summary>
     /// Sign in with a provider flow
     /// </summary>

@@ -387,6 +387,14 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
                 logger?.LogInformation("[AuthenticationClient-LinkAsync] Linked current user to idp.");
                 break;
 
+            case LinkToProviderFlowRequest providerFlowRequest:
+                await providerFlowRequest.Flow.LinkAsync(this, cancellationToken);
+                if (CurrentCredential is null)
+                    throw new MissingCredentialException();
+
+                logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with provider flow.");
+                break;
+
             default: // This should never occur
                 throw new InvalidRequestTypeException();
         }
