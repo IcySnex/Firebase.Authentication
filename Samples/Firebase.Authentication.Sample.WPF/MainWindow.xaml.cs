@@ -5,6 +5,8 @@ using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Configuration;
 using Firebase.Authentication.Requests;
 using System.Windows;
+using Firebase.Authentication.WPF.UI;
+using Firebase.Authentication.WPF.Client;
 
 namespace Firebase.Authentication.Sample.WPF;
 
@@ -18,20 +20,15 @@ public partial class MainWindow : Window
         AuthenticationConfig config = new("AIzaSyALFTcLBy2mjtgCjKfIJ82Ivu-wVR3w9Z4");
         WindowConfig windowConfig = new(
             title: "Sign in!",
+            icon: Icons.Google,
             owner: this,
             startupLocation: WindowStartupLocation.CenterOwner,
             left: 100,
             showAsDialog: true);
 
         authentication = new AuthenticationClient(config);
-        flow = new FacebookProviderFlow(windowConfig);
+        flow = new GoogleProviderFlow(windowConfig);
 
-    }
-
-
-    private async void Button_Click(object sender, RoutedEventArgs e)
-    {
-        await LinkToProviderAsync();
     }
 
 
@@ -51,7 +48,6 @@ public partial class MainWindow : Window
         {
             Result.Text = "Signing in failed: " + ex.Message;
         }
-
     }
 
     public async Task LinkToProviderAsync()
@@ -78,6 +74,11 @@ public partial class MainWindow : Window
         {
             Result.Text = "Linking failed: " + ex.Message;
         }
+    }
 
+
+    private async void FirebaseAuthenticaionButton_Click(object sender, RoutedEventArgs e)
+    {
+        await SignInWithProviderAsync();
     }
 }
