@@ -229,5 +229,4 @@ public static class Icons
             return new(drawing);
         }
     }
-
 }

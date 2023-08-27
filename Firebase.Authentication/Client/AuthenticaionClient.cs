@@ -319,7 +319,7 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
                     throw new MissingCredentialException();
 
                 logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with provider flow.");
-                break;
+                return;
         }
 
         // Refresh current user
