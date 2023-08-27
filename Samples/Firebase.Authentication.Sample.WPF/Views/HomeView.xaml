@@ -1,0 +1,59 @@
+﻿<UserControl
+    x:Class="Firebase.Authentication.Sample.WPF.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
+    d:Background="White"
+    d:DesignHeight="800"
+    d:DesignWidth="450"
+    mc:Ignorable="d">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Width="100" Source="{x:Static ui:Icons.Firebase}" />
+
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="24"
+            FontWeight="Medium"
+            Text="Firebase.Authenticaion" />
+        <Rectangle
+            Height="2"
+            MinWidth="420"
+            Margin="12,6,12,6"
+            Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+            Opacity="0.5" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="16"
+            Text="Secure and easy to use authentication for C# and dotnet" />
+
+        <UserControl
+            Height="556"
+            Margin="0,20,0,0"
+            Content="{Binding CurrentViewModel}" />
+
+        <TextBlock
+            Margin="12,24,12,0"
+            FontSize="12"
+            TextAlignment="Center"
+            TextWrapping="Wrap">
+            <Run Text="By continuing, you are indicating that you accept our" />
+            <Hyperlink
+                Command="{Binding OpenBrowserCommand}"
+                CommandParameter="https://cloud.google.com/terms/"
+                Foreground="#f6820c">
+                Terms of Service
+            </Hyperlink>
+            <Run Text="and" />
+            <Hyperlink
+                Command="{Binding OpenBrowserCommand}"
+                CommandParameter="https://cloud.google.com/terms/cloud-privacy-notice"
+                Foreground="#f6820c">
+                Privacy Policy
+            </Hyperlink>
+            <Run Text="." />
+        </TextBlock>
+
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="Firebase.Authentication.Sample.WPF.Views.ProviderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,24,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding FacebookFlow}"
+            Style="{StaticResource FacebookButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding GoogleFlow}"
+            Style="{StaticResource GoogleButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding AppleFlow}"
+            Style="{StaticResource AppleButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding GithubFlow}"
+            Style="{StaticResource GithubButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding TwitterFlow}"
+            Style="{StaticResource TwitterButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding MicrosoftFlow}"
+            Style="{StaticResource MicrosoftButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding SignInWithFlowCommand}"
+            CommandParameter="{Binding YahooFlow}"
+            Style="{StaticResource YahooButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton
+            Margin="0,12,0,0"
+            Command="{Binding NavigateToEmailCommand}"
+            Style="{StaticResource EmailAndPasswordButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton Margin="0,12,0,0" Style="{StaticResource PhoneNumberButtonStyle}" />
+        <ui:FirebaseAuthenticaionButton Margin="0,12,0,24" Style="{StaticResource AnonymouslyButtonStyle}" />
+    </StackPanel>
+
+</UserControl>

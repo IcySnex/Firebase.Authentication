@@ -1,0 +1,166 @@
+﻿<UserControl
+    x:Class="Firebase.Authentication.Sample.WPF.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Firebase.Authentication.Sample.WPF.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="800"
+    d:DesignWidth="450"
+    mc:Ignorable="d">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24,12,24,0">
+            <TextBlock
+                FontSize="24"
+                FontWeight="Medium"
+                Text="Settings" />
+            <Button
+                Margin="0,4"
+                Padding="8"
+                Command="{Binding RestartAppCommand}"
+                Content="Updating settings requires app restart"
+                Opacity="0.5" />
+            <Rectangle
+                Height="2"
+                Margin="0,6"
+                HorizontalAlignment="Stretch"
+                Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+                Opacity="0.5" />
+
+
+            <ContentControl
+                ContentStringFormat="ApiKey"
+                Tag="The Firebase Web API key"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.ApiKey, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="HttpTimeout"
+                Tag="The time span in which a request times out"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.HttpTimeout, Mode=TwoWay, Converter={StaticResource TimeSpanConverter}}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="HttpProxy"
+                Tag="The proxy used for web requests"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.HttpProxy, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="Title"
+                Tag="The title of the provider flow window. (Use {provider} to use the provider name)"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.Title, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="Icon"
+                Tag="The icon of the provider flow window (empty for provider default)"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.Icon, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="StartupLocation"
+                Tag="The startup location of the provider flow window"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.StartupLocation, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="Left"
+                Tag="The left position of the provider flow window"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Width="100"
+                    Padding="6"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    PreviewKeyDown="OnHttpPortKeyDown"
+                    Text="{Binding Configuration.Left, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="Top"
+                Tag="The top position of the provider flow window"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Width="100"
+                    Padding="6"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
+                    PreviewKeyDown="OnHttpPortKeyDown"
+                    Text="{Binding Configuration.Top, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="ShowAsDialog"
+                Tag="Wether to block the UI thread when showing the provider flow window"
+                Template="{StaticResource SettignsCard}">
+
+                <CheckBox
+                    Margin="0,0,-8,-8"
+                    FontSize="14"
+                    IsChecked="{Binding Configuration.ShowAsDialog, Mode=TwoWay}">
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                    </CheckBox.LayoutTransform>
+                </CheckBox>
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="FlowRedirectTo"
+                Tag="The url to which the provider will redirect the user back to (empty for provider default)"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.FlowRedirectTo, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                Margin="0,0,0,24"
+                ContentStringFormat="Timeout"
+                Tag="The time span in which a user request times out"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.Timeout, Mode=TwoWay, Converter={StaticResource TimeSpanConverter}}" />
+            </ContentControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="Firebase.Authentication.Sample.WPF.Views.EmailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
+    mc:Ignorable="d">
+
+
+    <StackPanel
+        Name="EmailContainer"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <Grid Margin="12,24,12,12">
+            <TextBlock Opacity="0.7" Text="Email" />
+            <TextBox
+                Margin="0,18,0,0"
+                Padding="6"
+                FontSize="14"
+                Text="{Binding Email, Mode=TwoWay}" />
+        </Grid>
+
+        <Grid Margin="12,0,12,12" Visibility="{Binding IsDisplayNameVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock Opacity="0.7" Text="Display name" />
+            <TextBox
+                Margin="0,18,0,0"
+                Padding="6"
+                FontSize="14"
+                Text="{Binding DisplayName, Mode=TwoWay}" />
+        </Grid>
+
+        <Grid Margin="12,0,12,12" Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock Opacity="0.7" Text="Password" />
+            <TextBox
+                Margin="0,18,0,0"
+                Padding="6"
+                FontSize="14"
+                Text="{Binding Password, Mode=TwoWay}" />
+        </Grid>
+
+        <StackPanel
+            Margin="12,20,12,24"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <ui:FirebaseAuthenticaionButton
+                Margin="0,0,0,0"
+                Command="{Binding NavigateBackCommand}"
+                Style="{StaticResource CancelButtonStyle}" />
+            <ui:FirebaseAuthenticaionButton
+                Margin="12,0,0,0"
+                Command="{Binding SignInCommand}"
+                Style="{StaticResource SignInButton}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
