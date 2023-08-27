@@ -73,6 +73,10 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootLayout" Property="Opacity" Value="0.5" />
+                        </Trigger>
+
                         <Trigger Property="IsMouseOver" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
