@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class InvalidGrandTypeException : IdentityPlatformException
 {
     /// <summary>
     /// the grant type specified is invalid.
     /// </summary>
-    public InvalidGrandTypeException() : base("INVALID_GRANT_TYPE", "the grant type specified is invalid.") { }
+    public InvalidGrandTypeException() : base("the grant type specified is invalid.", "INVALID_GRANT_TYPE") { }
 }

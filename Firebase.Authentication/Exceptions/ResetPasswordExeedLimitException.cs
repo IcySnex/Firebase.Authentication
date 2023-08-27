@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class ResetPasswordExeedLimitException : IdentityPlatformException
 {
     /// <summary>
     /// Reset password limit exceeded.
     /// </summary>
-    public ResetPasswordExeedLimitException() : base("RESET_PASSWORD_EXCEED_LIMIT", "Reset password limit exceeded.") { }
+    public ResetPasswordExeedLimitException() : base("Reset password limit exceeded.", "RESET_PASSWORD_EXCEED_LIMIT") { }
 }

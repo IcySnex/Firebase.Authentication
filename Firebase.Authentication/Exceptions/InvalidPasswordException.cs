@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class InvalidPasswordException : IdentityPlatformException
 {
     /// <summary>
     /// The password is invalid or the user does not have a password.
     /// </summary>
-    public InvalidPasswordException() : base("INVALID_PASSWORD", "The password is invalid or the user does not have a password.") { }
+    public InvalidPasswordException() : base("The password is invalid or the user does not have a password.", "INVALID_PASSWORD") { }
 }

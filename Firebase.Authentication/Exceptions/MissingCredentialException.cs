@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class MissingCredentialException : IdentityPlatformException
 {
     /// <summary>
     /// Credentials are missing. First sign in or validate provider flow.
     /// </summary>
-    public MissingCredentialException() : base("MISSING_CREDENTIAL", "Credentials are missing. First sign in or validate provider flow.") { }
+    public MissingCredentialException() : base("Credentials are missing. First sign in or validate provider flow.", "MISSING_CREDENTIAL") { }
 }

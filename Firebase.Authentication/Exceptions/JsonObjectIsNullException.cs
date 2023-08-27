@@ -1,4 +1,4 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class JsonObjectIsNullException : Exception
 {

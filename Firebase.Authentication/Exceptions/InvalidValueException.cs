@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class InvalidValueException : IdentityPlatformException
 {
     /// <summary>
     /// Some value in the request was an invalid type.
     /// </summary>
-    public InvalidValueException() : base("INVALID_VALUE", "Some value in the request was an invalid type.") { }
+    public InvalidValueException() : base("Some value in the request was an invalid type.", "INVALID_VALUE") { }
 }

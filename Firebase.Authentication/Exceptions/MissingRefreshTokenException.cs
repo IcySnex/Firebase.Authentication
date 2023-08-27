@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class MissingRefreshTokenException : IdentityPlatformException
 {
     /// <summary>
     /// no refresh token provided.
     /// </summary>
-    public MissingRefreshTokenException() : base("MISSING_REFRESH_TOKEN", "no refresh token provided.") { }
+    public MissingRefreshTokenException() : base("no refresh token provided.", "MISSING_REFRESH_TOKEN") { }
 }

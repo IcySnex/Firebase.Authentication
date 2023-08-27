@@ -1,9 +1,9 @@
-﻿namespace Firebase.Authentication.Exceptions;
+namespace Firebase.Authentication.Exceptions;
 
 public class MissingRequestUriException : IdentityPlatformException
 {
     /// <summary>
     /// Third-party Auth Providers: Request does not contain a value for parameter: requestUri.
     /// </summary>
-    public MissingRequestUriException() : base("MISSING_REQUEST_URI", "Third-party Auth Providers: Request does not contain a value for parameter: requestUri.") { }
+    public MissingRequestUriException() : base("Third-party Auth Providers: Request does not contain a value for parameter: requestUri.", "MISSING_REQUEST_URI") { }
 }
