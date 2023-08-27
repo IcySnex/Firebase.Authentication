@@ -38,7 +38,7 @@ public class GithubProviderFlow : ProviderFlow
         string redirectTo = "http://localhost") :
             base(
                 windowConfig: windowConfig,
-                provider: Provider.Google,
+                provider: Provider.Github,
                 windowSize: (390, 775),
                 redirectTo: redirectTo,
                 logger: logger)

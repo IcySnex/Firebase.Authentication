@@ -17,7 +17,6 @@ public partial class EmailViewModel : ObservableObject
         HomeViewModel homeViewModel,
         IAuthenticationClient authenticaion)
     {
-        this.logger = logger;
         this.homeViewModel = homeViewModel;
         this.authenticaion = authenticaion;
 
