@@ -20,7 +20,7 @@
                 Padding="8"
                 Command="{Binding RestartAppCommand}"
                 Content="Updating settings requires app restart"
-                Opacity="0.5" />
+                Opacity="0.9" />
             <Rectangle
                 Height="2"
                 Margin="0,6"
@@ -159,6 +159,17 @@
                     Padding="6"
                     FontSize="14"
                     Text="{Binding Configuration.Timeout, Mode=TwoWay, Converter={StaticResource TimeSpanConverter}}" />
+            </ContentControl>
+
+            <ContentControl
+                ContentStringFormat="ReCaptchaHostName"
+                Tag="The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.ReCaptchaHostName, Mode=TwoWay, Converter={StaticResource TimeSpanConverter}}" />
             </ContentControl>
 
         </StackPanel>

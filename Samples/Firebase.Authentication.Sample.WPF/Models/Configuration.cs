@@ -72,4 +72,10 @@ public partial class Configuration : ObservableObject
     /// </summary>
     [ObservableProperty]
     TimeSpan timeout = TimeSpan.FromMinutes(1);
+
+    /// <summary>
+    /// The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)
+    /// </summary>
+    [ObservableProperty]
+    string reCaptchaHostName = "sample.firebase.authenticaion";
 }

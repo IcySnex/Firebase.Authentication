@@ -10,11 +10,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <FirebaseAuthenticaionDictionary xmlns="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF" />
+                <CommonDictionary xmlns="clr-namespace:ReCaptcha.Desktop.WPF.UI;assembly=ReCaptcha.Desktop.WPF" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Converters  -->
             <conv:TimeSpanConverter x:Key="TimeSpanConverter" />
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+            <conv:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -31,6 +33,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:EmailViewModel}">
                 <views:EmailView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:AnonymouslyViewModel}">
+                <views:AnonymouslyView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:PhoneViewModel}">
+                <views:PhoneView />
             </DataTemplate>
 
             <!--  Styles  -->
@@ -64,7 +72,7 @@
                 x:Key="SignInButton"
                 BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
                 TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
-                <Setter Property="Width" Value="115" />
+                <Setter Property="Width" Value="125" />
                 <Setter Property="Background" Value="#ffbe5c" />
                 <Setter Property="BackgroundHover" Value="#ffd699" />
                 <Setter Property="Foreground" Value="#000000" />
@@ -84,7 +92,7 @@
                 x:Key="CancelButtonStyle"
                 BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
                 TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
-                <Setter Property="Width" Value="115" />
+                <Setter Property="Width" Value="125" />
                 <Setter Property="Content" Value="Cancel" />
                 <Setter Property="Icon">
                     <Setter.Value>

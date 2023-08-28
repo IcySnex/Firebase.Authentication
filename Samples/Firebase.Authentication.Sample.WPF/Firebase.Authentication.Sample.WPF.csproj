@@ -11,6 +11,7 @@
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
+	  <PackageReference Include="ReCaptcha.Desktop.WPF" Version="2.0.2" />
 	  <PackageReference Include="Serilog" Version="3.0.1" />
 	  <PackageReference Include="Serilog.Extensions.Hosting" Version="7.0.0" />
 	  <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
@@ -21,6 +22,12 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <Compile Update="Views\AnonymouslyView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Views\PhoneView.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	  <Compile Update="Views\SettingsView.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
