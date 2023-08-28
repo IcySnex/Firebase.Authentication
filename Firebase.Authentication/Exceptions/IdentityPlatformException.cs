@@ -164,7 +164,7 @@ public class IdentityPlatformException : Exception
                     return new MissingSessionIdException();
 
 
-                return new("UNDEFINDED", $"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})") { ResponseData = responseData };
+                return new($"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})", "UNDEFINDED"){ ResponseData = responseData };
         }
     }
 }
