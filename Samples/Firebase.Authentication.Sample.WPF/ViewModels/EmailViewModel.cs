@@ -37,13 +37,13 @@ public partial class EmailViewModel : ObservableObject
 
 
     [ObservableProperty]
-    string email;
+    string email = "";
 
     [ObservableProperty]
-    string displayName;
+    string? displayName;
 
     [ObservableProperty]
-    string password;
+    string password = "";
 
     [RelayCommand]
     async Task SignInAsync()

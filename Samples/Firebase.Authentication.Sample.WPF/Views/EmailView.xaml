@@ -7,12 +7,11 @@
     xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
     mc:Ignorable="d">
 
-
     <StackPanel
-        Name="EmailContainer"
+        Margin="12,24"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch">
-        <Grid Margin="12,24,12,12">
+        <Grid Margin="0,0,0,12">
             <TextBlock Opacity="0.7" Text="Email" />
             <TextBox
                 Margin="0,18,0,0"
@@ -21,7 +20,7 @@
                 Text="{Binding Email, Mode=TwoWay}" />
         </Grid>
 
-        <Grid Margin="12,0,12,12" Visibility="{Binding IsDisplayNameVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+        <Grid Margin="0,0,0,12" Visibility="{Binding IsDisplayNameVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBlock Opacity="0.7" Text="Display name" />
             <TextBox
                 Margin="0,18,0,0"
@@ -30,7 +29,7 @@
                 Text="{Binding DisplayName, Mode=TwoWay}" />
         </Grid>
 
-        <Grid Margin="12,0,12,12" Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+        <Grid Margin="0,0,0,12" Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBlock Opacity="0.7" Text="Password" />
             <TextBox
                 Margin="0,18,0,0"
@@ -40,7 +39,7 @@
         </Grid>
 
         <StackPanel
-            Margin="12,20,12,24"
+            Margin="0,12,0,0"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <ui:FirebaseAuthenticaionButton

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ReCaptcha.Desktop.WPF.Client.Interfaces;
+using ReCaptcha.Desktop.WPF.Client;
 using Serilog;
 using System.Net;
 using System.Windows;
@@ -48,10 +50,21 @@ public partial class App : Application
                 services.AddSingleton<UserViewModel>();
                 services.AddSingleton<ProviderViewModel>();
                 services.AddTransient<EmailViewModel>();
+                services.AddTransient<PhoneViewModel>();
+                services.AddTransient<AnonymouslyViewModel>();
                 services.AddSingleton<MainViewModel>();
 
                 // Add services
+                services.AddSingleton<AppStartupHandler>();
                 services.AddSingleton<JsonConverter>();
+
+                services.AddSingleton<IReCaptchaClient>(provider => new ReCaptchaClient(
+                    default!,
+                    new ReCaptcha.Desktop.WPF.Configuration.WindowConfig(
+                        title: "Please verify the reCAPTCHA!",
+                        icon: Icons.Firebase,
+                        startupLocation: WindowStartupLocation.CenterOwner),
+                    provider.GetRequiredService<ILogger<IReCaptchaClient>>()));
 
                 services.AddSingleton<IAuthenticationClient>(s => new AuthenticationClient(
                     new AuthenticationConfig(
@@ -108,9 +121,6 @@ public partial class App : Application
             top: configuration.Top,
             showAsDialog: configuration.ShowAsDialog);
 
-    protected override void OnStartup(StartupEventArgs _)
-    {
-        Provider.GetRequiredService<MainViewModel>().Navigate<HomeViewModel>();
-        Provider.GetRequiredService<HomeViewModel>().Navigate<ProviderViewModel>();
-    }
+    protected override async void OnStartup(StartupEventArgs _) =>
+        await Provider.GetRequiredService<AppStartupHandler>().InitializeAsync();
 }

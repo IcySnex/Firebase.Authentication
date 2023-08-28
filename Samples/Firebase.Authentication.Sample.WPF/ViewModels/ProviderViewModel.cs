@@ -35,19 +35,12 @@ public partial class ProviderViewModel : ObservableObject
         this.homeViewModel = homeViewModel;
 
         FacebookFlow = facebookFlow;
-        facebookFlow.WindowConfiguration.Owner = mainViewModel.MainView;
         GoogleFlow = googleFlow;
-        googleFlow.WindowConfiguration.Owner = mainViewModel.MainView;
         AppleFlow = appleFlow;
-        appleFlow.WindowConfiguration.Owner = mainViewModel.MainView;
         GithubFlow = githubFlow;
-        githubFlow.WindowConfiguration.Owner = mainViewModel.MainView;
         TwitterFlow = twitterFlow;
-        twitterFlow.WindowConfiguration.Owner = mainViewModel.MainView;
         MicrosoftFlow = microsoftFlow;
-        microsoftFlow.WindowConfiguration.Owner = mainViewModel.MainView;
         YahooFlow = yahooFlow;
-        yahooFlow.WindowConfiguration.Owner = mainViewModel.MainView;
 
         logger.LogInformation("[ProviderViewModel-.ctor] ProviderViewModel has been initialized.");
     }
@@ -56,6 +49,14 @@ public partial class ProviderViewModel : ObservableObject
     [RelayCommand]
     void NavigateToEmail() =>
         homeViewModel.Navigate<EmailViewModel>();
+
+    [RelayCommand]
+    void NavigateToPhone() =>
+        homeViewModel.Navigate<PhoneViewModel>();
+
+    [RelayCommand]
+    void NavigateToAnonymously() =>
+        homeViewModel.Navigate<AnonymouslyViewModel>();
 
 
     [RelayCommand]
