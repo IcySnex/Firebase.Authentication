@@ -42,7 +42,7 @@ public partial class App : Application
             .ConfigureServices((context, services) =>
             {
                 services.Configure<Models.Configuration>(context.Configuration);
-                Models.Configuration configuration = context.Configuration.Get<Models.Configuration>() ?? new();
+                Models.Configuration config = context.Configuration.Get<Models.Configuration>() ?? new();
 
                 // Add ViewModels and MainView
                 services.AddSingleton<HomeViewModel>();
@@ -59,7 +59,9 @@ public partial class App : Application
                 services.AddSingleton<JsonConverter>();
 
                 services.AddSingleton<IReCaptchaClient>(provider => new ReCaptchaClient(
-                    default!,
+                    new(
+                        siteKey: config.ReCaptchaSiteKey,
+                        config.ReCaptchaHostName),
                     new ReCaptcha.Desktop.WPF.Configuration.WindowConfig(
                         title: "Please verify the reCAPTCHA!",
                         icon: Icons.Firebase,
@@ -68,40 +70,40 @@ public partial class App : Application
 
                 services.AddSingleton<IAuthenticationClient>(s => new AuthenticationClient(
                     new AuthenticationConfig(
-                        configuration.ApiKey,
+                        config.ApiKey,
                         new HttpConfig(
-                            configuration.HttpTimeout,
-                            string.IsNullOrEmpty(configuration.HttpProxy) ? null : new WebProxy(configuration.HttpProxy))),
+                            config.HttpTimeout,
+                            string.IsNullOrEmpty(config.HttpProxy) ? null : new WebProxy(config.HttpProxy))),
                     s.GetRequiredService<ILogger<IAuthenticationClient>>()));
 
                 services.AddSingleton(s => new FacebookProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Facebook", Icons.Facebook),
+                    CreateProviderFlowConfiguration(config, "Facebook", Icons.Facebook),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "https://localhost/" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "https://localhost/" : config.FlowRedirectTo));
                 services.AddSingleton(s => new GoogleProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Google", Icons.Google),
+                    CreateProviderFlowConfiguration(config, "Google", Icons.Google),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "http://localhost" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "http://localhost" : config.FlowRedirectTo));
                 services.AddSingleton(s => new AppleProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Apple", Icons.Apple),
+                    CreateProviderFlowConfiguration(config, "Apple", Icons.Apple),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "https://localhost" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "https://localhost" : config.FlowRedirectTo));
                 services.AddSingleton(s => new GithubProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Github", Icons.Github),
+                    CreateProviderFlowConfiguration(config, "Github", Icons.Github),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "http://localhost" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "http://localhost" : config.FlowRedirectTo));
                 services.AddSingleton(s => new TwitterProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Twitter", Icons.Twitter),
+                    CreateProviderFlowConfiguration(config, "Twitter", Icons.Twitter),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "http://localhost" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "http://localhost" : config.FlowRedirectTo));
                 services.AddSingleton(s => new MicrosoftProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Microsoft", Icons.Microsoft),
+                    CreateProviderFlowConfiguration(config, "Microsoft", Icons.Microsoft),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "http://localhost" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "http://localhost" : config.FlowRedirectTo));
                 services.AddSingleton(s => new YahooProviderFlow(
-                    CreateProviderFlowConfiguration(configuration, "Yahoo", Icons.Yahoo),
+                    CreateProviderFlowConfiguration(config, "Yahoo", Icons.Yahoo),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
-                    string.IsNullOrEmpty(configuration.FlowRedirectTo) ? "https://localhost" : configuration.FlowRedirectTo));
+                    string.IsNullOrEmpty(config.FlowRedirectTo) ? "https://localhost" : config.FlowRedirectTo));
             })
             .Build();
         Provider = host.Services;
@@ -109,18 +111,18 @@ public partial class App : Application
 
 
     WindowConfig CreateProviderFlowConfiguration(
-        Models.Configuration configuration,
+        Models.Configuration config,
         string provider,
         ImageSource icon) =>
         new WindowConfig(
-            title: configuration.Title.Replace("{provider}", provider),
-            icon: string.IsNullOrEmpty(configuration.Icon) ? icon : new BitmapImage(new(configuration.Icon)),
+            title: config.Title.Replace("{provider}", provider),
+            icon: string.IsNullOrEmpty(config.Icon) ? icon : new BitmapImage(new(config.Icon)),
             owner: null,
-            startupLocation: configuration.StartupLocation,
-            left: configuration.Left,
-            top: configuration.Top,
-            showAsDialog: configuration.ShowAsDialog);
+            startupLocation: config.StartupLocation,
+            left: config.Left,
+            top: config.Top,
+            showAsDialog: config.ShowAsDialog);
 
-    protected override async void OnStartup(StartupEventArgs _) =>
-        await Provider.GetRequiredService<AppStartupHandler>().InitializeAsync();
+    protected override void OnStartup(StartupEventArgs _) =>
+        Provider.GetRequiredService<AppStartupHandler>();
 }

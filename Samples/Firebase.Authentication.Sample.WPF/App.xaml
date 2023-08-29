@@ -17,6 +17,7 @@
             <conv:TimeSpanConverter x:Key="TimeSpanConverter" />
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
             <conv:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
+            <conv:IsNotNullToVisibilityConverter x:Key="IsNotNullVisibilityConverter" />
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -125,7 +126,7 @@
                             FontWeight="Medium"
                             Text="{TemplateBinding ContentStringFormat}" />
                         <TextBlock
-                            Margin="0,18,0,0"
+                            Margin="0,20,0,0"
                             FontSize="14"
                             Opacity="0.7"
                             Text="{TemplateBinding Tag}"

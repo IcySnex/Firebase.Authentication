@@ -73,6 +73,13 @@ public partial class Configuration : ObservableObject
     [ObservableProperty]
     TimeSpan timeout = TimeSpan.FromMinutes(1);
 
+
+    /// <summary>
+    /// The reCAPTCHA site key. (You can get your projects reCAPTCHA site key by using 'IAuthenticationClient.GetReCaptchaSiteKeyAsync')
+    /// </summary>
+    [ObservableProperty]
+    string reCaptchaSiteKey = "";
+
     /// <summary>
     /// The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)
     /// </summary>
