@@ -8,16 +8,16 @@ namespace Firebase.Authentication.Sample.WPF.ViewModels;
 
 public partial class SettingsViewModel : ObservableObject
 {
-    readonly ILogger<SettingsViewModel> logger;
+    readonly MainViewModel mainViewModel;
 
     public Models.Configuration Configuration { get; }
 
     public SettingsViewModel(
         ILogger<SettingsViewModel> logger,
-        IOptions<Models.Configuration> configuration)
+        IOptions<Models.Configuration> configuration,
+        MainViewModel mainViewModel)
     {
-        this.logger = logger;
-
+        this.mainViewModel = mainViewModel;
         Configuration = configuration.Value;
 
         logger.LogInformation("[SettingsViewModel-.ctor] SettingsViewModel has been initialized.");
@@ -25,11 +25,6 @@ public partial class SettingsViewModel : ObservableObject
 
 
     [RelayCommand]
-    void RestartApp()
-    {
-        logger.LogInformation("[SettingsViewModel-RestartApp] App restart requested.");
-
-        App.Current.Shutdown();
-        Process.Start(Environment.ProcessPath!);
-    }
+    void RestartApp() =>
+        mainViewModel.RestartApp();
 }

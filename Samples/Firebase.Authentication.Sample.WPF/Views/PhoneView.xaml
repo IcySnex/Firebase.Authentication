@@ -25,7 +25,11 @@
                     Padding="6"
                     FontSize="14"
                     PreviewTextInput="OnPhoneNumberTextBoxPreviewInput"
-                    Text="{Binding PhoneNumber, Mode=TwoWay}" />
+                    Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SendCodeCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
                 <Button
                     Grid.Column="1"
                     Command="{Binding SendCodeCommand}"
@@ -42,7 +46,11 @@
                 Padding="6"
                 FontSize="14"
                 KeyDown="OnCodeKeyDown"
-                Text="{Binding Code, Mode=TwoWay}" />
+                Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Grid>
 
         <captcha:ReCaptcha

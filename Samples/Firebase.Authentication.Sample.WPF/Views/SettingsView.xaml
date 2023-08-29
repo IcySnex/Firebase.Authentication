@@ -150,7 +150,6 @@
             </ContentControl>
 
             <ContentControl
-                Margin="0,0,0,24"
                 ContentStringFormat="Timeout"
                 Tag="The time span in which a user request times out"
                 Template="{StaticResource SettignsCard}">
@@ -162,6 +161,18 @@
             </ContentControl>
 
             <ContentControl
+                ContentStringFormat="ReCaptchaSiteKey"
+                Tag="The reCAPTCHA site key. (You can get your projects reCAPTCHA site key by using 'IAuthenticationClient.GetReCaptchaSiteKeyAsync')"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.ReCaptchaSiteKey, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                Margin="0,0,0,24"
                 ContentStringFormat="ReCaptchaHostName"
                 Tag="The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)"
                 Template="{StaticResource SettignsCard}">
@@ -169,9 +180,8 @@
                 <TextBox
                     Padding="6"
                     FontSize="14"
-                    Text="{Binding Configuration.ReCaptchaHostName, Mode=TwoWay, Converter={StaticResource TimeSpanConverter}}" />
+                    Text="{Binding Configuration.ReCaptchaHostName, Mode=TwoWay}" />
             </ContentControl>
-
         </StackPanel>
     </ScrollViewer>
 </UserControl>

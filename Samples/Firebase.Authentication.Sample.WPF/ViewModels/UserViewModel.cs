@@ -21,6 +21,8 @@ public partial class UserViewModel : ObservableObject
         this.mainViewModel = mainViewModel;
 
         Authenticaion = authenticaion;
+
+        logger.LogInformation("[UserViewModel-.ctor] UserViewModel has been initialized.");
     }
 
 
@@ -28,5 +30,6 @@ public partial class UserViewModel : ObservableObject
     void SignOut()
     {
         Authenticaion.SignOut();
+        mainViewModel.Navigate<HomeViewModel>();
     }
 }

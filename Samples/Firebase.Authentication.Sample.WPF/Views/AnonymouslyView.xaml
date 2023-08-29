@@ -17,7 +17,11 @@
                 Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
-                Text="{Binding DisplayName, Mode=TwoWay}" />
+                Text="{Binding DisplayName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding ContinueCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Grid>
 
         <StackPanel

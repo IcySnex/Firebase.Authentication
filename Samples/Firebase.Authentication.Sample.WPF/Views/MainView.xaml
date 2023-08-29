@@ -40,6 +40,10 @@
 
             <Button Command="{Binding NavigateToHomeCommand}" Content="Home" />
             <Button
+                Command="{Binding NavigateToUserCommand}"
+                Content="User Info"
+                Visibility="{Binding Authentication.CurrentUser, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}" />
+            <Button
                 Grid.Column="1"
                 Command="{Binding NavigateToSettingsCommand}"
                 Content="Settings" />

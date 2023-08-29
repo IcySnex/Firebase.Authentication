@@ -9,36 +9,58 @@ using System.IO;
 using System.Windows.Controls;
 using System.Windows;
 using System.Diagnostics;
+using Firebase.Authentication.Client.Interfaces;
 
 namespace Firebase.Authentication.Sample.WPF.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
     readonly ILogger<MainViewModel> logger;
+    readonly Models.Configuration configuration;
+    readonly JsonConverter jsonConverter;
+
+    public IAuthenticationClient Authentication { get; }
 
     readonly public MainView MainView;
 
     public MainViewModel(
         ILogger<MainViewModel> logger,
         IOptions<Models.Configuration> configuration,
-        JsonConverter jsonConverter)
+        JsonConverter jsonConverter,
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
+        this.configuration = configuration.Value;
+        this.jsonConverter = jsonConverter;
+        Authentication = authentication;
 
         MainView = new() { DataContext = this };
         MainView.Show();
 
-        MainView.Closed += async (s, e) =>
-        {
-            LoggerWindow?.Close();
-
-            string config = jsonConverter.ToString(configuration.Value);
-            await File.WriteAllTextAsync("Configuration.json", config);
-
-            logger.LogInformation("[MainView-Closed] Closed main window.");
-        };
+        MainView.Closed += (s, e) => PrepareAppShutdown();
 
         logger.LogInformation("[MainViewModel-.ctor] MainViewModel has been initialized.");
+    }
+
+
+    public void RestartApp()
+    {
+        logger.LogInformation("[MainViewModel-RestartApp] App restart requested.");
+
+        PrepareAppShutdown();
+
+        Process.Start(Environment.ProcessPath!);
+        Process.GetCurrentProcess().Kill();
+    }
+
+    void PrepareAppShutdown()
+    {
+        LoggerWindow?.Close();
+
+        string config = jsonConverter.ToString(configuration);
+        File.WriteAllText("Configuration.json", config);
+
+        logger.LogInformation("[MainView-PrepareAppShutdown] Prepared app shutdown.");
     }
 
 
@@ -60,6 +82,10 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     void NavigateToHome() =>
         Navigate<HomeViewModel>();
+    
+    [RelayCommand]
+    void NavigateToUser() =>
+        Navigate<UserViewModel>();
 
     [RelayCommand]
     void NavigateToSettings() =>

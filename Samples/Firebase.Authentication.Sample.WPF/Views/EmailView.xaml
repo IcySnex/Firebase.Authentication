@@ -17,7 +17,11 @@
                 Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
-                Text="{Binding Email, Mode=TwoWay}" />
+                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Grid>
 
         <Grid Margin="0,0,0,12" Visibility="{Binding IsDisplayNameVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
@@ -32,10 +36,15 @@
         <Grid Margin="0,0,0,12" Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBlock Opacity="0.7" Text="Password" />
             <TextBox
+                Name="PasswordBox"
                 Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
-                Text="{Binding Password, Mode=TwoWay}" />
+                Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Grid>
 
         <StackPanel

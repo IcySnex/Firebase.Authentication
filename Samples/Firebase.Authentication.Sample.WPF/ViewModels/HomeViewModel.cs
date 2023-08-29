@@ -75,7 +75,6 @@ public partial class HomeViewModel : ObservableObject
     }
 
 
-
     CancellationTokenSource? cancelSource;
 
     public async Task<bool> SignInAsync(
