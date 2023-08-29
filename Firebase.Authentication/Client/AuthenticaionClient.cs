@@ -333,6 +333,8 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
     {
         CurrentCredential = null;
         CurrentUser = null;
+
+        logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed out.");
     }
 
 
