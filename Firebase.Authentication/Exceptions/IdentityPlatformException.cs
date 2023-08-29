@@ -65,6 +65,9 @@ public class IdentityPlatformException : Exception
 
             case "INVALID_EMAIL":
                 return new InvalidEmailException();
+                
+            case "INVALID_CODE":
+                return new InvalidCodeException();
 
             case "INVALID_GRANT_TYPE":
                 return new InvalidGrandTypeException();

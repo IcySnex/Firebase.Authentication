@@ -105,7 +105,7 @@ public partial class PhoneViewModel : ObservableObject
     {
         if (sessionInfo is null)
         {
-            homeViewModel.ShowSignInError("Please first .");
+            homeViewModel.ShowSignInError("Please first send a verification code.");
             return;
         }
         if (string.IsNullOrWhiteSpace(Code))
