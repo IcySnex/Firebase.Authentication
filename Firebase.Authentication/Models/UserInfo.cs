@@ -29,6 +29,7 @@ public class UserInfo
     /// <param name="validSince">The date and time when this user is valid</param>
     /// <param name="isDisabled">Whether the account is disabled</param>
     /// <param name="lastLoginAt">The date and time when this user last logged in</param>
+    /// <param name="createdAt">The date and time when this user was created at</param>
     /// <param name="screenName">This account's screen name at Twitter or login name at GitHub</param>
     /// <param name="isCustomAuth">Whether this account has been authenticated using accounts.signInWithCustomToken</param>
     /// <param name="phoneNumber">The account's phone number</param>
@@ -38,7 +39,6 @@ public class UserInfo
     /// <param name="mfaInfos">Information on which multi-factor authentication providers are enabled for this account</param>
     /// <param name="initialEmail">The first email address associated with this account</param>
     /// <param name="lastRefreshAt">The date and time when an ID token was last minted for this account</param>
-    /// <param name="expiresIn">The time span at which the user should be refreshed to maintain up-to-date information. Null if it should never expire</param>
     [JsonConstructor]
     public UserInfo(string localId,
         string email,
@@ -56,6 +56,7 @@ public class UserInfo
         DateTime validSince,
         bool isDisabled,
         DateTime lastLoginAt,
+        string createdAt,
         string screenName,
         bool isCustomAuth,
         string phoneNumber,
@@ -83,6 +84,7 @@ public class UserInfo
         ValidSince = validSince;
         IsDisabled = isDisabled;
         LastLoginAt = lastLoginAt;
+        CreatedAt = createdAt;
         ScreenName = screenName;
         IsCustomAuth = isCustomAuth;
         PhoneNumber = phoneNumber;
@@ -196,6 +198,13 @@ public class UserInfo
     [JsonConverter(typeof(MsStringJsonConverter))]
     [JsonPropertyName("lastLoginAt")]
     public DateTime LastLoginAt { get; }
+
+    /// <summary>
+    /// The date and time when this user was created at
+    /// </summary>
+    [JsonConverter(typeof(MsStringJsonConverter))]
+    [JsonPropertyName("createdAt")]
+    public DateTime CreatedAt { get; }
 
     /// <summary>
     /// This account's screen name at Twitter or login name at GitHub
