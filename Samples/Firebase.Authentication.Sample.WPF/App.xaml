@@ -18,6 +18,7 @@
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
             <conv:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
             <conv:IsNotNullToVisibilityConverter x:Key="IsNotNullVisibilityConverter" />
+            <conv:DateTimeDifferenceConverter x:Key="DateTimeDifferenceConverter" />
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -142,6 +143,30 @@
                     </Grid>
                 </Border>
             </ControlTemplate>
+
+            <DrawingImage x:Key="DefaultAvatar">
+                <DrawingImage.Drawing>
+                    <DrawingGroup>
+                        <GeometryDrawing Brush="#FFBCBEC0">
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry
+                                    RadiusX="0"
+                                    RadiusY="0"
+                                    Rect="0,0,64,64" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#FF939598">
+                            <GeometryDrawing.Geometry>
+                                <EllipseGeometry
+                                    Center="32,22.7"
+                                    RadiusX="12.9"
+                                    RadiusY="12.9" />
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#FF939598" Geometry="F1 M64,64z M0,0z M32,38C17.6,38,6,49.6,6,64L58,64C58,49.6,46.4,38,32,38z" />
+                    </DrawingGroup>
+                </DrawingImage.Drawing>
+            </DrawingImage>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

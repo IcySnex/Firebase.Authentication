@@ -85,4 +85,11 @@ public partial class Configuration : ObservableObject
     /// </summary>
     [ObservableProperty]
     string reCaptchaHostName = "sample.firebase.authenticaion";
+
+
+    /// <summary>
+    /// The client ID for the Imgur api used to upload custom profile avatars
+    /// </summary>
+    [ObservableProperty]
+    string imgurClientId = "";
 }

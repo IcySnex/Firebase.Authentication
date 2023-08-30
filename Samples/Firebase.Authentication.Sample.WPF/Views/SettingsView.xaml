@@ -172,7 +172,6 @@
             </ContentControl>
 
             <ContentControl
-                Margin="0,0,0,24"
                 ContentStringFormat="ReCaptchaHostName"
                 Tag="The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)"
                 Template="{StaticResource SettignsCard}">
@@ -181,6 +180,18 @@
                     Padding="6"
                     FontSize="14"
                     Text="{Binding Configuration.ReCaptchaHostName, Mode=TwoWay}" />
+            </ContentControl>
+
+            <ContentControl
+                Margin="0,0,0,24"
+                ContentStringFormat="ImgurClientId"
+                Tag="The client ID for the Imgur api used to upload custom profile avatars"
+                Template="{StaticResource SettignsCard}">
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    Text="{Binding Configuration.ImgurClientId, Mode=TwoWay}" />
             </ContentControl>
         </StackPanel>
     </ScrollViewer>

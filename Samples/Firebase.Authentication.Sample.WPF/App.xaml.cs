@@ -57,7 +57,7 @@ public partial class App : Application
                 // Add services
                 services.AddSingleton<AppStartupHandler>();
                 services.AddSingleton<JsonConverter>();
-
+                services.AddSingleton<ImageUploader>();
                 services.AddSingleton<IReCaptchaClient>(provider => new ReCaptchaClient(
                     new(
                         siteKey: config.ReCaptchaSiteKey,
@@ -75,7 +75,6 @@ public partial class App : Application
                             config.HttpTimeout,
                             string.IsNullOrEmpty(config.HttpProxy) ? null : new WebProxy(config.HttpProxy))),
                     s.GetRequiredService<ILogger<IAuthenticationClient>>()));
-
                 services.AddSingleton(s => new FacebookProviderFlow(
                     CreateProviderFlowConfiguration(config, "Facebook", Icons.Facebook),
                     s.GetRequiredService<ILogger<IProviderFlow>>(),
