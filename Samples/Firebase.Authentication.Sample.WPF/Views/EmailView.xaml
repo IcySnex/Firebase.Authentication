@@ -47,6 +47,12 @@
             </TextBox>
         </Grid>
 
+        <TextBlock Margin="0,0,0,12" Visibility="{Binding IsResetPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <Hyperlink Command="{Binding ResetPasswordCommand}">
+                Forgot password?
+            </Hyperlink>
+        </TextBlock>
+
         <StackPanel
             Margin="0,12,0,0"
             HorizontalAlignment="Center"

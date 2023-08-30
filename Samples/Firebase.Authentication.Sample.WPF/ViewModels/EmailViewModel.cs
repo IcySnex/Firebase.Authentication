@@ -4,11 +4,13 @@ using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Requests;
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
+using System.Windows;
 
 namespace Firebase.Authentication.Sample.WPF.ViewModels;
 
 public partial class EmailViewModel : ObservableObject
 {
+    readonly ILogger<EmailViewModel> logger;
     readonly HomeViewModel homeViewModel;
     readonly IAuthenticationClient authenticaion;
 
@@ -17,6 +19,7 @@ public partial class EmailViewModel : ObservableObject
         HomeViewModel homeViewModel,
         IAuthenticationClient authenticaion)
     {
+        this.logger = logger;
         this.homeViewModel = homeViewModel;
         this.authenticaion = authenticaion;
 
@@ -30,10 +33,14 @@ public partial class EmailViewModel : ObservableObject
 
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsResetPasswordVisible))]
     bool isDisplayNameVisible = false;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsResetPasswordVisible))]
     bool isPasswordVisible = false;
+
+    public bool IsResetPasswordVisible => !IsDisplayNameVisible && IsPasswordVisible;
 
 
     [ObservableProperty]
@@ -95,6 +102,30 @@ public partial class EmailViewModel : ObservableObject
         catch (Exception ex)
         {
             homeViewModel.ShowSignInError(ex.Message);
+        }
+    }
+
+
+    [RelayCommand]
+    async Task ResetPasswordAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Email))
+        {
+            MessageBox.Show("The attempt to reset the password was unsuccessful.\nThe email field can not be empty.", "Resetting password failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        if (MessageBox.Show("If you continue you will get a reset password email sent to your account.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            return;
+
+        try
+        {
+            await authenticaion.SendEmailAsync(EmailRequest.ResetPassword(Email));
+        }
+        catch (Exception ex)
+        {
+            logger.LogInformation("[EmailViewModel-.ResetPasswordAsync] Resetting password failed: {0}", ex.Message);
+            MessageBox.Show("The attempt to reset the password was unsuccessful.\n" + ex.Message, "Resetting password failed!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

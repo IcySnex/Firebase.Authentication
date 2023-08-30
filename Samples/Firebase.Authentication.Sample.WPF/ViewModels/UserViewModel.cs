@@ -101,11 +101,11 @@ public partial class UserViewModel : ObservableObject
     async partial void OnIsEditDisplayNameChanged(bool value)
     {
         UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
+        if (value || user.DisplayName == DisplayName)
+            return;
+
         try
         {
-            if (value || user.DisplayName == DisplayName)
-                return;
-
             await Authenticaion.UpdateAsync(DisplayName, null, deleteDisplayName: DisplayName is null);
         }
         catch (Exception ex)
@@ -129,25 +129,25 @@ public partial class UserViewModel : ObservableObject
 
     async partial void OnIsEditEmailChanged(bool value)
     {
-        UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1)); ;
+        UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
+        if (value || user.Email == Email)
+            return;
+
+        if (string.IsNullOrWhiteSpace(Email))
+        {
+            MessageBox.Show("The attempt to change the email was unsuccessful.\nThe email field can not be empty.", "Editing email failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            Email = user.Email;
+            return;
+        }
+
+        if (MessageBox.Show("If you continue you will get a change email sent to your account. Once verified you will be able to use your new email. If you press 'Yes' you will get signed out!\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        {
+            Email = user.Email;
+            return;
+        }
+
         try
         {
-            if (value || user.Email == Email)
-                return;
-
-            if (string.IsNullOrWhiteSpace(Email))
-            {
-                MessageBox.Show("The attempt to change the email was unsuccessful.\nThe email field can not be empty.", "Editing email failed!", MessageBoxButton.OK, MessageBoxImage.Error);
-                Email = user.Email;
-                return;
-            }
-
-            if (MessageBox.Show("If you continue you will get a change email sent to your account. Once verified you will be able to use your new email. If you press 'Yes' you will get signed out!\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
-            {
-                Email = user.Email;
-                return;
-            }
-
             await Authenticaion.SendEmailAsync(EmailRequest.Change(Email));
             SignOut();
         }

@@ -39,17 +39,11 @@
             TextAlignment="Center"
             TextWrapping="Wrap">
             <Run Text="By continuing, you are indicating that you accept our" />
-            <Hyperlink
-                Command="{Binding OpenBrowserCommand}"
-                CommandParameter="https://cloud.google.com/terms/"
-                Foreground="#f6820c">
+            <Hyperlink Command="{Binding OpenBrowserCommand}" CommandParameter="https://cloud.google.com/terms/">
                 Terms of Service
             </Hyperlink>
             <Run Text="and" />
-            <Hyperlink
-                Command="{Binding OpenBrowserCommand}"
-                CommandParameter="https://cloud.google.com/terms/cloud-privacy-notice"
-                Foreground="#f6820c">
+            <Hyperlink Command="{Binding OpenBrowserCommand}" CommandParameter="https://cloud.google.com/terms/cloud-privacy-notice">
                 Privacy Policy
             </Hyperlink><Run Text="." />
         </TextBlock>

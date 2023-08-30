@@ -98,6 +98,10 @@
                 </Setter>
             </Style>
 
+            <Style TargetType="Hyperlink">
+                <Setter Property="Foreground" Value="#f6820c" />
+            </Style>
+
             <Style x:Key="HoverBorder" TargetType="Border">
                 <Setter Property="Background" Value="Transparent" />
                 <Style.Triggers>
