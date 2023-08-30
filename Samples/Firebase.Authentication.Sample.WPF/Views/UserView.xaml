@@ -12,10 +12,10 @@
     <StackPanel Margin="12,24">
         <StackPanel Margin="-12,-24,-12,0">
             <StackPanel.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Offset="0" Color="#30fda612" />
+                <RadialGradientBrush GradientOrigin="0.5,-4" RadiusX="0.55" RadiusY="0.5">
+                    <GradientStop Offset="0" Color="#fda612" />
                     <GradientStop Offset="1" Color="#00fda612" />
-                </LinearGradientBrush>
+                </RadialGradientBrush>
             </StackPanel.Background>
 
             <Border
@@ -97,14 +97,15 @@
                 <Run Text="Welcome back," />
                 <Run Text="{Binding Authenticaion.CurrentUser.DisplayName, Mode=OneWay, TargetNullValue='User', FallbackValue='User'}" /><Run Text="!" />
             </TextBlock>
+
+            <TextBlock HorizontalAlignment="Center" Opacity="0.5">
+                <Run Text="Last logged in" />
+                <Run Text="{Binding Authenticaion.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                <Run Text="   |   " />
+                <Run Text="User created" />
+                <Run Text="{Binding Authenticaion.CurrentUser.CreatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+            </TextBlock>
         </StackPanel>
-        <TextBlock HorizontalAlignment="Center" Opacity="0.5">
-            <Run Text="Last logged in" />
-            <Run Text="{Binding Authenticaion.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
-            <Run Text="   |   " />
-            <Run Text="User created" />
-            <Run Text="{Binding Authenticaion.CurrentUser.CreatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
-        </TextBlock>
 
         <Rectangle
             Height="2"
@@ -112,6 +113,110 @@
             Margin="24"
             Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
             Opacity="0.5" />
+
+        <Grid Margin="0,0,0,24" Visibility="{Binding IsVerifyEmailVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <Border
+                Padding="12"
+                BorderBrush="#60ff5c5c"
+                BorderThickness="2"
+                CornerRadius="4">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="#40ff5c5c" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#60ff5c5c" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Border.InputBindings>
+                    <MouseBinding Command="{Binding VerifyEmailCommand}" MouseAction="LeftClick" />
+                </Border.InputBindings>
+
+                <Grid>
+                    <Image
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Brush="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}">
+                                            <GeometryDrawing.Geometry>
+                                                <EllipseGeometry
+                                                    Center="12,17"
+                                                    RadiusX="1"
+                                                    RadiusY="1" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,10L12,14">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+                                                    EndLineCap="Round"
+                                                    LineJoin="Round"
+                                                    MiterLimit="1"
+                                                    StartLineCap="Round"
+                                                    Thickness="2" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Geometry="F1 M24,24z M0,0z M3.44722,18.1056L10.2111,4.57771C10.9482,3.10361,13.0518,3.10362,13.7889,4.57771L20.5528,18.1056C21.2177,19.4354,20.2507,21,18.7639,21L5.23607,21C3.7493,21,2.78231,19.4354,3.44722,18.1056z">
+                                            <GeometryDrawing.Pen>
+                                                <Pen
+                                                    Brush="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+                                                    EndLineCap="Round"
+                                                    LineJoin="Round"
+                                                    MiterLimit="1"
+                                                    StartLineCap="Round"
+                                                    Thickness="2" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+                    <TextBlock
+                        Margin="25,0,0,4"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="Warning" />
+
+                    <TextBlock
+                        Margin="0,24,0,0"
+                        FontSize="14"
+                        Opacity="0.8"
+                        TextWrapping="Wrap">
+                        <Run Text="Your email" />
+                        '<Run Text="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                        '<Run Text="is not verfied yet. Press here to send a verify emal to your account!" />
+                    </TextBlock>
+                </Grid>
+            </Border>
+
+            <Image
+                Width="15"
+                Height="15"
+                Margin="12"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Cursor="Hand">
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <GeometryDrawing Brush="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Geometry="F1 M512,512z M0,0z M317.7,256L478.8,94.9C495.8,77.9,495.8,50.3,478.8,33.2L478.8,33.2C461.8,16.2,434.2,16.2,417.1,33.2L256,194.3 94.9,33.2C77.9,16.2,50.3,16.2,33.2,33.2L33.2,33.2C16.2,50.2,16.2,77.8,33.2,94.9L194.3,256 33.2,417.1C16.2,434.1,16.2,461.7,33.2,478.8L33.2,478.8C50.2,495.8,77.8,495.8,94.9,478.8L256,317.7 417.1,478.8C434.1,495.8,461.7,495.8,478.8,478.8L478.8,478.8C495.8,461.8,495.8,434.2,478.8,417.1L317.7,256z" />
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+                <Image.InputBindings>
+                    <MouseBinding Command="{Binding CloseVerifyEmailCommand}" MouseAction="LeftClick" />
+                </Image.InputBindings>
+            </Image>
+        </Grid>
 
 
         <Grid Margin="0,0,0,12">
@@ -135,12 +240,53 @@
             </Grid>
         </Grid>
 
-        <TextBlock Text="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, FallbackValue=Oopsie}" />
+        <Grid Margin="0,0,0,12">
+            <TextBlock Opacity="0.7">
+                <Run Text="Email" />
+                <Run>
+                    <Run.Style>
+                        <Style TargetType="Run">
+                            <Setter Property="Text" Value="(Unverified)" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Authenticaion.CurrentUser.IsEmailVerified, Mode=OneWay}" Value="True">
+                                    <Setter Property="Text" Value="(Verified)" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Run.Style>
+                </Run>
+            </TextBlock>
+            <Grid Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    IsReadOnly="{Binding IsEditEmail, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                    Text="{Binding Email, Mode=TwoWay}" />
+                <ToggleButton
+                    Grid.Column="1"
+                    Width="70"
+                    Content="{Binding IsEditEmail, Mode=OneWay, Converter={StaticResource BooleanToEditSaveConverter}, FallbackValue='Edit'}"
+                    IsChecked="{Binding IsEditEmail, Mode=TwoWay}" />
+            </Grid>
+        </Grid>
+
         <StackPanel
             Margin="12,24"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <ui:FirebaseAuthenticaionButton Command="{Binding SignOutCommand}" Style="{StaticResource SignOutButton}" />
+            <ui:FirebaseAuthenticaionButton
+                Margin="12,0,0,0"
+                Command="{Binding RefreshCommand}"
+                Style="{StaticResource RefreshButton}" />
+            <ui:FirebaseAuthenticaionButton
+                Margin="12,0,0,0"
+                Command="{Binding SignOutCommand}"
+                Style="{StaticResource SignOutButton}" />
             <ui:FirebaseAuthenticaionButton
                 Margin="12,0,0,0"
                 Command="{Binding DeleteCommand}"
