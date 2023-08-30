@@ -26,42 +26,78 @@
                 <Border.Background>
                     <ImageBrush ImageSource="{Binding Authenticaion.CurrentUser.PhotoUrl, Mode=OneWay, TargetNullValue={StaticResource DefaultAvatar}, FallbackValue={StaticResource DefaultAvatar}}" />
                 </Border.Background>
-                <Border.InputBindings>
-                    <MouseBinding Command="{Binding UploadAvatarCommand}" MouseAction="LeftClick" />
-                </Border.InputBindings>
 
-                <Border Background="Black" CornerRadius="50">
-                    <Border.Style>
-                        <Style TargetType="Border">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="False">
-                                    <Setter Property="Opacity" Value="0" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Opacity" Value="0.6" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        FontWeight="Medium"
-                        TextAlignment="Center">
-                        Upload<LineBreak />
-                        Avatar</TextBlock>
-                </Border>
+                    <Border Style="{StaticResource HoverBorder}">
+                        <Border.InputBindings>
+                            <MouseBinding Command="{Binding UploadAvatarCommand}" MouseAction="LeftClick" />
+                        </Border.InputBindings>
+
+                        <Border
+                            Margin="0,0,0,-50"
+                            CornerRadius="50"
+                            IsHitTestVisible="False">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0.5" Color="#000000" />
+                                    <GradientStop Offset="1" Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                Foreground="White"
+                                TextAlignment="Center">
+                                Upload<LineBreak />
+                                Avatar</TextBlock>
+                        </Border>
+                    </Border>
+
+                    <Border Grid.Row="1" Style="{StaticResource HoverBorder}">
+                        <Border.InputBindings>
+                            <MouseBinding Command="{Binding RemoveAvatarCommand}" MouseAction="LeftClick" />
+                        </Border.InputBindings>
+
+                        <Border
+                            Margin="0,-50,0,0"
+                            CornerRadius="50"
+                            IsHitTestVisible="False">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                    <GradientStop Offset="0.5" Color="#000000" />
+                                    <GradientStop Offset="1" Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="Medium"
+                                Foreground="White"
+                                TextAlignment="Center">
+                                Delete<LineBreak />
+                                Avatar</TextBlock>
+                        </Border>
+                    </Border>
+                </Grid>
             </Border>
             <TextBlock
+                Margin="12,0"
                 HorizontalAlignment="Center"
                 FontSize="24"
-                FontWeight="Medium">
+                FontWeight="Medium"
+                TextTrimming="CharacterEllipsis">
                 <Run Text="Welcome back," />
                 <Run Text="{Binding Authenticaion.CurrentUser.DisplayName, Mode=OneWay, TargetNullValue='User', FallbackValue='User'}" /><Run Text="!" />
             </TextBlock>
         </StackPanel>
-
         <TextBlock HorizontalAlignment="Center" Opacity="0.5">
             <Run Text="Last logged in" />
             <Run Text="{Binding Authenticaion.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
@@ -78,10 +114,37 @@
             Opacity="0.5" />
 
 
-        <Grid />
+        <Grid Margin="0,0,0,12">
+            <TextBlock Opacity="0.7" Text="Display name" />
+            <Grid Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Padding="6"
+                    FontSize="14"
+                    IsReadOnly="{Binding IsEditDisplayName, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                    Text="{Binding DisplayName, Mode=TwoWay}" />
+                <ToggleButton
+                    Grid.Column="1"
+                    Width="70"
+                    Content="{Binding IsEditDisplayName, Mode=OneWay, Converter={StaticResource BooleanToEditSaveConverter}, FallbackValue='Edit'}"
+                    IsChecked="{Binding IsEditDisplayName, Mode=TwoWay}" />
+            </Grid>
+        </Grid>
 
         <TextBlock Text="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, FallbackValue=Oopsie}" />
-        <ui:FirebaseAuthenticaionButton Command="{Binding SignOutCommand}" Content="Sign out" />
-        <ui:FirebaseAuthenticaionButton Command="{Binding DeleteCommand}" Content="Delete" />
+        <StackPanel
+            Margin="12,24"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <ui:FirebaseAuthenticaionButton Command="{Binding SignOutCommand}" Style="{StaticResource SignOutButton}" />
+            <ui:FirebaseAuthenticaionButton
+                Margin="12,0,0,0"
+                Command="{Binding DeleteCommand}"
+                Style="{StaticResource DeleteButton}" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

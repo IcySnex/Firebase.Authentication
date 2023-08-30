@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
+using Firebase.Authentication.Models;
 using Firebase.Authentication.Sample.WPF.Services;
+using Firebase.Authentication.WPF.UI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System.Windows;
@@ -27,8 +29,22 @@ public partial class UserViewModel : ObservableObject
         this.imageUploader = imageUploader;
 
         Authenticaion = authenticaion;
+        Authenticaion.PropertyChanged += OnAuthenticaionPropertyChanged;
+        OnAuthenticaionPropertyChanged(null, new PropertyChangedEventArgs<UserInfo>("CurrentUser", null, Authenticaion.CurrentUser));
 
         logger.LogInformation("[UserViewModel-.ctor] UserViewModel has been initialized.");
+    }
+
+    void OnAuthenticaionPropertyChanged(object? _, System.ComponentModel.PropertyChangedEventArgs args)
+    {
+        switch (args.PropertyName)
+        {
+            case "CurrentUser":
+                PropertyChangedEventArgs<UserInfo> e = (PropertyChangedEventArgs<UserInfo>)args;
+
+                DisplayName = e.NewValue?.DisplayName ?? "";
+                break;
+        }
     }
 
 
@@ -60,6 +76,48 @@ public partial class UserViewModel : ObservableObject
             MessageBox.Show("The attempt to upload an avatar was unsuccessful.\n" + ex.Message, "Avatar upload failed!", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    [RelayCommand]
+    async Task RemoveAvatarAsync()
+    {
+        try
+        {
+            await Authenticaion.UpdateAsync(null, null, deletePhotoUrl: true);
+        }
+        catch (Exception ex)
+        {
+            logger.LogInformation("[UserViewModel-.RemoveAvatarAsync] Removing avatar failed: {0}", ex.Message);
+            MessageBox.Show("The attempt to remove the avatar was unsuccessful.\n" + ex.Message, "Avatar remove failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+
+    [ObservableProperty]
+    bool isEditDisplayName = false;
+
+    async partial void OnIsEditDisplayNameChanged(bool value)
+    {
+        try
+        {
+            if (value || (await Authenticaion.GetFreshUserAsync()).DisplayName == DisplayName)
+                return;
+
+            await Authenticaion.UpdateAsync(DisplayName, null, deleteDisplayName: DisplayName is null);
+        }
+        catch (Exception ex)
+        {
+            logger.LogInformation("[UserViewModel-.OnIsEditDisplayNameChanged] Editing display name failed: {0}", ex.Message);
+            MessageBox.Show("The attempt to edit the display name was unsuccessful.\n" + ex.Message, "Editing display name failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private string? displayName;
+    public string? DisplayName
+    {
+        get => displayName;
+        set => SetProperty(ref displayName, string.IsNullOrWhiteSpace(value) ? null : value);
+    }
+
 
     [RelayCommand]
     void SignOut()

@@ -19,8 +19,7 @@
                 Margin="0,4"
                 Padding="8"
                 Command="{Binding RestartAppCommand}"
-                Content="Updating settings requires app restart"
-                Opacity="0.9" />
+                Content="Updating settings requires app restart" />
             <Rectangle
                 Height="2"
                 Margin="0,6"

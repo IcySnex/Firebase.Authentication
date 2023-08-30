@@ -34,7 +34,6 @@
                     Grid.Column="1"
                     Command="{Binding SendCodeCommand}"
                     Content="Send verification code"
-                    Opacity="0.9"
                     Visibility="{Binding IsCodeVisible, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}" />
             </Grid>
         </Grid>
