@@ -502,12 +502,19 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
             displayName: displayName,
             photoUrl: photoUrl,
             deleteAttributes: deleteDisplayName ? deletePhotoUrl ? new[] { UserAttributeName.DisplayName, UserAttributeName.PhotoUrl } : new[] { UserAttributeName.DisplayName } : photoUrl is null ? new[] { UserAttributeName.PhotoUrl } : null);
-        await identityPlatform.UpdateAsync(request, null, cancellationToken);
+        UpdateResponse response = await identityPlatform.UpdateAsync(request, null, cancellationToken);
 
         logger?.LogInformation("[AuthenticationClient-UpdateAsync] Updated the current user.");
 
         // Refresh current user
-        await GetFreshUserAsync(credential.ExpiresIn, true);
+        if (CurrentUser is null)
+        {
+            await GetFreshUserAsync(credential.ExpiresIn, true);
+            return;
+        }
+        // Update current users display name and photo url
+
+        CurrentUser = CurrentUser.Copy(response.DisplayName, response.PhotoUrl);
     }
 
     /// <summary>

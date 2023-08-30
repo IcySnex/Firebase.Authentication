@@ -10,6 +10,39 @@ namespace Firebase.Authentication.Models;
 /// </summary>
 public class UserInfo
 {
+    public UserInfo Copy(
+        string displayName,
+        string photoUrl) =>
+        new(
+            localId: LocalId,
+            email: Email,
+            displayName: displayName,
+            language: Language,
+            photoUrl: photoUrl,
+            timeZone: TimeZone,
+            dateOfBirth: DateOfBirth,
+            passwordHash: PasswordHash,
+            salt: Salt,
+            version: Version,
+            isEmailVerified: IsEmailVerified,
+            passwordUpdatedAt: PasswordUpdatedAt,
+            providerUserInfos: ProviderUserInfos,
+            validSince: ValidSince,
+            isDisabled: IsDisabled,
+            lastLoginAt: LastLoginAt,
+            createdAt: CreatedAt,
+            screenName: ScreenName,
+            isCustomAuth: IsCustomAuth,
+            phoneNumber: PhoneNumber,
+            customAttributes: CustomAttributes,
+            isEmailLinkSignin: IsEmailLinkSignin,
+            tenantId: TenantId,
+            mfaInfos: MfaInfos,
+            initialEmail: InitialEmail,
+            lastRefreshAt: LastRefreshAt,
+            validityPeriod: ValidityPeriod);
+
+
     /// <summary>
     /// Creates a new UserInfo
     /// </summary>
@@ -56,7 +89,7 @@ public class UserInfo
         DateTime validSince,
         bool isDisabled,
         DateTime lastLoginAt,
-        string createdAt,
+        DateTime createdAt,
         string screenName,
         bool isCustomAuth,
         string phoneNumber,
