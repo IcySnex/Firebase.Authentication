@@ -9,8 +9,79 @@
     d:DesignHeight="800"
     d:DesignWidth="450"
     mc:Ignorable="d">
-    <StackPanel>
+    <StackPanel Margin="12,24">
+        <StackPanel Margin="-12,-24,-12,0">
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#30fda612" />
+                    <GradientStop Offset="1" Color="#00fda612" />
+                </LinearGradientBrush>
+            </StackPanel.Background>
+
+            <Border
+                Width="100"
+                Height="100"
+                Margin="0,24,0,4"
+                CornerRadius="50">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Authenticaion.CurrentUser.PhotoUrl, Mode=OneWay, TargetNullValue={StaticResource DefaultAvatar}, FallbackValue={StaticResource DefaultAvatar}}" />
+                </Border.Background>
+                <Border.InputBindings>
+                    <MouseBinding Command="{Binding UploadAvatarCommand}" MouseAction="LeftClick" />
+                </Border.InputBindings>
+
+                <Border Background="Black" CornerRadius="50">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Opacity" Value="0" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        TextAlignment="Center">
+                        Upload<LineBreak />
+                        Avatar</TextBlock>
+                </Border>
+            </Border>
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="24"
+                FontWeight="Medium">
+                <Run Text="Welcome back," />
+                <Run Text="{Binding Authenticaion.CurrentUser.DisplayName, Mode=OneWay, TargetNullValue='User', FallbackValue='User'}" /><Run Text="!" />
+            </TextBlock>
+        </StackPanel>
+
+        <TextBlock HorizontalAlignment="Center" Opacity="0.5">
+            <Run Text="Last logged in" />
+            <Run Text="{Binding Authenticaion.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+            <Run Text="   |   " />
+            <Run Text="User created" />
+            <Run Text="{Binding Authenticaion.CurrentUser.CreatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+        </TextBlock>
+
+        <Rectangle
+            Height="2"
+            MinWidth="420"
+            Margin="24"
+            Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+            Opacity="0.5" />
+
+
+        <Grid />
+
         <TextBlock Text="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, FallbackValue=Oopsie}" />
         <ui:FirebaseAuthenticaionButton Command="{Binding SignOutCommand}" Content="Sign out" />
+        <ui:FirebaseAuthenticaionButton Command="{Binding DeleteCommand}" Content="Delete" />
     </StackPanel>
 </UserControl>

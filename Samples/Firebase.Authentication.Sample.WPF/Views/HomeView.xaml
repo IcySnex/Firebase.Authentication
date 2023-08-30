@@ -51,8 +51,7 @@
                 CommandParameter="https://cloud.google.com/terms/cloud-privacy-notice"
                 Foreground="#f6820c">
                 Privacy Policy
-            </Hyperlink>
-            <Run Text="." />
+            </Hyperlink><Run Text="." />
         </TextBlock>
 
     </StackPanel>

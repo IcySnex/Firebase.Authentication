@@ -9,7 +9,7 @@
     Width="540"
     Height="950"
     MinWidth="460"
-    MinHeight="870"
+    MinHeight="890"
     Icon="{x:Static ui:Icons.Firebase}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

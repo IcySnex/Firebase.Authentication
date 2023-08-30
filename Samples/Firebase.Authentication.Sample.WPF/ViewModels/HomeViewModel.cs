@@ -49,14 +49,14 @@ public partial class HomeViewModel : ObservableObject
     public void ShowSignInError(
         string message)
     {
-        logger.LogError("Signing in failed: {0}", message);
+        logger.LogError("[HomeViewModel-ShowSignInError] Signing in failed: {0}", message);
         MessageBox.Show("The attempt to sign in was unsuccessful.\n" + message, "Signing in failed!", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     public void ShowSignUpError(
         string message)
     {
-        logger.LogError("Signing up failed: {0}", message);
+        logger.LogError("[HomeViewModel-ShowSignUpError] Signing up failed: {0}", message);
         MessageBox.Show("The attempt to sign up was unsuccessful.\n" + message, "Signing up failed!", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
