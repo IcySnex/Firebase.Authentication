@@ -51,7 +51,6 @@ public partial class App : Application
                 services.AddSingleton<ProviderViewModel>();
                 services.AddTransient<EmailViewModel>();
                 services.AddTransient<PhoneViewModel>();
-                services.AddTransient<AnonymouslyViewModel>();
                 services.AddSingleton<MainViewModel>();
 
                 // Add services

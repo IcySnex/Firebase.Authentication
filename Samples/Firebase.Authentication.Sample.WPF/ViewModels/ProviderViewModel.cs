@@ -54,13 +54,14 @@ public partial class ProviderViewModel : ObservableObject
     void NavigateToPhone() =>
         homeViewModel.Navigate<PhoneViewModel>();
 
-    [RelayCommand]
-    void NavigateToAnonymously() =>
-        homeViewModel.Navigate<AnonymouslyViewModel>();
-
 
     [RelayCommand]
     Task SignInWithFlowAsync(
         IProviderFlow flow) =>
         homeViewModel.SignInAsync(SignInRequest.WithProviderFlow(flow));
+
+
+    [RelayCommand]
+    async Task SignUpAnonymouslyAsync() =>
+        await homeViewModel.SignUpAsync(SignUpRequest.Anonymously());
 }

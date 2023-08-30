@@ -26,7 +26,7 @@ public class SignUp
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            SignUpRequest signUpRequest = SignUpRequest.WithEmailPassword(TestData.Email, TestData.Password, TestData.DisplayName, TestData.PhotoUrl);
+            SignUpRequest signUpRequest = SignUpRequest.WithEmailPassword(TestData.Email, TestData.Password, TestData.DisplayName);
             await client.SignUpAsync(signUpRequest);
 
             Assert.That(client.CurrentCredential, Is.Not.Null);
@@ -44,7 +44,7 @@ public class SignUp
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            SignUpRequest signUpRequest = SignUpRequest.Anonymously(TestData.DisplayName, TestData.PhotoUrl);
+            SignUpRequest signUpRequest = SignUpRequest.Anonymously();
             await client.SignUpAsync(signUpRequest);
 
             Assert.That(client.CurrentCredential, Is.Not.Null);
