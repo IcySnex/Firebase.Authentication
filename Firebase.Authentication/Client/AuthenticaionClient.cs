@@ -501,7 +501,7 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
             idToken: credential.IdToken,
             displayName: displayName,
             photoUrl: photoUrl,
-            deleteAttributes: deleteDisplayName ? deletePhotoUrl ? new[] { UserAttributeName.DisplayName, UserAttributeName.PhotoUrl } : new[] { UserAttributeName.DisplayName } : photoUrl is null ? new[] { UserAttributeName.PhotoUrl } : null);
+            deleteAttributes: deleteDisplayName ? deletePhotoUrl ? new[] { UserAttributeName.DisplayName, UserAttributeName.PhotoUrl } : new[] { UserAttributeName.DisplayName } : deletePhotoUrl ? new[] { UserAttributeName.PhotoUrl } : null);
         UpdateResponse response = await identityPlatform.UpdateAsync(request, null, cancellationToken);
 
         logger?.LogInformation("[AuthenticationClient-UpdateAsync] Updated the current user.");
@@ -514,7 +514,9 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
         }
         // Update current users display name and photo url
 
-        CurrentUser = CurrentUser.Copy(response.DisplayName, response.PhotoUrl);
+        CurrentUser = CurrentUser.Copy(
+            deleteDisplayName ? null : response.DisplayName ?? CurrentUser.DisplayName,
+            deletePhotoUrl ? null : response.PhotoUrl ?? CurrentUser.PhotoUrl);
     }
 
     /// <summary>

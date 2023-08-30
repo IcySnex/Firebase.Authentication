@@ -11,14 +11,14 @@ namespace Firebase.Authentication.Models;
 public class UserInfo
 {
     public UserInfo Copy(
-        string displayName,
-        string photoUrl) =>
+        string? displayName,
+        string? photoUrl) =>
         new(
             localId: LocalId,
             email: Email,
-            displayName: displayName,
+            displayName: displayName!,
             language: Language,
-            photoUrl: photoUrl,
+            photoUrl: photoUrl!,
             timeZone: TimeZone,
             dateOfBirth: DateOfBirth,
             passwordHash: PasswordHash,
