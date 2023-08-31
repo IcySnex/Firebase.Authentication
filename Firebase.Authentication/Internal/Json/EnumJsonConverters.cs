@@ -10,7 +10,7 @@ internal class ProviderJsonConverter : JsonConverter<Provider>
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options) =>
-        reader.GetString() is string s ? EnumHelper.ToEnum<Provider>(s) : Provider.Undefined;
+        reader.GetString() is string s ? EnumHelper.ToEnum<Provider>(s) : default!;
 
 
     public override void Write(

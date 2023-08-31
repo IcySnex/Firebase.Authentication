@@ -235,7 +235,7 @@ public interface IAuthenticationClient : INotifyPropertyChanged
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public Task<Provider[]?> GetSignInProvidersAsync(
+    public Task<SignInMethod> GetSignInMethodAsync(
         string email,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default);

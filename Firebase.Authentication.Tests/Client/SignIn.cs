@@ -3,6 +3,7 @@ using Firebase.Authentication.Client;
 using Firebase.Authentication.Configuration;
 using Firebase.Authentication.Requests;
 using Firebase.Authentication.Types;
+using Firebase.Authentication.Models;
 
 namespace Firebase.Authentication.Tests.Client;
 
@@ -113,18 +114,18 @@ public class SignIn
 
 
     [Test]
-    public void GetProviders_Success()
+    public void GetMethod_Success()
     {
         // Mock request/response
-        Provider[]? response = default!;
+        SignInMethod response = default!;
 
         // Run Test: Expected behaviour: Run without exception
         Assert.DoesNotThrowAsync(async () =>
         {
-            response = await client.GetSignInProvidersAsync(TestData.Email);
+            response = await client.GetSignInMethodAsync(TestData.Email);
         });
 
         // Write result
-        TestData.Write(response is null ? null : string.Join(", ", response));
+        TestData.Write(response.Providers is null ? $"IsRegistered: {response.IsRegistered}" : $"IsRegistered: {response.IsRegistered}, Providers: " + string.Join(", ", response.Providers));
     }
 }

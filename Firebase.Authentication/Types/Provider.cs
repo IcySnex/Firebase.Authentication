@@ -8,12 +8,6 @@ namespace Firebase.Authentication.Types;
 public enum Provider
 {
     /// <summary>
-    /// Could not get the Provider type
-    /// </summary>
-    [EnumMember(Value = "undefined")]
-    Undefined,
-
-    /// <summary>
     /// Authentication using email and password
     /// </summary>
     [EnumMember(Value = "password")]

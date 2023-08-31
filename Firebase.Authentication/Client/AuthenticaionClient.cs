@@ -623,7 +623,7 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
     /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
     /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
     /// <returns>A list of sign in methods for the users account. Null if email is not registered</returns>
-    public async Task<Provider[]?> GetSignInProvidersAsync(
+    public async Task<SignInMethod> GetSignInMethodAsync(
         string email,
         string continueUri = "http://localhost",
         CancellationToken cancellationToken = default)
@@ -635,7 +635,7 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
         CreateAuthUrlResponse response = await identityPlatform.CreateAuthUriAsync(request, cancellationToken);
 
         logger?.LogInformation("[AuthenticationClient-GetSignInMethodsAsync] Got sign in methods for email.");
-        return response.SigninMethods;
+        return new(email, response.SigninMethods, response.IsRegistered ?? false);
     }
 
     /// <summary>

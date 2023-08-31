@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
+using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
@@ -84,20 +85,25 @@ public partial class EmailViewModel : ObservableObject
     {
         try
         {
-            Provider[]? providers = await authenticaion.GetSignInProvidersAsync(Email);
-            if (providers is null)
+            SignInMethod method = await authenticaion.GetSignInMethodAsync(Email);
+            if (!method.IsRegistered)
             {
                 IsDisplayNameVisible = true;
                 IsPasswordVisible = true;
                 return;
             }
-            if (providers.Contains(Provider.EmailAndPassword))
+            if (method.Providers is null)
+            {
+                homeViewModel.ShowSignInError("This account only supports signing in via an email link, which is currently not supported by this application!");
+                return;
+            }
+            if (method.Providers.Contains(Provider.EmailAndPassword))
             {
                 IsPasswordVisible = true;
                 return;
             }
 
-            homeViewModel.ShowSignInError("This account only supports signing in via one of these providers: " + string.Join(", ", providers));
+            homeViewModel.ShowSignInError("This account only supports signing in via one of these providers: " + string.Join(", ", method.Providers));
         }
         catch (Exception ex)
         {
