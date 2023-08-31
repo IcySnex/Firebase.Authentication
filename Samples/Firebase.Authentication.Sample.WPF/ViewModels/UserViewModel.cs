@@ -46,7 +46,7 @@ public partial class UserViewModel : ObservableObject
 
                 DisplayName = e.NewValue?.DisplayName ?? null;
                 Email = e.NewValue?.Email ?? null;
-                IsVerifyEmailVisible = !e.NewValue?.IsEmailVerified ?? true && !string.IsNullOrWhiteSpace(e.NewValue?.Email);
+                IsVerifyEmailVisible = !(e.NewValue?.IsEmailVerified ?? true) && !string.IsNullOrWhiteSpace(e.NewValue?.Email);
                 break;
         }
     }
