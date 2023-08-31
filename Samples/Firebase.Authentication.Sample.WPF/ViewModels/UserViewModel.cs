@@ -96,9 +96,9 @@ public partial class UserViewModel : ObservableObject
 
 
     [ObservableProperty]
-    bool isEditDisplayName = false;
+    bool isDisplayNameChangeable = false;
 
-    async partial void OnIsEditDisplayNameChanged(bool value)
+    async partial void OnIsDisplayNameChangeableChanged(bool value)
     {
         UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
         if (value || user.DisplayName == DisplayName)
@@ -125,9 +125,9 @@ public partial class UserViewModel : ObservableObject
     
 
     [ObservableProperty]
-    bool isEditEmail = false;
+    bool isEmailChangeable = false;
 
-    async partial void OnIsEditEmailChanged(bool value)
+    async partial void OnIsEmailChangeableChanged(bool value)
     {
         UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
         if (value || user.Email == Email)

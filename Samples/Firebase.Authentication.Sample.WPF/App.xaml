@@ -20,7 +20,7 @@
             <conv:IsNotNullToVisibilityConverter x:Key="IsNotNullVisibilityConverter" />
             <conv:DateTimeDifferenceConverter x:Key="DateTimeDifferenceConverter" />
             <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            <conv:BooleanToEditSaveConverter x:Key="BooleanToEditSaveConverter" />
+            <conv:BooleanToChangeSaveConverter x:Key="BooleanToChangeSaveConverter" />
             <conv:BooleanToSignUpInConverter x:Key="BooleanToSignUpInConverter" />
 
             <!--  Pages  -->

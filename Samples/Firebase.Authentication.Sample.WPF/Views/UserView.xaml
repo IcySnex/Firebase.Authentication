@@ -230,13 +230,13 @@
                 <TextBox
                     Padding="6"
                     FontSize="14"
-                    IsReadOnly="{Binding IsEditDisplayName, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                    IsReadOnly="{Binding IsDisplayNameChangeable, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
                     Text="{Binding DisplayName, Mode=TwoWay}" />
                 <ToggleButton
                     Grid.Column="1"
-                    Width="70"
-                    Content="{Binding IsEditDisplayName, Mode=OneWay, Converter={StaticResource BooleanToEditSaveConverter}, FallbackValue='Edit'}"
-                    IsChecked="{Binding IsEditDisplayName, Mode=TwoWay}" />
+                    Width="80"
+                    Content="{Binding IsDisplayNameChangeable, Mode=OneWay, Converter={StaticResource BooleanToChangeSaveConverter}, FallbackValue='Change'}"
+                    IsChecked="{Binding IsDisplayNameChangeable, Mode=TwoWay}" />
             </Grid>
         </Grid>
 
@@ -265,13 +265,13 @@
                 <TextBox
                     Padding="6"
                     FontSize="14"
-                    IsReadOnly="{Binding IsEditEmail, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                    IsReadOnly="{Binding IsEmailChangeable, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
                     Text="{Binding Email, Mode=TwoWay}" />
                 <ToggleButton
                     Grid.Column="1"
-                    Width="70"
-                    Content="{Binding IsEditEmail, Mode=OneWay, Converter={StaticResource BooleanToEditSaveConverter}, FallbackValue='Edit'}"
-                    IsChecked="{Binding IsEditEmail, Mode=TwoWay}" />
+                    Width="80"
+                    Content="{Binding IsEmailChangeable, Mode=OneWay, Converter={StaticResource BooleanToChangeSaveConverter}, FallbackValue='Change'}"
+                    IsChecked="{Binding IsEmailChangeable, Mode=TwoWay}" />
             </Grid>
         </Grid>
 
