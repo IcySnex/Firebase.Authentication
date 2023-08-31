@@ -240,7 +240,7 @@
             </Grid>
         </Grid>
 
-        <Grid Margin="0,0,0,12">
+        <Grid Margin="0,0,0,12" Visibility="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
             <TextBlock Opacity="0.7">
                 <Run Text="Email" />
                 <Run>
@@ -272,6 +272,29 @@
                     Width="80"
                     Content="{Binding IsEmailChangeable, Mode=OneWay, Converter={StaticResource BooleanToChangeSaveConverter}, FallbackValue='Change'}"
                     IsChecked="{Binding IsEmailChangeable, Mode=TwoWay}" />
+            </Grid>
+        </Grid>
+
+        <Grid Margin="0,0,0,12" Visibility="{Binding Authenticaion.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+            <TextBlock Opacity="0.7" Text="Password" />
+            <Grid Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Padding="10,0"
+                    VerticalAlignment="Center"
+                    FontSize="14">
+                    <Run Text="Last updated" />
+                    <Run Text="{Binding Authenticaion.CurrentUser.PasswordUpdatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                </TextBlock>
+                <Button
+                    Grid.Column="1"
+                    Width="80"
+                    Command="{Binding ChangePasswordCommand}"
+                    Content="Change" />
             </Grid>
         </Grid>
 

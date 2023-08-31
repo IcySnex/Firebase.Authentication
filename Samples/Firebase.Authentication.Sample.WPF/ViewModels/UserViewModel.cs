@@ -190,6 +190,10 @@ public partial class UserViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    void ChangePassword() =>
+        mainViewModel.ShowModal<ChangePasswordViewModel>();
+
 
     [RelayCommand]
     async Task RefreshAsync()

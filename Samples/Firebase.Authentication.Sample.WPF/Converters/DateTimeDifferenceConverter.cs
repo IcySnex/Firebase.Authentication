@@ -7,6 +7,9 @@ public class DateTimeDifferenceConverter : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        if (value is null)
+            return "never";
+
         TimeSpan difference = DateTime.Now - (DateTime)value;
 
         double totalWeeks = difference.TotalDays / 7;

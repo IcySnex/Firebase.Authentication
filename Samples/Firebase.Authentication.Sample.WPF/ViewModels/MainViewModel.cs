@@ -79,6 +79,27 @@ public partial class MainViewModel : ObservableObject
     }
 
 
+    [ObservableProperty]
+    ObservableObject? currentModalViewModel;
+
+    public bool ShowModal<T>()
+    {
+        if (App.Provider.GetService<T>() is not ObservableObject viewModel)
+            return false;
+
+        CurrentModalViewModel = viewModel;
+        logger.LogInformation("[MainViewModel-ShowModal] Showed model view.");
+
+        return true;
+    }
+
+    public void CloseModal()
+    {
+        CurrentModalViewModel = null;
+        logger.LogInformation("[MainViewModel-CloseModal] Closed current model view.");
+    }
+
+
     [RelayCommand]
     void NavigateToHome() =>
         Navigate<HomeViewModel>();

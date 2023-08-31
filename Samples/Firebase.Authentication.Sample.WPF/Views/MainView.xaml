@@ -59,5 +59,27 @@
         </Grid>
 
         <UserControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+
+        <Grid Grid.RowSpan="2" Visibility="{Binding CurrentModalViewModel, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}, FallbackValue=Collapsed}">
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Opacity="0.18" />
+
+            <Border
+                MaxWidth="700"
+                Margin="48"
+                Padding="24,12"
+                VerticalAlignment="Center"
+                Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                CornerRadius="4">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="18"
+                        Direction="270"
+                        Opacity="0.3"
+                        ShadowDepth="4" />
+                </Border.Effect>
+
+                <UserControl Grid.Row="1" Content="{Binding CurrentModalViewModel}" />
+            </Border>
+        </Grid>
     </Grid>
 </Window>
