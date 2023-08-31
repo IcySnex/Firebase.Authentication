@@ -184,7 +184,7 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
     /// <summary>
     /// Checks if the current user is valid based on the given period and if not sends a user data request 
     /// </summary>
-    /// <param name="validityPeriod">The time span at which the user should be refreshed to maintain up-to-date information. Null if a single time user info is wanted</param>
+    /// <param name="validityPeriod">The time span at which the user should be refreshed to maintain up-to-date information. Null if it should never expire</param>
     /// <param name="forceRefresh">When true the validity period of the current user info is ignored it always returns a fresh user</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <returns>An always uo to date user info</returns>

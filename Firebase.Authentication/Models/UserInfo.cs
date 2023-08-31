@@ -74,30 +74,30 @@ public class UserInfo
     /// <param name="lastRefreshAt">The date and time when an ID token was last minted for this account</param>
     [JsonConstructor]
     public UserInfo(string localId,
-        string email,
-        string displayName,
-        string language,
-        string photoUrl,
-        string timeZone,
-        string dateOfBirth,
-        string passwordHash,
-        string salt,
+        string? email,
+        string? displayName,
+        string? language,
+        string? photoUrl,
+        string? timeZone,
+        string? dateOfBirth,
+        string? passwordHash,
+        string? salt,
         int version,
         bool isEmailVerified,
-        DateTime passwordUpdatedAt,
-        ProviderUserInfo[] providerUserInfos,
-        DateTime validSince,
+        DateTime? passwordUpdatedAt,
+        ProviderUserInfo[]? providerUserInfos,
+        DateTime? validSince,
         bool isDisabled,
         DateTime lastLoginAt,
         DateTime createdAt,
-        string screenName,
+        string? screenName,
         bool isCustomAuth,
-        string phoneNumber,
-        string customAttributes,
+        string? phoneNumber,
+        string? customAttributes,
         bool isEmailLinkSignin,
         string tenantId,
-        MfaEnrollment[] mfaInfos,
-        string initialEmail,
+        MfaEnrollment[]? mfaInfos,
+        string? initialEmail,
         DateTime lastRefreshAt,
         TimeSpan? validityPeriod = null)
     {
@@ -141,51 +141,51 @@ public class UserInfo
     /// The account's email address
     /// </summary>
     [JsonPropertyName("email")]
-    public string Email { get; }
+    public string? Email { get; }
 
     /// <summary>
     /// The display name of the account
     /// </summary>
     [JsonPropertyName("displayName")]
-    public string DisplayName { get; }
+    public string? DisplayName { get; }
 
     /// <summary>
     /// The language preference of the account
     /// </summary>
     [JsonPropertyName("language")]
-    public string Language { get; }
+    public string? Language { get; }
 
     /// <summary>
     /// The URL of the account's profile photo
     /// </summary>
     [JsonPropertyName("photoUrl")]
-    public string PhotoUrl { get; }
+    public string? PhotoUrl { get; }
 
     /// <summary>
     /// The time zone preference of the account
     /// </summary>
     [JsonPropertyName("timeZone")]
-    public string TimeZone { get; }
+    public string? TimeZone { get; }
 
     /// <summary>
     /// The date of birth set for the account
     /// </summary>
     [JsonPropertyName("dateOfBirth")]
-    public string DateOfBirth { get; }
+    public string? DateOfBirth { get; }
 
     /// <summary>
     /// The password hash of this user
     /// </summary>
     [Obsolete("Showing passwords in your application may be dangerous! (Even if its hashed)")]
     [JsonPropertyName("passwordHash")]
-    public string PasswordHash { get; }
+    public string? PasswordHash { get; }
 
     /// <summary>
     /// The account's password salt
     /// </summary>
     [Obsolete("Showing salts in your application may be dangerous! (Even if its hashed)")]
     [JsonPropertyName("salt")]
-    public string Salt { get; }
+    public string? Salt { get; }
 
     /// <summary>
     /// The version of the account's password
@@ -204,20 +204,20 @@ public class UserInfo
     /// </summary>
     [JsonConverter(typeof(MsJsonConverter))]
     [JsonPropertyName("passwordUpdatedAt")]
-    public DateTime PasswordUpdatedAt { get; }
+    public DateTime? PasswordUpdatedAt { get; }
 
     /// <summary>
     /// Information about the user as provided by various Identity Providers
     /// </summary>
     [JsonPropertyName("providerUserInfo")]
-    public ProviderUserInfo[] ProviderUserInfos { get; }
+    public ProviderUserInfo[]? ProviderUserInfos { get; }
 
     /// <summary>
     /// The date and time when this user is valid
     /// </summary>
     [JsonConverter(typeof(SStringJsonConverter))]
     [JsonPropertyName("validSince")]
-    public DateTime ValidSince { get; }
+    public DateTime? ValidSince { get; }
 
     /// <summary>
     /// Whether the account is disabled
@@ -243,7 +243,7 @@ public class UserInfo
     /// This account's screen name at Twitter or login name at GitHub
     /// </summary>
     [JsonPropertyName("screenName")]
-    public string ScreenName { get; }
+    public string? ScreenName { get; }
 
     /// <summary>
     /// Whether this account has been authenticated using accounts.signInWithCustomToken
@@ -255,13 +255,13 @@ public class UserInfo
     /// The account's phone number
     /// </summary>
     [JsonPropertyName("phoneNumber")]
-    public string PhoneNumber { get; }
+    public string? PhoneNumber { get; }
 
     /// <summary>
     /// Custom claims to be added to any ID tokens minted for the account (JSON)
     /// </summary>
     [JsonPropertyName("customAttributes")]
-    public string CustomAttributes { get; }
+    public string? CustomAttributes { get; }
 
     /// <summary>
     /// Custom claims to be added to any ID tokens minted for the account (JSON)
@@ -279,13 +279,13 @@ public class UserInfo
     /// Information on which multi-factor authentication providers are enabled for this account
     /// </summary>
     [JsonPropertyName("mfaInfo")]
-    public MfaEnrollment[] MfaInfos { get; }
+    public MfaEnrollment[]? MfaInfos { get; }
 
     /// <summary>
     /// The first email address associated with this account
     /// </summary>
     [JsonPropertyName("initialEmail")]
-    public string InitialEmail { get; }
+    public string? InitialEmail { get; }
 
     /// <summary>
     /// The date and time when an ID token was last minted for this account
