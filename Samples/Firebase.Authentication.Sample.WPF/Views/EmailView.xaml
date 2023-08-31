@@ -48,7 +48,7 @@
         </Grid>
 
         <TextBlock Margin="0,0,0,12" Visibility="{Binding IsResetPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <Hyperlink Command="{Binding ResetPasswordCommand}">
+            <Hyperlink Command="{Binding ResetPasswordCommand}" IsEnabled="{Binding IsResetPasswordVisible, Mode=OneWay}">
                 Forgot password?
             </Hyperlink>
         </TextBlock>
