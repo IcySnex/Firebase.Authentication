@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Sample.WPF.Helpers;
 using Firebase.Authentication.Sample.WPF.Services;
 using Firebase.Authentication.WPF.UI;
 using Microsoft.Extensions.Logging;
@@ -75,8 +76,7 @@ public partial class UserViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            logger.LogInformation("[UserViewModel-.UploadAvatarAsync] Uploading avatar failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to upload an avatar was unsuccessful.\n" + ex.Message, "Avatar upload failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Uploading avatar failed", "UserViewModel-UploadAvatarAsync");
         }
     }
 
@@ -89,8 +89,7 @@ public partial class UserViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            logger.LogInformation("[UserViewModel-.RemoveAvatarAsync] Removing avatar failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to remove the avatar was unsuccessful.\n" + ex.Message, "Avatar remove failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Removing avatar failed", "UserViewModel-UploadAvatarAsync");
         }
     }
 
@@ -111,8 +110,7 @@ public partial class UserViewModel : ObservableObject
         catch (Exception ex)
         {
             DisplayName = user.DisplayName;
-            logger.LogInformation("[UserViewModel-.OnIsEditDisplayNameChanged] Editing display name failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to edit the display name was unsuccessful.\n" + ex.Message, "Editing display name failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Changing display name failed", "UserViewModel-OnIsEditDisplayNameChanged");
         }
     }
 
@@ -154,8 +152,7 @@ public partial class UserViewModel : ObservableObject
         catch (Exception ex)
         {
             Email = user.Email;
-            logger.LogInformation("[UserViewModel-.OnIsEditEmailChanged] Editing email failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to change the email was unsuccessful.\n" + ex.Message, "Editing email name failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Changing email failed", "UserViewModel-OnIsEditEmailChanged");
         }
     }
 
@@ -181,12 +178,11 @@ public partial class UserViewModel : ObservableObject
         {
             await Authenticaion.SendEmailAsync(EmailRequest.Verify(), "en");
             IsVerifyEmailVisible = false;
-            MessageBox.Show("A verify email was successfully sent to your account. Please check your email inbox!", "Verify email sent!", MessageBoxButton.OK, MessageBoxImage.Information);
+            logger.LogInformationAndShow("A 'verify email address' mail has been sent to your account! Please check your inbox.", "Sent email", "UserViewModel-VerifyEmailAsync");
         }
         catch (Exception ex)
         {
-            logger.LogInformation("[UserViewModel-.VerifyEmailAsync] Verifying email failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to send an verify email was unsuccessful.\n" + ex.Message, "Verifying email failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Verifying email failed", "UserViewModel-VerifyEmailAsync");
         }
     }
 
@@ -201,12 +197,11 @@ public partial class UserViewModel : ObservableObject
         try
         {
             await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1), true);
-            MessageBox.Show("The user info successfully refreshed!", "Refreshed user info!", MessageBoxButton.OK, MessageBoxImage.Information);
+            logger.LogInformationAndShow("The user info successfully refreshed", "Refreshed user info", "UserViewModel-RefreshAsync");
         }
         catch (Exception ex)
         {
-            logger.LogInformation("[UserViewModel-.RefreshAsync] Refreshing user info failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to refresh the user info was unsuccessful.\n" + ex.Message, "Refreshing user info failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Refreshing user info failed", "UserViewModel-RefreshAsync");
         }
     }
 

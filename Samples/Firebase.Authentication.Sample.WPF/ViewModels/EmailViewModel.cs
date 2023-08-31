@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Sample.WPF.Helpers;
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
 using System.Windows;
@@ -58,7 +59,7 @@ public partial class EmailViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(Email))
         {
-            homeViewModel.ShowSignInError("The email field cannot be empty.");
+            logger.LogErrorAndShow("The email field cannot be empty.", "Signing up failed", "EmailViewModel-SignUpAsync");
             return;
         }
         if (!IsPasswordVisible)
@@ -68,7 +69,7 @@ public partial class EmailViewModel : ObservableObject
         }
         if (string.IsNullOrWhiteSpace(Password))
         {
-            homeViewModel.ShowSignInError("The password field cannot be empty.");
+            logger.LogErrorAndShow("The password field cannot be empty.", "Signing up failed", "EmailViewModel-SignUpAsync");
             return;
         }
 
@@ -94,7 +95,7 @@ public partial class EmailViewModel : ObservableObject
             }
             if (method.Providers is null)
             {
-                homeViewModel.ShowSignInError("This account only supports signing in via an email link, which is currently not supported by this application!");
+                logger.LogErrorAndShow("This account only supports signing in via an email link, which is not supported by this application.", "Signing up failed", "EmailViewModel-PrepareSignInAsync");
                 return;
             }
             if (method.Providers.Contains(Provider.EmailAndPassword))
@@ -103,11 +104,11 @@ public partial class EmailViewModel : ObservableObject
                 return;
             }
 
-            homeViewModel.ShowSignInError("This account only supports signing in via one of these providers: " + string.Join(", ", method.Providers));
+            logger.LogErrorAndShow("This account only supports signing in via one of these providers: " + string.Join(", ", method.Providers), "Signing up failed", "EmailViewModel-PrepareSignInAsync");
         }
         catch (Exception ex)
         {
-            homeViewModel.ShowSignInError(ex.Message);
+            logger.LogErrorAndShow(ex, "Signing up failed", "EmailViewModel-PrepareSignInAsync");
         }
     }
 
@@ -117,21 +118,18 @@ public partial class EmailViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(Email))
         {
-            MessageBox.Show("The attempt to reset the password was unsuccessful.\nThe email field can not be empty.", "Resetting password failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow("The email field can not be empty", "Resetting password failed", "EmailViewModel-ResetPasswordAsync");
             return;
         }
-
-        if (MessageBox.Show("If you continue you will get a reset password email sent to your account.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
-            return;
 
         try
         {
             await authenticaion.SendEmailAsync(EmailRequest.ResetPassword(Email));
+            logger.LogInformationAndShow("A 'reset password' mail has been sent to your account! Please check your inbox.", "Sent email", "EmailViewModel-ResetPasswordAsync");
         }
         catch (Exception ex)
         {
-            logger.LogInformation("[EmailViewModel-.ResetPasswordAsync] Resetting password failed: {0}", ex.Message);
-            MessageBox.Show("The attempt to reset the password was unsuccessful.\n" + ex.Message, "Resetting password failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+            logger.LogErrorAndShow(ex, "Resetting password failed", "EmailViewModel-ResetPasswordAsync");
         }
     }
 }

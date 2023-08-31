@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Sample.WPF.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -46,21 +47,6 @@ public partial class HomeViewModel : ObservableObject
     }
 
 
-    public void ShowSignInError(
-        string message)
-    {
-        logger.LogError("[HomeViewModel-ShowSignInError] Signing in failed: {0}", message);
-        MessageBox.Show("The attempt to sign in was unsuccessful.\n" + message, "Signing in failed!", MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
-    public void ShowSignUpError(
-        string message)
-    {
-        logger.LogError("[HomeViewModel-ShowSignUpError] Signing up failed: {0}", message);
-        MessageBox.Show("The attempt to sign up was unsuccessful.\n" + message, "Signing up failed!", MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
-
     [RelayCommand]
     void OpenBrowser(
         string url)
@@ -91,7 +77,7 @@ public partial class HomeViewModel : ObservableObject
         catch (TaskCanceledException) { }
         catch (Exception ex)
         {
-            ShowSignInError(ex.Message);
+            logger.LogErrorAndShow(ex, "Signing in failed", "HomeViewModel-SignUpAsync");
         }
         return false;
     }
@@ -110,7 +96,7 @@ public partial class HomeViewModel : ObservableObject
         catch (TaskCanceledException) { }
         catch (Exception ex)
         {
-            ShowSignUpError(ex.Message);
+            logger.LogErrorAndShow(ex, "Signing up failed", "HomeViewModel-SignUpAsync");
         }
         return false;
     }

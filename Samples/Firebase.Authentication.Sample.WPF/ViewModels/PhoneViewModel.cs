@@ -2,14 +2,15 @@
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Requests;
+using Firebase.Authentication.Sample.WPF.Helpers;
 using Microsoft.Extensions.Logging;
-using ReCaptcha.Desktop.WPF.Client;
 using ReCaptcha.Desktop.WPF.Client.Interfaces;
 
 namespace Firebase.Authentication.Sample.WPF.ViewModels;
 
 public partial class PhoneViewModel : ObservableObject
 {
+    readonly ILogger<PhoneViewModel> logger;
     readonly HomeViewModel homeViewModel;
     readonly IReCaptchaClient reCaptcha;
     readonly IAuthenticationClient authenticaion;
@@ -20,6 +21,7 @@ public partial class PhoneViewModel : ObservableObject
         IReCaptchaClient reCaptcha,
         IAuthenticationClient authenticaion)
     {
+        this.logger = logger;
         this.homeViewModel = homeViewModel;
         this.reCaptcha = reCaptcha;
         this.authenticaion = authenticaion;
@@ -105,12 +107,12 @@ public partial class PhoneViewModel : ObservableObject
     {
         if (sessionInfo is null)
         {
-            homeViewModel.ShowSignInError("Please first send a verification code.");
+            logger.LogErrorAndShow("Please first send a verification code.", "Signing in failed", "PhoneViewModel-SignInAsync");
             return;
         }
         if (string.IsNullOrWhiteSpace(Code))
         {
-            homeViewModel.ShowSignInError("The verification code field cannot be empty.");
+            logger.LogErrorAndShow("The verification code field cannot be empty.", "Signing in failed", "PhoneViewModel-SignInAsync");
             return;
         }
 
@@ -125,13 +127,13 @@ public partial class PhoneViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(PhoneNumber))
         {
-            homeViewModel.ShowSignInError("The phone number field cannot be empty.");
+            logger.LogErrorAndShow("The phone number field cannot be empty.", "Sending verification code failed", "PhoneViewModel-SendCodeAsync");
             return;
         }
 
         if (string.IsNullOrWhiteSpace(ReCaptchaToken))
         {
-            homeViewModel.ShowSignInError("Please first fill the reCAPTCHA.");
+            logger.LogErrorAndShow("Please first fill the reCAPTCHA.", "Sending verification code failed", "PhoneViewModel-SendCodeAsync");
             return;
         }
 
@@ -144,7 +146,7 @@ public partial class PhoneViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            homeViewModel.ShowSignInError(ex.Message);
+            logger.LogErrorAndShow(ex, "Sending verification code failed", "PhoneViewModel-SendCodeAsync");
         }
     }
 }

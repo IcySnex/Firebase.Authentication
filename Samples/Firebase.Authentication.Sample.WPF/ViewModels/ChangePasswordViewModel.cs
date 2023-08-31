@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
+using Firebase.Authentication.Sample.WPF.Helpers;
 using Microsoft.Extensions.Logging;
 using System.Windows;
 
@@ -44,12 +45,12 @@ public partial class ChangePasswordViewModel : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(CurrentPassword) || string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmNewPassword))
         {
-            ShowError("The current, new and confirm new password field can not be empty!");
+            logger.LogErrorAndShow("The current, new and confirm new password field can not be empty.", "Changing password failed", "ChangePasswordViewModel-ContinueAsync");
             return;
         }
         if (NewPassword != ConfirmNewPassword)
         {
-            ShowError("The new password does not match the confirm new password!");
+            logger.LogErrorAndShow("The new password does not match the confirm new password.", "Changing password failed", "ChangePasswordViewModel-ContinueAsync");
             return;
         }
 
@@ -62,14 +63,7 @@ public partial class ChangePasswordViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            ShowError(ex.Message);
+            logger.LogErrorAndShow(ex, "Changing password failed", "ChangePasswordViewModel-ContinueAsync");
         }
-    }
-
-    void ShowError(
-        string message)
-    {
-        logger.LogError("[UserViewModel-.VerifyEmailAsync] Verifying email failed: {0}", message);
-        MessageBox.Show("The attempt to change the password was unsuccessful.\n" + message, "Changing password failed!", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
