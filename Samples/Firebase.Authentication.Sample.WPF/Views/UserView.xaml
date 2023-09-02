@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fb="clr-namespace:Firebase.Authentication.Types;assembly=Firebase.Authentication"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
     d:Background="White"
@@ -284,7 +285,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
-                    Padding="10,0"
+                    Margin="10,0"
                     VerticalAlignment="Center"
                     FontSize="14">
                     <Run Text="Last updated" />
@@ -296,6 +297,161 @@
                     Command="{Binding ChangePasswordCommand}"
                     Content="Change" />
             </Grid>
+        </Grid>
+
+        <Grid Margin="0,0,0,12">
+            <TextBlock Opacity="0.7" Text="Sign-in methods" />
+            <WrapPanel Margin="0,18,0,0" HorizontalAlignment="Center">
+                <ContentControl
+                    Background="#e6a800"
+                    BorderBrush="#ffc933"
+                    Tag="{x:Static ui:Icons.EmailAndPassword}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.EmailLink}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#db4437"
+                    BorderBrush="#de4e4e"
+                    Tag="{x:Static ui:Icons.EmailAndPassword}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.EmailAndPassword}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.EmailAndPassword}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#02bd7e"
+                    BorderBrush="#18D696"
+                    Tag="{x:Static ui:Icons.PhoneNumber}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.PhoneNumber}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.PhoneNumber}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#3b5998"
+                    BorderBrush="#5a7abf"
+                    Tag="{x:Static ui:Icons.Facebook}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Facebook}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Facebook}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#ffffff"
+                    BorderBrush="#d9d9d9"
+                    Tag="{x:Static ui:Icons.Google}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Google}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Google}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#000000"
+                    BorderBrush="#000000"
+                    Tag="{x:Static ui:Icons.Apple}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Apple}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Apple}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#333333"
+                    BorderBrush="#595959"
+                    Tag="{x:Static ui:Icons.Github}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Github}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Github}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#55acee"
+                    BorderBrush="#8bc6f4"
+                    Tag="{x:Static ui:Icons.Twitter}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Twitter}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Twitter}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#2f2f2f"
+                    BorderBrush="#4d4d4d"
+                    Tag="{x:Static ui:Icons.Microsoft}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Microsoft}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Microsoft}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+                <ContentControl
+                    Background="#6d528e"
+                    BorderBrush="#896dab"
+                    Tag="{x:Static ui:Icons.Yahoo}"
+                    Template="{StaticResource SignInMethodButton}"
+                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Yahoo}}">
+                    <ContentControl.InputBindings>
+                        <MouseBinding
+                            Command="{Binding RemoveSignInMethodCommand}"
+                            CommandParameter="{x:Static fb:Provider.Yahoo}"
+                            MouseAction="LeftClick" />
+                    </ContentControl.InputBindings>
+                </ContentControl>
+
+                <Image
+                    Width="24"
+                    Height="24"
+                    Margin="16"
+                    Cursor="Hand"
+                    Visibility="{Binding IsAddSignInMethodVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                    <Image.Source>
+                        <DrawingImage>
+                            <DrawingImage.Drawing>
+                                <GeometryDrawing Brush="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Geometry="F1 M512,512z M0,0z M290.1,221.9L290.1,44.1C290.1,25.3,274.9,10.1,256,10L256,10C237.2,10,222,25.2,221.9,44.1L221.9,221.9 44.1,221.9C25.3,221.9,10.1,237.1,10,256L10,256C10,274.8,25.2,290,44.1,290.1L221.9,290.1 221.9,467.9C221.9,486.7,237.1,501.9,256,502L256,502C274.8,502,290,486.8,290.1,467.9L290.1,290.1 467.9,290.1C486.7,290.1,501.9,274.9,502,256L502,256C502,237.2,486.8,222,467.9,221.9L290.1,221.9z" />
+                            </DrawingImage.Drawing>
+                        </DrawingImage>
+                    </Image.Source>
+
+                    <Image.InputBindings>
+                        <MouseBinding Command="{Binding AddSignInMethodCommand}" MouseAction="LeftClick" />
+                    </Image.InputBindings>
+                </Image>
+            </WrapPanel>
         </Grid>
 
         <StackPanel

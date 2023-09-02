@@ -5,6 +5,7 @@ using Firebase.Authentication.Models;
 using Firebase.Authentication.Requests;
 using Firebase.Authentication.Sample.WPF.Helpers;
 using Firebase.Authentication.Sample.WPF.Services;
+using Firebase.Authentication.Types;
 using Firebase.Authentication.WPF.UI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -45,8 +46,13 @@ public partial class UserViewModel : ObservableObject
                 PropertyChangedEventArgs<UserInfo> e = (PropertyChangedEventArgs<UserInfo>)args;
 
                 DisplayName = e.NewValue?.DisplayName ?? null;
+
                 Email = e.NewValue?.Email ?? null;
+
                 IsVerifyEmailVisible = !(e.NewValue?.IsEmailVerified ?? true) && !string.IsNullOrWhiteSpace(e.NewValue?.Email);
+
+                UsedSignInMethods = e.NewValue?.ProviderUserInfos?.Select(info => info.Provider).ToArray() ?? null;
+                IsAddSignInMethodVisible = UsedSignInMethods is null ? true : Enum.GetValues<Provider>().Except(UsedSignInMethods).Any();
                 break;
         }
     }
@@ -133,12 +139,11 @@ public partial class UserViewModel : ObservableObject
 
         if (string.IsNullOrWhiteSpace(Email))
         {
-            MessageBox.Show("The attempt to change the email was unsuccessful.\nThe email field can not be empty.", "Editing email failed!", MessageBoxButton.OK, MessageBoxImage.Error);
-            Email = user.Email;
+            await RemoveEmailAsync();
             return;
         }
 
-        if (MessageBox.Show("If you continue you will get a change email sent to your account. Once verified you will be able to use your new email. If you press 'Yes' you will get signed out!\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        if (MessageBox.Show("If you continue you will get a 'change email address' mail sent to your account. Once verified you will be able to use your new email. If you press 'Yes' you will get signed out!\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
         {
             Email = user.Email;
             return;
@@ -152,7 +157,7 @@ public partial class UserViewModel : ObservableObject
         catch (Exception ex)
         {
             Email = user.Email;
-            logger.LogErrorAndShow(ex, "Changing email failed", "UserViewModel-OnIsEditEmailChanged");
+            logger.LogErrorAndShow(ex, "Changing email failed", "UserViewModel-OnIsEmailChangeableChanged");
         }
     }
 
@@ -161,6 +166,22 @@ public partial class UserViewModel : ObservableObject
     {
         get => email;
         set => SetProperty(ref email, string.IsNullOrWhiteSpace(value) ? null : value);
+    }
+
+    async Task RemoveEmailAsync()
+    {
+        if (MessageBox.Show("If you continue you will no longer be able to sign in via your email address. This also includes signing in via email and password.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            return;
+
+        try
+        {
+            await Authenticaion.ChangeEmailAsync(null);
+        }
+
+        catch (Exception ex)
+        {
+            logger.LogErrorAndShow(ex, "Removing email address failed", "UserViewModel-RemoveEmailAsync");
+        }
     }
 
 
@@ -189,6 +210,42 @@ public partial class UserViewModel : ObservableObject
     [RelayCommand]
     void ChangePassword() =>
         mainViewModel.ShowModal<ChangePasswordViewModel>();
+
+
+    [ObservableProperty]
+    Provider[]? usedSignInMethods;
+
+    [ObservableProperty]
+    bool isAddSignInMethodVisible = true;
+
+    [RelayCommand]
+    void AddSignInMethod()
+    {
+    }
+
+    [RelayCommand]
+    async Task RemoveSignInMethodAsync(
+        Provider provider)
+    {
+        if (provider == Provider.EmailLink)
+        {
+            await RemoveEmailAsync();
+            return;
+        }
+
+        if (MessageBox.Show("If you continue you will no longer be able to use this method to sign in.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            return;
+
+        try
+        {
+            await Authenticaion.UnlinkAsync(provider);
+        }
+
+        catch (Exception ex)
+        {
+            logger.LogErrorAndShow(ex, "Removing sign-in method failed", "UserViewModel-RemoveSignInMethodAsync");
+        }
+    }
 
 
     [RelayCommand]

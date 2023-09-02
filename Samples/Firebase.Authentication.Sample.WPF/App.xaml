@@ -22,6 +22,7 @@
             <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <conv:BooleanToChangeSaveConverter x:Key="BooleanToChangeSaveConverter" />
             <conv:BooleanToSignUpInConverter x:Key="BooleanToSignUpInConverter" />
+            <conv:ContainsProviderToVisibilityConverter x:Key="ContainsProviderVisibilityConverter" />
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -67,6 +68,34 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#ffa926" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="RemoveButton" TargetType="Button">
+                <Setter Property="Background" Value="#eb6363" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="Padding" Value="18,8" />
+                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="Content" Value="Remove" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter
+                                    Margin="{TemplateBinding Padding}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#de4e4e" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -252,6 +281,41 @@
                             Opacity="0.7" />
                     </Grid>
                 </Border>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="SignInMethodButton" TargetType="ContentControl">
+                <Border
+                    Name="RootLayout"
+                    Margin="4"
+                    Padding="12"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="2"
+                    CornerRadius="4"
+                    Opacity="0.9">
+                    <Image
+                        x:Name="image"
+                        Width="24"
+                        Height="24"
+                        Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                </Border>
+
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="image" Property="Source">
+                            <Setter.Value>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="#ffffff" Geometry="F1 M512,512z M0,0z M444.2,84.8L390,84.8 384,84.8 372.2,84.8 372.2,66.9 372.2,66.9 372.2,65.1C372.2,64 372.1,63 372,62 369.4,30.8 342,6.20000000000001 308.6,6.20000000000001L203.3,6.20000000000001C169.9,6.20000000000001 142.5,30.7 139.9,62 139.8,63 139.7,64.1 139.7,65.1L139.7,66.9 139.7,66.9 139.7,84.8 127.9,84.8 121.9,84.8 67.8,84.8C50.3,84.8,36.2,98.9,36.2,116.4L36.2,122.4C36.2,139.9,50.3,154,67.8,154L90.3,154 90.3,468.3 90.3,474.3C90.3,491.8,104.4,505.9,121.9,505.9L127.9,505.9 384.1,505.9 390.1,505.9 390.1,505.9C407.6,505.9,421.7,491.8,421.7,474.3L421.7,468.3C421.7,468.2,421.7,468.1,421.7,468L421.7,154 444.3,154C461.8,154,475.9,139.9,475.9,122.4L475.9,116.4C475.8,98.9,461.7,84.8,444.2,84.8z M188.2,80.1C188.2,69.5 195.1,60.4 204.8,56.6 212,53.9 219.9,52.4 228.1,52.4L284,52.4C292.3,52.4 300.2,53.9 307.4,56.7 317.1,60.5 323.9,69.6 323.9,80.2L323.9,84.9 188.2,84.9 188.2,80.1z M352.5,436.6L159.5,436.6 159.5,154 352.5,154 352.5,436.6z" />
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="RootLayout" Property="Background" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="False">
+                        <Setter TargetName="RootLayout" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
             </ControlTemplate>
 
             <DrawingImage x:Key="DefaultAvatar">
