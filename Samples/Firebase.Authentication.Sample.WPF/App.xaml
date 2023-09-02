@@ -48,7 +48,7 @@
                 <views:ChangePasswordView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:LinkViewModel}">
-                <views:AddSignInMethodView />
+                <views:LinkView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:LinkProviderViewModel}">
                 <views:LinkProviderView />

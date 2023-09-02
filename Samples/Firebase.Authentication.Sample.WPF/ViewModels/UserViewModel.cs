@@ -271,8 +271,19 @@ public partial class UserViewModel : ObservableObject
     }
 
     [RelayCommand]
-    void Delete()
+    async Task DeleteAsync()
     {
-        logger.LogInformation("Delete");
+        if (MessageBox.Show("Deleting your account cannot be undone and will result in the permanent loss of all your data.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            return;
+
+        try
+        {
+            await Authenticaion.DeleteAsync();
+            mainViewModel.Navigate<HomeViewModel>();
+        }
+        catch (Exception ex)
+        {
+            logger.LogErrorAndShow(ex, "Deleting user failed", "UserViewModel-DeleteAsync");
+        }
     }
 }

@@ -52,7 +52,7 @@ public partial class App : Application
                 services.AddTransient<EmailViewModel>();
                 services.AddTransient<PhoneViewModel>();
                 services.AddTransient<ChangePasswordViewModel>();
-                services.AddTransient<LinkViewModel>();
+                services.AddSingleton<LinkViewModel>();
                 services.AddSingleton<LinkProviderViewModel>();
                 services.AddTransient<LinkEmailViewModel>();
                 services.AddTransient<LinkPhoneViewModel>();
