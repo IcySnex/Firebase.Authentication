@@ -68,7 +68,26 @@ internal class Update
         // Mock request/response
         UpdateRequest request = new(
             idToken: TestData.IdToken,
-            deleteProviders: new[] { Provider.PhoneNumber });
+            deleteProviders: new[] { Provider.EmailAndPassword });
+        UpdateResponse response = default!;
+
+        // Run Test: Expected behaviour: Run without exception
+        Assert.DoesNotThrowAsync(async () =>
+        {
+            response = await identityPlatform.UpdateAsync(request, TestData.Locale);
+        });
+
+        // Write result
+        TestData.Write(response);
+    }
+
+    [Test]
+    public void ChangeEmail_Success()
+    {
+        // Mock request/response
+        UpdateRequest request = new(
+            idToken: TestData.IdToken,
+            email: TestData.EmailSecondary);
         UpdateResponse response = default!;
 
         // Run Test: Expected behaviour: Run without exception

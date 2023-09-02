@@ -173,8 +173,25 @@ public interface IAuthenticationClient : INotifyPropertyChanged
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Changes the current users email address
+    /// </summary>
+    /// <param name="email">The new email address (null if email should be removed)</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public Task ChangeEmailAsync(
+        string? email,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Changes the current users password
     /// </summary>
+    /// <param name="newPassword">The new password</param>
+    /// <param name="oldPassword">The old password to verify the users identity</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>

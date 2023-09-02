@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Firebase.Authentication.Client;
 
@@ -520,8 +521,40 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
     }
 
     /// <summary>
+    /// Changes the current users email address
+    /// </summary>
+    /// <param name="email">The new email address (null if email should be removed)</param>
+    /// <param name="cancellationToken">The token to cancel this action</param>
+    /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
+    /// <exception cref="Firebase.Authentication.Exceptions.IdentityPlatformException">Occurs when the request failed on the Firebase Server</exception>
+    /// <exception cref="System.NotSupportedException">May occurs when the json serialization fails</exception>
+    /// <exception cref="System.InvalidOperationException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">May occurs when sending the web request fails</exception>
+    /// <exception cref="System.Threading.Tasks.TaskCanceledException">Occurs when The task was cancelled</exception>
+    public async Task ChangeEmailAsync(
+        string? email,
+        CancellationToken cancellationToken = default)
+    {
+        Credential credential = await GetFreshCredentialAsync();
+
+        // Send request
+        UpdateRequest request = new(
+            idToken: credential.IdToken,
+            email: email,
+            deleteAttributes: email is null ? new[] { UserAttributeName.Email } : null);
+        UpdateResponse response = await identityPlatform.UpdateAsync(request, null, cancellationToken);
+
+        logger?.LogInformation("[AuthenticationClient-UpdateAsync] Changed the current users email.");
+
+        // Refresh current user
+        await GetFreshUserAsync(TimeSpan.FromHours(1), true);
+    }
+
+    /// <summary>
     /// Changes the current users password
     /// </summary>
+    /// <param name="newPassword">The new password</param>
+    /// <param name="oldPassword">The old password to verify the users identity</param>
     /// <param name="cancellationToken">The token to cancel this action</param>
     /// <exception cref="Firebase.Authentication.Exceptions.UserNotFoundException">Occurrs if the user was not found</exception>
     /// <exception cref="Firebase.Authentication.Exceptions.MissingCredentialException">Occurrs when the current credential is null</exception>
