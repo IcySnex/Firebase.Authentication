@@ -73,12 +73,10 @@ public partial class EmailViewModel : ObservableObject
             return;
         }
 
-        if(!await (IsDisplayNameVisible ?
-            homeViewModel.SignUpAsync(SignUpRequest.WithEmailPassword(Email, Password, DisplayName)) : 
+        if (await (IsDisplayNameVisible ?
+            homeViewModel.SignUpAsync(SignUpRequest.WithEmailPassword(Email, Password, DisplayName)) :
             homeViewModel.SignInAsync(SignInRequest.WithEmailPassword(Email, Password))))
-            return;
-
-        homeViewModel.Navigate<ProviderViewModel>();
+            homeViewModel.Navigate<ProviderViewModel>();
     }
 
 

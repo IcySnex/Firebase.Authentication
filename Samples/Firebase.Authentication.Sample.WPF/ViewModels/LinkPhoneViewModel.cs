@@ -116,8 +116,8 @@ public partial class LinkPhoneViewModel : ObservableObject
             return;
         }
 
-        await linkViewModel.LinkAsync(LinkRequest.ToPhoneNumber(sessionInfo, Code));
-
+        if (await linkViewModel.LinkAsync(LinkRequest.ToPhoneNumber(sessionInfo, Code)))
+            linkViewModel.Navigate<LinkProviderViewModel>();
     }
 
 

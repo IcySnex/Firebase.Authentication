@@ -305,6 +305,7 @@
                 <ContentControl
                     Background="#e6a800"
                     BorderBrush="#ffc933"
+                    ContentStringFormat="Sign in with email link"
                     Tag="{x:Static ui:Icons.EmailAndPassword}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
@@ -318,9 +319,10 @@
                 <ContentControl
                     Background="#db4437"
                     BorderBrush="#de4e4e"
+                    ContentStringFormat="Sign in with email and password"
                     Tag="{x:Static ui:Icons.EmailAndPassword}"
                     Template="{StaticResource SignInMethodButton}"
-                    Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.EmailAndPassword}}">
+                    Visibility="{Binding Authenticaion.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
                     <ContentControl.InputBindings>
                         <MouseBinding
                             Command="{Binding RemoveSignInMethodCommand}"
@@ -331,6 +333,7 @@
                 <ContentControl
                     Background="#02bd7e"
                     BorderBrush="#18D696"
+                    ContentStringFormat="Sign in with phone"
                     Tag="{x:Static ui:Icons.PhoneNumber}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.PhoneNumber}}">
@@ -344,6 +347,7 @@
                 <ContentControl
                     Background="#3b5998"
                     BorderBrush="#5a7abf"
+                    ContentStringFormat="Sign in with Facebook"
                     Tag="{x:Static ui:Icons.Facebook}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Facebook}}">
@@ -357,6 +361,7 @@
                 <ContentControl
                     Background="#ffffff"
                     BorderBrush="#d9d9d9"
+                    ContentStringFormat="Sign in with Google"
                     Tag="{x:Static ui:Icons.Google}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Google}}">
@@ -370,6 +375,7 @@
                 <ContentControl
                     Background="#000000"
                     BorderBrush="#000000"
+                    ContentStringFormat="Sign in with Apple"
                     Tag="{x:Static ui:Icons.Apple}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Apple}}">
@@ -383,6 +389,7 @@
                 <ContentControl
                     Background="#333333"
                     BorderBrush="#595959"
+                    ContentStringFormat="Sign in with GitHub"
                     Tag="{x:Static ui:Icons.Github}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Github}}">
@@ -396,6 +403,7 @@
                 <ContentControl
                     Background="#55acee"
                     BorderBrush="#8bc6f4"
+                    ContentStringFormat="Sign in with Twitter"
                     Tag="{x:Static ui:Icons.Twitter}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Twitter}}">
@@ -409,6 +417,7 @@
                 <ContentControl
                     Background="#2f2f2f"
                     BorderBrush="#4d4d4d"
+                    ContentStringFormat="Sign in with Microsoft"
                     Tag="{x:Static ui:Icons.Microsoft}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Microsoft}}">
@@ -422,6 +431,7 @@
                 <ContentControl
                     Background="#6d528e"
                     BorderBrush="#896dab"
+                    ContentStringFormat="Sign in with Yahoo"
                     Tag="{x:Static ui:Icons.Yahoo}"
                     Template="{StaticResource SignInMethodButton}"
                     Visibility="{Binding UsedSignInMethods, Mode=OneWay, Converter={StaticResource ContainsProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Yahoo}}">

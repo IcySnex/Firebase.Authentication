@@ -62,7 +62,7 @@
             Command="{Binding NavigateToEmailCommand}"
             Content="Link with email"
             Style="{StaticResource EmailAndPasswordButtonStyle}"
-            Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.EmailAndPassword}}" />
+            Visibility="{Binding UserViewModel.Authenticaion.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNullVisibilityConverter}}" />
         <ui:FirebaseAuthenticaionButton
             Margin="0,12,0,0"
             Command="{Binding NavigateToPhoneCommand}"

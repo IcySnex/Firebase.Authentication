@@ -62,7 +62,8 @@ public partial class LinkEmailViewModel : ObservableObject
             return;
         }
 
-        await linkViewModel.LinkAsync(LinkRequest.ToEmailPassword(Email, Password));
+        if (await linkViewModel.LinkAsync(LinkRequest.ToEmailPassword(Email, Password)))
+            linkViewModel.Navigate<LinkProviderViewModel>();
     }
 
 

@@ -24,6 +24,7 @@
             <conv:BooleanToSignUpInConverter x:Key="BooleanToSignUpInConverter" />
             <conv:ContainsProviderToVisibilityConverter x:Key="ContainsProviderVisibilityConverter" />
             <conv:ExcludesProviderToVisibilityConverter x:Key="ExcludesProviderVisibilityConverter" />
+            <conv:IsNullToVisibilityConverter x:Key="IsNullVisibilityConverter" />
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -304,7 +305,8 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="2"
                     CornerRadius="4"
-                    Opacity="0.9">
+                    Opacity="0.9"
+                    ToolTip="{TemplateBinding ContentStringFormat}">
                     <Image
                         x:Name="image"
                         Width="24"

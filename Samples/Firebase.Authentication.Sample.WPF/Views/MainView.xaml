@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
     Title="WPF Sample - Firebase Authenticaion"
-    Width="540"
+    Width="520"
     Height="950"
     MinWidth="460"
     MinHeight="890"
