@@ -17,11 +17,11 @@ public class DateTimeDifferenceConverter : IValueConverter
         double totalYears = totalMonths / 12;
 
         if (totalYears >= 1)
-            return totalYears + " years ago";
+            return Math.Round(totalYears, 1) + " years ago";
         if (totalMonths >= 1)
-            return totalMonths + " months ago";
+            return Math.Round(totalMonths, 1) + " months ago";
         if (totalWeeks >= 1)
-            return totalWeeks + " weeks ago";
+            return Math.Round(totalWeeks, 1) + " weeks ago";
         if (difference.Days > 0)
             return difference.Days + " days ago";
         if (difference.Hours > 0)
