@@ -23,6 +23,7 @@
             <conv:BooleanToChangeSaveConverter x:Key="BooleanToChangeSaveConverter" />
             <conv:BooleanToSignUpInConverter x:Key="BooleanToSignUpInConverter" />
             <conv:ContainsProviderToVisibilityConverter x:Key="ContainsProviderVisibilityConverter" />
+            <conv:ExcludesProviderToVisibilityConverter x:Key="ExcludesProviderVisibilityConverter" />
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -45,6 +46,18 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:ChangePasswordViewModel}">
                 <views:ChangePasswordView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:LinkViewModel}">
+                <views:AddSignInMethodView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:LinkProviderViewModel}">
+                <views:LinkProviderView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:LinkEmailViewModel}">
+                <views:LinkEmailView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:LinkPhoneViewModel}">
+                <views:LinkPhoneView />
             </DataTemplate>
 
             <!--  Styles  -->

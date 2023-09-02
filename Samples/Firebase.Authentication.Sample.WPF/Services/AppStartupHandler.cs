@@ -12,6 +12,7 @@ public class AppStartupHandler
         ILogger<AppStartupHandler> logger,
         MainViewModel mainViewModel,
         HomeViewModel homeViewModel,
+        LinkViewModel linkViewModel,
         IReCaptchaClient reCaptcha,
         FacebookProviderFlow facebookFlow,
         GoogleProviderFlow googleFlow,
@@ -35,6 +36,7 @@ public class AppStartupHandler
 
             mainViewModel.Navigate<HomeViewModel>();
             homeViewModel.Navigate<ProviderViewModel>();
+            linkViewModel.Navigate<LinkProviderViewModel>();
 
             logger.LogInformation("[AppStartupHandler-.ctor] App fully started.");
         }

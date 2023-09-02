@@ -143,7 +143,7 @@ public partial class UserViewModel : ObservableObject
             return;
         }
 
-        if (MessageBox.Show("If you continue you will get a 'change email address' mail sent to your account. Once verified you will be able to use your new email. If you press 'Yes' you will get signed out!\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        if (MessageBox.Show("If you continue you wont be able to use your old email to sign in anymore. If you press 'Yes' you will get signed out\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
         {
             Email = user.Email;
             return;
@@ -151,8 +151,10 @@ public partial class UserViewModel : ObservableObject
 
         try
         {
-            await Authenticaion.SendEmailAsync(EmailRequest.Change(Email));
-            SignOut();
+            await Authenticaion.ChangeEmailAsync(Email);
+
+            Authenticaion.SignOut();
+            mainViewModel.Navigate<HomeViewModel>();
         }
         catch (Exception ex)
         {
@@ -219,9 +221,8 @@ public partial class UserViewModel : ObservableObject
     bool isAddSignInMethodVisible = true;
 
     [RelayCommand]
-    void AddSignInMethod()
-    {
-    }
+    void AddSignInMethod() =>
+        mainViewModel.ShowModal<LinkViewModel>();
 
     [RelayCommand]
     async Task RemoveSignInMethodAsync(

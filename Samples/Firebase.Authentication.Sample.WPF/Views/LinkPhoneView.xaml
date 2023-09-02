@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Firebase.Authentication.Sample.WPF.Views.PhoneView"
+    x:Class="Firebase.Authentication.Sample.WPF.Views.LinkPhoneView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:captcha="clr-namespace:ReCaptcha.Desktop.WPF.UI;assembly=ReCaptcha.Desktop.WPF"
@@ -9,10 +9,7 @@
     xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
     mc:Ignorable="d">
 
-    <StackPanel
-        Margin="12,24"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch">
+    <StackPanel>
         <Grid Margin="0,0,0,12">
             <TextBlock Opacity="0.7" Text="Phone number" />
             <Grid Margin="0,18,0,0">
@@ -47,7 +44,7 @@
                 KeyDown="OnCodeKeyDown"
                 Text="{Binding Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
+                    <KeyBinding Key="Enter" Command="{Binding LinkCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
         </Grid>
@@ -66,7 +63,7 @@
         </captcha:ReCaptcha>
 
         <StackPanel
-            Margin="0,12,0,0"
+            Margin="0,12,0,12"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <ui:FirebaseAuthenticaionButton
@@ -76,7 +73,8 @@
                 Style="{StaticResource CancelButtonStyle}" />
             <ui:FirebaseAuthenticaionButton
                 Margin="12,0,0,0"
-                Command="{Binding SignInCommand}"
+                Command="{Binding LinkCommand}"
+                Content="Link"
                 Style="{StaticResource SignInButton}" />
         </StackPanel>
     </StackPanel>
