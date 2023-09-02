@@ -309,6 +309,10 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
 
             case SignInWithIdpRequest idpRequest: // Send sign in with phonenumber request
                 SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
+
+                if (idpResponse.ErrorMessage is not null)
+                    throw IdentityPlatformException.FromErrorMessage(idpResponse.ErrorMessage);
+
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticationClient-SignInAsync] Signed in with idp.");
@@ -385,6 +389,10 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
             case LinkToIdpRequest idpRequest: // Send sign in with phonenumber request
                 idpRequest.IdToken = credential.IdToken;
                 SignInWithIdpResponse idpResponse = await identityPlatform.SignInWithIdpAsync(idpRequest, cancellationToken);
+
+                if (idpResponse.ErrorMessage is not null)
+                    throw IdentityPlatformException.FromErrorMessage(idpResponse.ErrorMessage);
+
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
                 logger?.LogInformation("[AuthenticationClient-LinkAsync] Linked current user to idp.");

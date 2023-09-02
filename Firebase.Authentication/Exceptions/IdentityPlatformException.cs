@@ -31,6 +31,21 @@ public class IdentityPlatformException : Exception
         ErrorResponse response = JsonHelper.Deserialize<ErrorResponse>(responseData);
         string message = response.Error.Message;
 
+        IdentityPlatformException exception = FromErrorMessage(message);
+        exception.ResponseData = responseData;
+
+        return exception;
+    }
+
+    /// <summary>
+    /// Checks for the representing exception
+    /// </summary>
+    /// <param name="message">The message which should be checked</param>
+    /// <exception cref="IdentityPlatformException">Throws the representing IdentityPlatformException</exception>
+    /// <returns>The representing exception</returns>
+    public static IdentityPlatformException FromErrorMessage(
+        string message)
+    {
         switch (message)
         {
             case "ADMIN_ONLY_OPERATION":
@@ -167,7 +182,7 @@ public class IdentityPlatformException : Exception
                     return new MissingSessionIdException();
 
 
-                return new($"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})", "UNDEFINDED"){ ResponseData = responseData };
+                return new($"An unknown exception occurred while trying to communicate with the Firebase authentication server. ({message})", "UNDEFINDED");
         }
     }
 }
