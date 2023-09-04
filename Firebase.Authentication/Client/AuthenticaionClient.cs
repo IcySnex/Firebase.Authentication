@@ -312,6 +312,10 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
 
                 if (idpResponse.ErrorMessage is not null)
                     throw IdentityPlatformException.FromErrorMessage(idpResponse.ErrorMessage);
+                if (idpResponse.RefreshToken is null)
+                    throw new MissingRefreshTokenException();
+                if (idpResponse.IdToken is null)
+                    throw new MissingIdTokenException();
 
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 
@@ -392,6 +396,10 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
 
                 if (idpResponse.ErrorMessage is not null)
                     throw IdentityPlatformException.FromErrorMessage(idpResponse.ErrorMessage);
+                if (idpResponse.RefreshToken is null)
+                    throw new MissingRefreshTokenException();
+                if (idpResponse.IdToken is null)
+                    throw new MissingIdTokenException();
 
                 CurrentCredential = new(idpResponse.IdToken, idpResponse.RefreshToken, idpResponse.ExpiresIn);
 

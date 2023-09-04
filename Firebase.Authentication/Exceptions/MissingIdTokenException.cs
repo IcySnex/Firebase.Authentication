@@ -3,7 +3,7 @@ namespace Firebase.Authentication.Exceptions;
 public class MissingIdTokenException : IdentityPlatformException
 {
     /// <summary>
-    /// Request contains an invalid value for parameter: idToken.
+    /// No id token provided.
     /// </summary>
-    public MissingIdTokenException() : base("Request contains an invalid value for parameter: idToken.", "MISSING_ID_TOKEN") { }
+    public MissingIdTokenException() : base("No id token provided.", "MISSING_ID_TOKEN") { }
 }
