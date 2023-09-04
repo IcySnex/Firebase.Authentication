@@ -34,8 +34,6 @@ public class DateTimeDifferenceConverter : IValueConverter
         return "now";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        new NotImplementedException();
 }

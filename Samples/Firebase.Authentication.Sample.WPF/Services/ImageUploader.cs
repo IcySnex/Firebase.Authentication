@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Firebase.Authentication.Sample.WPF.Services;
 
@@ -22,7 +21,7 @@ public class ImageUploader
         this.logger = logger;
         this.converter = converter;
 
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Client-ID", configuration.Value.ImgurClientId);
+        client.DefaultRequestHeaders.Authorization = new("Client-ID", configuration.Value.ImgurClientId);
     }
 
 

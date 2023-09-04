@@ -9,13 +9,9 @@
     xmlns:ui="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF"
     mc:Ignorable="d">
 
-    <StackPanel
-        Margin="12,24"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch">
-        <Grid Margin="0,0,0,12">
-            <TextBlock Opacity="0.7" Text="Phone number" />
-            <Grid Margin="0,18,0,0">
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ContentControl Tag="Phone number" Style="{StaticResource Container}">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -36,12 +32,13 @@
                     Content="Send verification code"
                     Visibility="{Binding IsCodeVisible, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}" />
             </Grid>
-        </Grid>
+        </ContentControl>
 
-        <Grid Margin="0,0,0,12" Visibility="{Binding IsCodeVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <TextBlock Opacity="0.7" Text="Verification code" />
+        <ContentControl
+            Tag="Verification code"
+            Style="{StaticResource Container}"
+            Visibility="{Binding IsCodeVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBox
-                Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
                 KeyDown="OnCodeKeyDown"
@@ -50,7 +47,7 @@
                     <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-        </Grid>
+        </ContentControl>
 
         <captcha:ReCaptcha
             Margin="0,12,0,12"

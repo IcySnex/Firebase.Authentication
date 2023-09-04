@@ -1,7 +1,7 @@
 ﻿using Serilog.Core;
 using Serilog.Events;
-using Serilog.Formatting.Display;
 using Serilog.Formatting;
+using Serilog.Formatting.Display;
 using System.IO;
 
 namespace Firebase.Authentication.Sample.WPF.Services;

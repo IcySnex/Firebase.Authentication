@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Sample.WPF.Services;
 using Firebase.Authentication.Sample.WPF.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.IO;
-using System.Windows.Controls;
-using System.Windows;
 using System.Diagnostics;
-using Firebase.Authentication.Client.Interfaces;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Firebase.Authentication.Sample.WPF.ViewModels;
 
@@ -103,7 +103,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     void NavigateToHome() =>
         Navigate<HomeViewModel>();
-    
+
     [RelayCommand]
     void NavigateToUser() =>
         Navigate<UserViewModel>();

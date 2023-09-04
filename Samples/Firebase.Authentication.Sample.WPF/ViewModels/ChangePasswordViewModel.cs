@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Sample.WPF.Helpers;
 using Microsoft.Extensions.Logging;
-using System.Windows;
 
 namespace Firebase.Authentication.Sample.WPF.ViewModels;
 
@@ -58,6 +57,7 @@ public partial class ChangePasswordViewModel : ObservableObject
         {
             await authenticaion.ChangePasswordAsync(NewPassword, CurrentPassword);
             authenticaion.SignOut();
+
             mainViewModel.CloseModal();
             mainViewModel.Navigate<HomeViewModel>();
         }

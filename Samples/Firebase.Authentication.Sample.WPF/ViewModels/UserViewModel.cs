@@ -6,7 +6,6 @@ using Firebase.Authentication.Requests;
 using Firebase.Authentication.Sample.WPF.Helpers;
 using Firebase.Authentication.Sample.WPF.Services;
 using Firebase.Authentication.Types;
-using Firebase.Authentication.WPF.UI;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using System.Windows;
@@ -32,26 +31,25 @@ public partial class UserViewModel : ObservableObject
         this.imageUploader = imageUploader;
 
         Authenticaion = authenticaion;
+
         Authenticaion.PropertyChanged += OnAuthenticaionPropertyChanged;
         OnAuthenticaionPropertyChanged(null, new PropertyChangedEventArgs<UserInfo>("CurrentUser", null, Authenticaion.CurrentUser));
 
         logger.LogInformation("[UserViewModel-.ctor] UserViewModel has been initialized.");
     }
 
-    void OnAuthenticaionPropertyChanged(object? _, System.ComponentModel.PropertyChangedEventArgs args)
+    void OnAuthenticaionPropertyChanged(object? _, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        switch (args.PropertyName)
+        switch (e)
         {
-            case "CurrentUser":
-                PropertyChangedEventArgs<UserInfo> e = (PropertyChangedEventArgs<UserInfo>)args;
+            case PropertyChangedEventArgs<UserInfo> args:
+                DisplayName = args.NewValue?.DisplayName ?? null;
 
-                DisplayName = e.NewValue?.DisplayName ?? null;
+                Email = args.NewValue?.Email ?? null;
 
-                Email = e.NewValue?.Email ?? null;
+                IsVerifyEmailVisible = !(args.NewValue?.IsEmailVerified ?? true) && !string.IsNullOrWhiteSpace(args.NewValue?.Email);
 
-                IsVerifyEmailVisible = !(e.NewValue?.IsEmailVerified ?? true) && !string.IsNullOrWhiteSpace(e.NewValue?.Email);
-
-                UsedSignInMethods = e.NewValue?.ProviderUserInfos?.Select(info => info.Provider).ToArray() ?? null;
+                UsedSignInMethods = args.NewValue?.ProviderUserInfos?.Select(info => info.Provider).ToArray() ?? null;
                 IsAddSignInMethodVisible = UsedSignInMethods is null ? true : Enum.GetValues<Provider>().Except(UsedSignInMethods).Any();
                 break;
         }
@@ -70,14 +68,10 @@ public partial class UserViewModel : ObservableObject
                 CheckFileExists = true,
                 CheckPathExists = true
             };
-            bool? showFileDialog = fileDialog.ShowDialog();
-
-            if (!showFileDialog.HasValue || !showFileDialog.Value)
+            if (fileDialog.ShowDialog() is not bool fileDialogResult || !fileDialogResult)
                 return;
 
-            string imagePath = fileDialog.FileName;
-            string photoUrl = await imageUploader.UploadAsync(imagePath, "avatar");
-
+            string photoUrl = await imageUploader.UploadAsync(fileDialog.FileName, "avatar");
             await Authenticaion.UpdateAsync(null, photoUrl);
         }
         catch (Exception ex)
@@ -103,10 +97,20 @@ public partial class UserViewModel : ObservableObject
     [ObservableProperty]
     bool isDisplayNameChangeable = false;
 
+    private string? displayName;
+    public string? DisplayName
+    {
+        get => displayName;
+        set => SetProperty(ref displayName, string.IsNullOrWhiteSpace(value) ? null : value);
+    }
+
     async partial void OnIsDisplayNameChangeableChanged(bool value)
     {
+        if (value)
+            return;
+
         UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
-        if (value || user.DisplayName == DisplayName)
+        if (user.DisplayName == DisplayName)
             return;
 
         try
@@ -120,21 +124,24 @@ public partial class UserViewModel : ObservableObject
         }
     }
 
-    private string? displayName;
-    public string? DisplayName
-    {
-        get => displayName;
-        set => SetProperty(ref displayName, string.IsNullOrWhiteSpace(value) ? null : value);
-    }
-    
 
     [ObservableProperty]
     bool isEmailChangeable = false;
 
+    private string? email;
+    public string? Email
+    {
+        get => email;
+        set => SetProperty(ref email, string.IsNullOrWhiteSpace(value) ? null : value);
+    }
+
     async partial void OnIsEmailChangeableChanged(bool value)
     {
+        if (value)
+            return;
+
         UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
-        if (value || user.Email == Email)
+        if (user.Email == Email)
             return;
 
         if (string.IsNullOrWhiteSpace(Email))
@@ -152,8 +159,8 @@ public partial class UserViewModel : ObservableObject
         try
         {
             await Authenticaion.ChangeEmailAsync(Email);
-
             Authenticaion.SignOut();
+
             mainViewModel.Navigate<HomeViewModel>();
         }
         catch (Exception ex)
@@ -161,13 +168,6 @@ public partial class UserViewModel : ObservableObject
             Email = user.Email;
             logger.LogErrorAndShow(ex, "Changing email failed", "UserViewModel-OnIsEmailChangeableChanged");
         }
-    }
-
-    private string? email;
-    public string? Email
-    {
-        get => email;
-        set => SetProperty(ref email, string.IsNullOrWhiteSpace(value) ? null : value);
     }
 
     async Task RemoveEmailAsync()
@@ -279,6 +279,7 @@ public partial class UserViewModel : ObservableObject
         try
         {
             await Authenticaion.DeleteAsync();
+
             mainViewModel.Navigate<HomeViewModel>();
         }
         catch (Exception ex)

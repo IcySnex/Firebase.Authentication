@@ -4,7 +4,6 @@ using Firebase.Authentication.Client.Interfaces;
 using Firebase.Authentication.Requests;
 using Firebase.Authentication.WPF.Flows;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Firebase.Authentication.Sample.WPF.ViewModels;
 

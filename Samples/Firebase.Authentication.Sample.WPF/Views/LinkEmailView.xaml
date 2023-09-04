@@ -8,23 +8,15 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <Grid Margin="0,0,0,12">
-            <TextBlock Opacity="0.7" Text="Email" />
+        <ContentControl Tag="Email" Style="{StaticResource Container}">
             <TextBox
-                Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
-                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding LinkCommand}" />
-                </TextBox.InputBindings>
-            </TextBox>
-        </Grid>
+                Text="{Binding Email, Mode=TwoWay}" />
+        </ContentControl>
 
-        <Grid Margin="0,0,0,12" Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <TextBlock Opacity="0.7" Text="Password" />
+        <ContentControl Tag="Password" Style="{StaticResource Container}">
             <TextBox
-                Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
                 Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -32,7 +24,7 @@
                     <KeyBinding Key="Enter" Command="{Binding LinkCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-        </Grid>
+        </ContentControl>
 
         <StackPanel
             Margin="0,12,0,12"

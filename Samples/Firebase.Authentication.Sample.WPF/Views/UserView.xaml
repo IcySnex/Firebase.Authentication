@@ -10,7 +10,8 @@
     d:DesignHeight="800"
     d:DesignWidth="450"
     mc:Ignorable="d">
-    <StackPanel Margin="12,24">
+
+    <StackPanel>
         <StackPanel Margin="-12,-24,-12,0">
             <StackPanel.Background>
                 <RadialGradientBrush GradientOrigin="0.5,-4" RadiusX="0.55" RadiusY="0.5">

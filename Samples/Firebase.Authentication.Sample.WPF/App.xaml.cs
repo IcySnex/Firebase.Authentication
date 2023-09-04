@@ -10,8 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ReCaptcha.Desktop.WPF.Client.Interfaces;
 using ReCaptcha.Desktop.WPF.Client;
+using ReCaptcha.Desktop.WPF.Client.Interfaces;
 using Serilog;
 using System.Net;
 using System.Windows;
@@ -112,7 +112,6 @@ public partial class App : Application
         Provider = host.Services;
     }
 
-
     WindowConfig CreateProviderFlowConfiguration(
         Models.Configuration config,
         string provider,
@@ -125,6 +124,7 @@ public partial class App : Application
             left: config.Left,
             top: config.Top,
             showAsDialog: config.ShowAsDialog);
+
 
     protected override void OnStartup(StartupEventArgs _) =>
         Provider.GetRequiredService<AppStartupHandler>();

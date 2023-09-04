@@ -58,7 +58,10 @@
                 Content="GitHub" />
         </Grid>
 
-        <UserControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+        <UserControl
+            Grid.Row="1"
+            Margin="12,24"
+            Content="{Binding CurrentViewModel}" />
 
         <Grid Grid.RowSpan="2" Visibility="{Binding CurrentModalViewModel, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}, FallbackValue=Collapsed}">
             <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" Opacity="0.18" />
@@ -78,7 +81,10 @@
                         ShadowDepth="4" />
                 </Border.Effect>
 
-                <UserControl Grid.Row="1" Content="{Binding CurrentModalViewModel}" />
+                <UserControl
+                    Grid.Row="1"
+                    Margin="12,24"
+                    Content="{Binding CurrentModalViewModel}" />
             </Border>
         </Grid>
     </Grid>

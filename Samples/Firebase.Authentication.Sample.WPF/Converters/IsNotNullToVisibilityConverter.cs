@@ -6,13 +6,9 @@ namespace Firebase.Authentication.Sample.WPF.Converters;
 
 public class IsNotNullToVisibilityConverter : IValueConverter
 {
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is not null ? Visibility.Visible : Visibility.Collapsed;
-    }
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        value is not null ? Visibility.Visible : Visibility.Collapsed;
 
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
+    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         throw new NotImplementedException();
-    }
 }

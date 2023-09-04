@@ -120,10 +120,12 @@ public partial class EmailViewModel : ObservableObject
             return;
         }
 
+        if (MessageBox.Show("If you continue a 'reset password' mail will be sent to your account and all of your linked sign-in methods will be removed.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+            return;
+
         try
         {
             await authenticaion.SendEmailAsync(EmailRequest.ResetPassword(Email));
-            logger.LogInformationAndShow("A 'reset password' mail has been sent to your account! Please check your inbox.", "Sent email", "EmailViewModel-ResetPasswordAsync");
         }
         catch (Exception ex)
         {

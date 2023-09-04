@@ -10,68 +10,69 @@
 
     <StackPanel>
         <ui:FirebaseAuthenticaionButton
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding FacebookFlow}"
             Content="Link with Facebook"
             Style="{StaticResource FacebookButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Facebook}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding GoogleFlow}"
             Content="Link with Google"
             Style="{StaticResource GoogleButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Google}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding AppleFlow}"
             Content="Link with Apple"
             Style="{StaticResource AppleButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Apple}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding GithubFlow}"
             Content="Link with GitHub"
             Style="{StaticResource GithubButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Github}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding TwitterFlow}"
             Content="Link with Twitter"
             Style="{StaticResource TwitterButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Twitter}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding MicrosoftFlow}"
             Content="Link with Microsoft"
             Style="{StaticResource MicrosoftButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Microsoft}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding LinkToFlowCommand}"
             CommandParameter="{Binding YahooFlow}"
             Content="Link with Yahoo"
             Style="{StaticResource YahooButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.Yahoo}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding NavigateToEmailCommand}"
             Content="Link with email"
             Style="{StaticResource EmailAndPasswordButtonStyle}"
             Visibility="{Binding UserViewModel.Authenticaion.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNullVisibilityConverter}}" />
         <ui:FirebaseAuthenticaionButton
-            Margin="0,12,0,0"
+            Margin="0,0,0,12"
             Command="{Binding NavigateToPhoneCommand}"
             Content="Link with phone"
             Style="{StaticResource PhoneNumberButtonStyle}"
             Visibility="{Binding UserViewModel.UsedSignInMethods, Mode=OneWay, Converter={StaticResource ExcludesProviderVisibilityConverter}, ConverterParameter={x:Static fb:Provider.PhoneNumber}}" />
 
         <ui:FirebaseAuthenticaionButton
-            Margin="0,24,0,0"
+            Margin="0,12,0,0"
             Command="{Binding CancelCommand}"
             Style="{StaticResource CancelButtonStyle}" />
     </StackPanel>

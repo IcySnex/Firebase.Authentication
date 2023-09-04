@@ -7,16 +7,9 @@ namespace Firebase.Authentication.Sample.WPF.Converters;
 
 public class ExcludesProviderToVisibilityConverter : IValueConverter
 {
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is null)
-            return Visibility.Visible;
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        value is null ? Visibility.Visible : ((Provider[])value).Contains((Provider)parameter) ? Visibility.Collapsed : Visibility.Visible;
 
-        return ((Provider[])value).Contains((Provider)parameter) ? Visibility.Collapsed : Visibility.Visible;
-    }
-
-    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
+    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         throw new NotImplementedException();
-    }
 }

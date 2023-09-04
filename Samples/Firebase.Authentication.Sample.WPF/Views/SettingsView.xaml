@@ -3,14 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Firebase.Authentication.Sample.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="800"
     d:DesignWidth="450"
     mc:Ignorable="d">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="24,12,24,0">
+        <StackPanel Margin="0,0,0,-12">
             <TextBlock
                 FontSize="24"
                 FontWeight="Medium"
@@ -32,7 +31,6 @@
                 ContentStringFormat="ApiKey"
                 Tag="The Firebase Web API key"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -43,7 +41,6 @@
                 ContentStringFormat="HttpTimeout"
                 Tag="The time span in which a request times out"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -54,7 +51,6 @@
                 ContentStringFormat="HttpProxy"
                 Tag="The proxy used for web requests"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -65,7 +61,6 @@
                 ContentStringFormat="Title"
                 Tag="The title of the provider flow window. (Use {provider} to use the provider name)"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -76,7 +71,6 @@
                 ContentStringFormat="Icon"
                 Tag="The icon of the provider flow window (empty for provider default)"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -87,7 +81,6 @@
                 ContentStringFormat="StartupLocation"
                 Tag="The startup location of the provider flow window"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -98,7 +91,6 @@
                 ContentStringFormat="Left"
                 Tag="The left position of the provider flow window"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Width="100"
                     Padding="6"
@@ -112,7 +104,6 @@
                 ContentStringFormat="Top"
                 Tag="The top position of the provider flow window"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Width="100"
                     Padding="6"
@@ -126,7 +117,6 @@
                 ContentStringFormat="ShowAsDialog"
                 Tag="Wether to block the UI thread when showing the provider flow window"
                 Template="{StaticResource SettignsCard}">
-
                 <CheckBox
                     Margin="0,0,-8,-8"
                     FontSize="14"
@@ -141,7 +131,6 @@
                 ContentStringFormat="FlowRedirectTo"
                 Tag="The url to which the provider will redirect the user back to (empty for provider default)"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -152,7 +141,6 @@
                 ContentStringFormat="Timeout"
                 Tag="The time span in which a user request times out"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -163,7 +151,6 @@
                 ContentStringFormat="ReCaptchaSiteKey"
                 Tag="The reCAPTCHA site key. (You can get your projects reCAPTCHA site key by using 'IAuthenticationClient.GetReCaptchaSiteKeyAsync')"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -174,7 +161,6 @@
                 ContentStringFormat="ReCaptchaHostName"
                 Tag="The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"
@@ -186,7 +172,6 @@
                 ContentStringFormat="ImgurClientId"
                 Tag="The client ID for the Imgur api used to upload custom profile avatars"
                 Template="{StaticResource SettignsCard}">
-
                 <TextBox
                     Padding="6"
                     FontSize="14"

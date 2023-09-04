@@ -13,6 +13,7 @@
                 <CommonDictionary xmlns="clr-namespace:ReCaptcha.Desktop.WPF.UI;assembly=ReCaptcha.Desktop.WPF" />
             </ResourceDictionary.MergedDictionaries>
 
+
             <!--  Converters  -->
             <conv:TimeSpanConverter x:Key="TimeSpanConverter" />
             <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
@@ -25,6 +26,7 @@
             <conv:ContainsProviderToVisibilityConverter x:Key="ContainsProviderVisibilityConverter" />
             <conv:ExcludesProviderToVisibilityConverter x:Key="ExcludesProviderVisibilityConverter" />
             <conv:IsNullToVisibilityConverter x:Key="IsNullVisibilityConverter" />
+
 
             <!--  Pages  -->
             <DataTemplate DataType="{x:Type vms:HomeViewModel}">
@@ -61,6 +63,7 @@
                 <views:LinkPhoneView />
             </DataTemplate>
 
+
             <!--  Styles  -->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#ffbe5c" />
@@ -82,34 +85,6 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#ffa926" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="RemoveButton" TargetType="Button">
-                <Setter Property="Background" Value="#eb6363" />
-                <Setter Property="Foreground" Value="Black" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="FontWeight" Value="DemiBold" />
-                <Setter Property="Padding" Value="18,8" />
-                <Setter Property="Opacity" Value="0.8" />
-                <Setter Property="Content" Value="Remove" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter
-                                    Margin="{TemplateBinding Padding}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center" />
-                            </Border>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#de4e4e" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -144,21 +119,22 @@
                 </Setter>
             </Style>
 
+
             <Style TargetType="Hyperlink">
                 <Setter Property="Foreground" Value="#f6820c" />
             </Style>
 
+
             <Style x:Key="HoverBorder" TargetType="Border">
                 <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Opacity" Value="0" />
                 <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="False">
-                        <Setter Property="Opacity" Value="0" />
-                    </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Opacity" Value="0.8" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
 
             <Style
                 x:Key="SignInButton"
@@ -260,6 +236,7 @@
                 </Setter>
             </Style>
 
+
             <!--  Controls  -->
             <ControlTemplate x:Key="SettignsCard" TargetType="ContentControl">
                 <Border
@@ -297,11 +274,35 @@
                 </Border>
             </ControlTemplate>
 
+            <Style x:Key="Container" TargetType="ContentControl">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Grid Margin="0,0,0,12">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Opacity="0.7" Text="{TemplateBinding Tag}" />
+                                <ContentControl
+                                    Grid.Row="1"
+                                    Content="{TemplateBinding Content}"
+                                    IsTabStop="False" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
             <ControlTemplate x:Key="SignInMethodButton" TargetType="ContentControl">
                 <Border
                     Name="RootLayout"
                     Margin="4"
                     Padding="12"
+                    Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="2"
                     CornerRadius="4"
@@ -327,11 +328,9 @@
                         </Setter>
                         <Setter TargetName="RootLayout" Property="Background" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Trigger>
-                    <Trigger Property="IsMouseOver" Value="False">
-                        <Setter TargetName="RootLayout" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
-                    </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+
 
             <DrawingImage x:Key="DefaultAvatar">
                 <DrawingImage.Drawing>
@@ -356,6 +355,7 @@
                     </DrawingGroup>
                 </DrawingImage.Drawing>
             </DrawingImage>
+
 
         </ResourceDictionary>
     </Application.Resources>

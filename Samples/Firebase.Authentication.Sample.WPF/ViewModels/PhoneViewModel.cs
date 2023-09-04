@@ -89,7 +89,7 @@ public partial class PhoneViewModel : ObservableObject
         {
             IsReCaptchaLoading = false;
             reCaptchaCancelSource = null;
-        
+
         }
     }
 

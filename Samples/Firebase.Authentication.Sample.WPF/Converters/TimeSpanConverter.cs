@@ -5,10 +5,8 @@ namespace Firebase.Authentication.Sample.WPF.Converters;
 
 public class TimeSpanConverter : IValueConverter
 {
-    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is TimeSpan time ? time.ToString("hh':'mm':'ss") : null;
-    }
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+        value is TimeSpan time ? time.ToString("hh':'mm':'ss") : null;
 
     public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {

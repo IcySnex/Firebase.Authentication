@@ -11,10 +11,8 @@
         Margin="12,24"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch">
-        <Grid Margin="0,0,0,12">
-            <TextBlock Opacity="0.7" Text="Email" />
+        <ContentControl Tag="Email" Style="{StaticResource Container}">
             <TextBox
-                Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
                 Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -22,22 +20,23 @@
                     <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-        </Grid>
+        </ContentControl>
 
-        <Grid Margin="0,0,0,12" Visibility="{Binding IsDisplayNameVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <TextBlock Opacity="0.7" Text="Display name" />
+        <ContentControl
+            Tag="Display name"
+            Style="{StaticResource Container}"
+            Visibility="{Binding IsDisplayNameVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBox
-                Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
                 Text="{Binding DisplayName, Mode=TwoWay}" />
-        </Grid>
+        </ContentControl>
 
-        <Grid Margin="0,0,0,12" Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <TextBlock Opacity="0.7" Text="Password" />
+        <ContentControl
+            Tag="Password"
+            Style="{StaticResource Container}"
+            Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBox
-                Name="PasswordBox"
-                Margin="0,18,0,0"
                 Padding="6"
                 FontSize="14"
                 Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -45,7 +44,7 @@
                     <KeyBinding Key="Enter" Command="{Binding SignInCommand}" />
                 </TextBox.InputBindings>
             </TextBox>
-        </Grid>
+        </ContentControl>
 
         <TextBlock Margin="0,0,0,12" Visibility="{Binding IsResetPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <Hyperlink Command="{Binding ResetPasswordCommand}" IsEnabled="{Binding IsResetPasswordVisible, Mode=OneWay}">

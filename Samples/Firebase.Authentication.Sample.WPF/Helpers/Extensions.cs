@@ -5,7 +5,8 @@ namespace Firebase.Authentication.Sample.WPF.Helpers;
 
 public static class Extensions
 {
-    public static void LogInformationAndShow(this ILogger logger,
+    public static void LogInformationAndShow(
+        this ILogger logger,
         string message,
         string title,
         string caller)
@@ -15,7 +16,8 @@ public static class Extensions
     }
 
 
-    public static void LogErrorAndShow(this ILogger logger,
+    public static void LogErrorAndShow(
+        this ILogger logger,
         string message,
         string title,
         string caller)
@@ -24,7 +26,8 @@ public static class Extensions
         MessageBox.Show(message, title + "!", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    public static void LogErrorAndShow(this ILogger logger,
+    public static void LogErrorAndShow(
+        this ILogger logger,
         Exception exception,
         string title,
         string caller)
