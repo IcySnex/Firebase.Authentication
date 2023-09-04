@@ -4,7 +4,7 @@ using System.Windows;
 namespace Firebase.Authentication.WPF.Configuration;
 
 /// <summary>
-/// Configuration for a ReCaptcha window
+/// Configuration for a provider flow window
 /// </summary>
 public class WindowConfig
 {
