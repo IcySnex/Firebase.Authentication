@@ -17,8 +17,16 @@ Firebase.Authentication.WPF/bin/
 Firebase.Authentication.WPF/obj/
 Firebase.Authentication.WPF/Properties/
 
+Firebase.Authentication.WinUI/bin/
+Firebase.Authentication.WinUI/obj/
+Firebase.Authentication.WinUI/Properties/
+
 Samples/Firebase.Authentication.Sample.WPF/bin/
 Samples/Firebase.Authentication.Sample.WPF/obj/
 Samples/Firebase.Authentication.Sample.WPF/Properties/
+
+Samples/Firebase.Authentication.Sample.WinUI/bin/
+Samples/Firebase.Authentication.Sample.WinUI/obj/
+Samples/Firebase.Authentication.Sample.WinUI/Properties/
 
 Development/
