@@ -26,7 +26,7 @@
                 Margin="0,24,0,4"
                 CornerRadius="50">
                 <Border.Background>
-                    <ImageBrush ImageSource="{Binding Authenticaion.CurrentUser.PhotoUrl, Mode=OneWay, TargetNullValue={StaticResource DefaultAvatar}, FallbackValue={StaticResource DefaultAvatar}}" />
+                    <ImageBrush ImageSource="{Binding Authentication.CurrentUser.PhotoUrl, Mode=OneWay, TargetNullValue={StaticResource DefaultAvatar}, FallbackValue={StaticResource DefaultAvatar}}" />
                 </Border.Background>
 
                 <Grid>
@@ -97,15 +97,15 @@
                 FontWeight="Medium"
                 TextTrimming="CharacterEllipsis">
                 <Run Text="Welcome back," />
-                <Run Text="{Binding Authenticaion.CurrentUser.DisplayName, Mode=OneWay, TargetNullValue='User', FallbackValue='User'}" /><Run Text="!" />
+                <Run Text="{Binding Authentication.CurrentUser.DisplayName, Mode=OneWay, TargetNullValue='User', FallbackValue='User'}" /><Run Text="!" />
             </TextBlock>
 
             <TextBlock HorizontalAlignment="Center" Opacity="0.5">
                 <Run Text="Last logged in" />
-                <Run Text="{Binding Authenticaion.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                <Run Text="{Binding Authentication.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
                 <Run Text="   |   " />
                 <Run Text="User created" />
-                <Run Text="{Binding Authenticaion.CurrentUser.CreatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                <Run Text="{Binding Authentication.CurrentUser.CreatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
             </TextBlock>
         </StackPanel>
 
@@ -194,7 +194,7 @@
                         Opacity="0.8"
                         TextWrapping="Wrap">
                         <Run Text="Your email" />
-                        '<Run Text="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                        '<Run Text="{Binding Authentication.CurrentUser.Email, Mode=OneWay, TargetNullValue='N/A', FallbackValue='N/A'}" />
                         '<Run Text="is not verfied yet. Press here to send a verify emal to your account!" />
                     </TextBlock>
                 </Grid>
@@ -242,7 +242,7 @@
             </Grid>
         </Grid>
 
-        <Grid Margin="0,0,0,12" Visibility="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+        <Grid Margin="0,0,0,12" Visibility="{Binding Authentication.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
             <TextBlock Opacity="0.7">
                 <Run Text="Email" />
                 <Run>
@@ -250,7 +250,7 @@
                         <Style TargetType="Run">
                             <Setter Property="Text" Value="(Unverified)" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Authenticaion.CurrentUser.IsEmailVerified, Mode=OneWay}" Value="True">
+                                <DataTrigger Binding="{Binding Authentication.CurrentUser.IsEmailVerified, Mode=OneWay}" Value="True">
                                     <Setter Property="Text" Value="(Verified)" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -277,7 +277,7 @@
             </Grid>
         </Grid>
 
-        <Grid Margin="0,0,0,12" Visibility="{Binding Authenticaion.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+        <Grid Margin="0,0,0,12" Visibility="{Binding Authentication.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
             <TextBlock Opacity="0.7" Text="Password" />
             <Grid Margin="0,18,0,0">
                 <Grid.ColumnDefinitions>
@@ -290,7 +290,7 @@
                     VerticalAlignment="Center"
                     FontSize="14">
                     <Run Text="Last updated" />
-                    <Run Text="{Binding Authenticaion.CurrentUser.PasswordUpdatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                    <Run Text="{Binding Authentication.CurrentUser.PasswordUpdatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
                 </TextBlock>
                 <Button
                     Grid.Column="1"
@@ -309,7 +309,7 @@
                     ContentStringFormat="Sign in with email link"
                     Tag="{x:Static ui:Icons.EmailAndPassword}"
                     Template="{StaticResource SignInMethodButton}"
-                    Visibility="{Binding Authenticaion.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+                    Visibility="{Binding Authentication.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
                     <ContentControl.InputBindings>
                         <MouseBinding
                             Command="{Binding RemoveSignInMethodCommand}"
@@ -323,7 +323,7 @@
                     ContentStringFormat="Sign in with email and password"
                     Tag="{x:Static ui:Icons.EmailAndPassword}"
                     Template="{StaticResource SignInMethodButton}"
-                    Visibility="{Binding Authenticaion.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+                    Visibility="{Binding Authentication.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
                     <ContentControl.InputBindings>
                         <MouseBinding
                             Command="{Binding RemoveSignInMethodCommand}"
@@ -469,15 +469,15 @@
             Margin="12,24"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <ui:FirebaseAuthenticaionButton
+            <ui:FirebaseAuthenticationButton
                 Margin="12,0,0,0"
                 Command="{Binding RefreshCommand}"
                 Style="{StaticResource RefreshButton}" />
-            <ui:FirebaseAuthenticaionButton
+            <ui:FirebaseAuthenticationButton
                 Margin="12,0,0,0"
                 Command="{Binding SignOutCommand}"
                 Style="{StaticResource SignOutButton}" />
-            <ui:FirebaseAuthenticaionButton
+            <ui:FirebaseAuthenticationButton
                 Margin="12,0,0,0"
                 Command="{Binding DeleteCommand}"
                 Style="{StaticResource DeleteButton}" />

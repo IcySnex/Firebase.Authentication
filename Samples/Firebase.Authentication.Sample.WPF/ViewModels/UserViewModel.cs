@@ -18,27 +18,27 @@ public partial class UserViewModel : ObservableObject
     readonly MainViewModel mainViewModel;
     readonly ImageUploader imageUploader;
 
-    public IAuthenticationClient Authenticaion { get; }
+    public IAuthenticationClient Authentication { get; }
 
     public UserViewModel(
         ILogger<UserViewModel> logger,
         MainViewModel mainViewModel,
         ImageUploader imageUploader,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.mainViewModel = mainViewModel;
         this.imageUploader = imageUploader;
 
-        Authenticaion = authenticaion;
+        this.Authentication = authentication;
 
-        Authenticaion.PropertyChanged += OnAuthenticaionPropertyChanged;
-        OnAuthenticaionPropertyChanged(null, new PropertyChangedEventArgs<UserInfo>("CurrentUser", null, Authenticaion.CurrentUser));
+        Authentication.PropertyChanged += OnAuthenticationPropertyChanged;
+        OnAuthenticationPropertyChanged(null, new PropertyChangedEventArgs<UserInfo>("CurrentUser", null, Authentication.CurrentUser));
 
         logger.LogInformation("[UserViewModel-.ctor] UserViewModel has been initialized.");
     }
 
-    void OnAuthenticaionPropertyChanged(object? _, System.ComponentModel.PropertyChangedEventArgs e)
+    void OnAuthenticationPropertyChanged(object? _, System.ComponentModel.PropertyChangedEventArgs e)
     {
         switch (e)
         {
@@ -72,7 +72,7 @@ public partial class UserViewModel : ObservableObject
                 return;
 
             string photoUrl = await imageUploader.UploadAsync(fileDialog.FileName, "avatar");
-            await Authenticaion.UpdateAsync(null, photoUrl);
+            await Authentication.UpdateAsync(null, photoUrl);
         }
         catch (Exception ex)
         {
@@ -85,7 +85,7 @@ public partial class UserViewModel : ObservableObject
     {
         try
         {
-            await Authenticaion.UpdateAsync(null, null, deletePhotoUrl: true);
+            await Authentication.UpdateAsync(null, null, deletePhotoUrl: true);
         }
         catch (Exception ex)
         {
@@ -109,13 +109,13 @@ public partial class UserViewModel : ObservableObject
         if (value)
             return;
 
-        UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
+        UserInfo user = await Authentication.GetFreshUserAsync(TimeSpan.FromHours(1));
         if (user.DisplayName == DisplayName)
             return;
 
         try
         {
-            await Authenticaion.UpdateAsync(DisplayName, null, deleteDisplayName: DisplayName is null);
+            await Authentication.UpdateAsync(DisplayName, null, deleteDisplayName: DisplayName is null);
         }
         catch (Exception ex)
         {
@@ -140,7 +140,7 @@ public partial class UserViewModel : ObservableObject
         if (value)
             return;
 
-        UserInfo user = await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1));
+        UserInfo user = await Authentication.GetFreshUserAsync(TimeSpan.FromHours(1));
         if (user.Email == Email)
             return;
 
@@ -158,8 +158,8 @@ public partial class UserViewModel : ObservableObject
 
         try
         {
-            await Authenticaion.ChangeEmailAsync(Email);
-            Authenticaion.SignOut();
+            await Authentication.ChangeEmailAsync(Email);
+            Authentication.SignOut();
 
             mainViewModel.Navigate<HomeViewModel>();
         }
@@ -177,7 +177,7 @@ public partial class UserViewModel : ObservableObject
 
         try
         {
-            await Authenticaion.ChangeEmailAsync(null);
+            await Authentication.ChangeEmailAsync(null);
         }
 
         catch (Exception ex)
@@ -199,7 +199,7 @@ public partial class UserViewModel : ObservableObject
     {
         try
         {
-            await Authenticaion.SendEmailAsync(EmailRequest.Verify(), "en");
+            await Authentication.SendEmailAsync(EmailRequest.Verify(), "en");
             IsVerifyEmailVisible = false;
             logger.LogInformationAndShow("A 'verify email address' mail has been sent to your account! Please check your inbox.", "Sent email", "UserViewModel-VerifyEmailAsync");
         }
@@ -239,7 +239,7 @@ public partial class UserViewModel : ObservableObject
 
         try
         {
-            await Authenticaion.UnlinkAsync(provider);
+            await Authentication.UnlinkAsync(provider);
         }
 
         catch (Exception ex)
@@ -254,7 +254,7 @@ public partial class UserViewModel : ObservableObject
     {
         try
         {
-            await Authenticaion.GetFreshUserAsync(TimeSpan.FromHours(1), true);
+            await Authentication.GetFreshUserAsync(TimeSpan.FromHours(1), true);
             logger.LogInformationAndShow("The user info successfully refreshed", "Refreshed user info", "UserViewModel-RefreshAsync");
         }
         catch (Exception ex)
@@ -266,7 +266,7 @@ public partial class UserViewModel : ObservableObject
     [RelayCommand]
     void SignOut()
     {
-        Authenticaion.SignOut();
+        Authentication.SignOut();
         mainViewModel.Navigate<HomeViewModel>();
     }
 
@@ -278,7 +278,7 @@ public partial class UserViewModel : ObservableObject
 
         try
         {
-            await Authenticaion.DeleteAsync();
+            await Authentication.DeleteAsync();
 
             mainViewModel.Navigate<HomeViewModel>();
         }

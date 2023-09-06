@@ -13,18 +13,18 @@ public partial class LinkViewModel : ObservableObject
     readonly ILogger<LinkViewModel> logger;
     readonly Models.Configuration configuration;
     readonly MainViewModel mainViewModel;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public LinkViewModel(
         ILogger<LinkViewModel> logger,
         IOptions<Models.Configuration> configuration,
         MainViewModel mainViewModel,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.configuration = configuration.Value;
         this.mainViewModel = mainViewModel;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
 
         logger.LogInformation("[LinkViewModel-.ctor] LinkViewModel has been initialized.");
     }
@@ -52,7 +52,7 @@ public partial class LinkViewModel : ObservableObject
         try
         {
             cancelSource = new(configuration.Timeout);
-            await authenticaion.LinkAsync(request, cancelSource.Token);
+            await authentication.LinkAsync(request, cancelSource.Token);
 
             mainViewModel.CloseModal();
             return true;

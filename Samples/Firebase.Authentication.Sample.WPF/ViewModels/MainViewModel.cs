@@ -32,7 +32,7 @@ public partial class MainViewModel : ObservableObject
         this.logger = logger;
         this.configuration = configuration.Value;
         this.jsonConverter = jsonConverter;
-        Authentication = authentication;
+        this.Authentication = authentication;
 
         MainView = new() { DataContext = this };
         MainView.Show();
@@ -149,7 +149,7 @@ public partial class MainViewModel : ObservableObject
 
         Window window = new()
         {
-            Title = "WPF Sample - Firebase Authenticaion (Logger)",
+            Title = "WPF Sample - Firebase Authentication (Logger)",
             Width = 600,
             Height = 400,
             Content = textBox

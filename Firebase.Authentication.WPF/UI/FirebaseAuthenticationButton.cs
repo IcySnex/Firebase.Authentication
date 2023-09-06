@@ -6,17 +6,17 @@ using System.Windows.Media.Effects;
 namespace Firebase.Authentication.WPF.UI;
 
 /// <summary>
-/// The base for all 3rd party Firebase authenticaion provider buttons
+/// The base for all 3rd party Firebase Authentication provider buttons
 /// </summary>
-public class FirebaseAuthenticaionButton : Button
+public class FirebaseAuthenticationButton : Button
 {
-    static FirebaseAuthenticaionButton() =>
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(FirebaseAuthenticaionButton), new FrameworkPropertyMetadata(typeof(FirebaseAuthenticaionButton)));
+    static FirebaseAuthenticationButton() =>
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(FirebaseAuthenticationButton), new FrameworkPropertyMetadata(typeof(FirebaseAuthenticationButton)));
 
     /// <summary>
-    /// Creates a new FirebaseAuthenticaionButton
+    /// Creates a new FirebaseAuthenticationButton
     /// </summary>
-    public FirebaseAuthenticaionButton()
+    public FirebaseAuthenticationButton()
     {
     }
 
@@ -28,7 +28,7 @@ public class FirebaseAuthenticaionButton : Button
         if (e.NewValue == e.OldValue)
             return;
 
-        FirebaseAuthenticaionButton owner = (FirebaseAuthenticaionButton)sender;
+        FirebaseAuthenticationButton owner = (FirebaseAuthenticationButton)sender;
         ((Border)owner.GetTemplateChild("RootLayout")).Effect = (bool)e.NewValue ? new DropShadowEffect() { BlurRadius = 4, Opacity = 0.3, Direction = 270, ShadowDepth = 4 } : null;
     }
 
@@ -46,7 +46,7 @@ public class FirebaseAuthenticaionButton : Button
     /// Brush that describes the background when hovered
     /// </summary>
     public static readonly DependencyProperty BackgroundHoverProperty = DependencyProperty.Register(
-        "BackgroundHover", typeof(Brush), typeof(FirebaseAuthenticaionButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 219, 219, 219))));
+        "BackgroundHover", typeof(Brush), typeof(FirebaseAuthenticationButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 219, 219, 219))));
 
 
     /// <summary>
@@ -62,7 +62,7 @@ public class FirebaseAuthenticaionButton : Button
     /// The Icon next to the content
     /// </summary>
     public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-        "Icon", typeof(ImageSource), typeof(FirebaseAuthenticaionButton), new PropertyMetadata(Icons.Google));
+        "Icon", typeof(ImageSource), typeof(FirebaseAuthenticationButton), new PropertyMetadata(Icons.Google));
 
 
     /// <summary>
@@ -78,7 +78,7 @@ public class FirebaseAuthenticaionButton : Button
     /// The degree to which the coreners are rounded
     /// </summary>
     public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(
-        "CornerRadius", typeof(CornerRadius), typeof(FirebaseAuthenticaionButton), new PropertyMetadata(new CornerRadius(2)));
+        "CornerRadius", typeof(CornerRadius), typeof(FirebaseAuthenticationButton), new PropertyMetadata(new CornerRadius(2)));
 
 
     /// <summary>
@@ -94,6 +94,6 @@ public class FirebaseAuthenticaionButton : Button
     /// Weither the Button throws a shadow
     /// </summary>
     public static readonly DependencyProperty HasShadowProperty = DependencyProperty.Register(
-        "HasShadow", typeof(bool), typeof(FirebaseAuthenticaionButton), new PropertyMetadata(true, OnHasShadowChanged));
+        "HasShadow", typeof(bool), typeof(FirebaseAuthenticationButton), new PropertyMetadata(true, OnHasShadowChanged));
 
 }

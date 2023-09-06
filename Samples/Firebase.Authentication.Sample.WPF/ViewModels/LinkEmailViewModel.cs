@@ -13,16 +13,16 @@ public partial class LinkEmailViewModel : ObservableObject
 {
     readonly ILogger<LinkEmailViewModel> logger;
     readonly LinkViewModel linkViewModel;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public LinkEmailViewModel(
         ILogger<LinkEmailViewModel> logger,
         LinkViewModel linkViewModel,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.linkViewModel = linkViewModel;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
 
         logger.LogInformation("[LinkEmailViewModel-.ctor] LinkEmailViewModel has been initialized.");
     }
@@ -71,7 +71,7 @@ public partial class LinkEmailViewModel : ObservableObject
     {
         try
         {
-            SignInMethod method = await authenticaion.GetSignInMethodAsync(Email);
+            SignInMethod method = await authentication.GetSignInMethodAsync(Email);
             if (!method.IsRegistered || method.Providers is null)
             {
                 IsPasswordVisible = true;

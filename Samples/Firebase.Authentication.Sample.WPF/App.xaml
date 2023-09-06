@@ -9,7 +9,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <FirebaseAuthenticaionDictionary xmlns="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF" />
+                <FirebaseAuthenticationDictionary xmlns="clr-namespace:Firebase.Authentication.WPF.UI;assembly=Firebase.Authentication.WPF" />
                 <CommonDictionary xmlns="clr-namespace:ReCaptcha.Desktop.WPF.UI;assembly=ReCaptcha.Desktop.WPF" />
             </ResourceDictionary.MergedDictionaries>
 
@@ -138,8 +138,8 @@
 
             <Style
                 x:Key="SignInButton"
-                BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
-                TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="{x:Type ui:FirebaseAuthenticationButton}">
                 <Setter Property="Width" Value="125" />
                 <Setter Property="Background" Value="#ffbe5c" />
                 <Setter Property="BackgroundHover" Value="#ffd699" />
@@ -158,8 +158,8 @@
 
             <Style
                 x:Key="RefreshButton"
-                BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
-                TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="{x:Type ui:FirebaseAuthenticationButton}">
                 <Setter Property="Width" Value="125" />
                 <Setter Property="Background" Value="#ffbe5c" />
                 <Setter Property="BackgroundHover" Value="#ffd699" />
@@ -181,8 +181,8 @@
 
             <Style
                 x:Key="CancelButtonStyle"
-                BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
-                TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="{x:Type ui:FirebaseAuthenticationButton}">
                 <Setter Property="Width" Value="125" />
                 <Setter Property="Content" Value="Cancel" />
                 <Setter Property="Icon">
@@ -198,8 +198,8 @@
 
             <Style
                 x:Key="SignOutButton"
-                BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
-                TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="{x:Type ui:FirebaseAuthenticationButton}">
                 <Setter Property="Width" Value="125" />
                 <Setter Property="Content" Value="Sign out" />
                 <Setter Property="Icon">
@@ -218,8 +218,8 @@
 
             <Style
                 x:Key="DeleteButton"
-                BasedOn="{StaticResource DefaultFirebaseAuthenticaionButtonStyle}"
-                TargetType="{x:Type ui:FirebaseAuthenticaionButton}">
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="{x:Type ui:FirebaseAuthenticationButton}">
                 <Setter Property="Width" Value="125" />
                 <Setter Property="Background" Value="#ff5c5c" />
                 <Setter Property="BackgroundHover" Value="#ff9999" />

@@ -84,7 +84,7 @@ public partial class Configuration : ObservableObject
     /// The reCAPTCHA host name. (This has to be added to the authorized domains to work with ReCaptcha.Desktop)
     /// </summary>
     [ObservableProperty]
-    string reCaptchaHostName = "sample.firebase.authenticaion";
+    string reCaptchaHostName = "sample.firebase.Authentication";
 
 
     /// <summary>

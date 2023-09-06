@@ -13,18 +13,18 @@ public partial class LinkPhoneViewModel : ObservableObject
     readonly ILogger<LinkPhoneViewModel> logger;
     readonly LinkViewModel linkViewModel;
     readonly IReCaptchaClient reCaptcha;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public LinkPhoneViewModel(
         ILogger<LinkPhoneViewModel> logger,
         LinkViewModel linkViewModel,
         IReCaptchaClient reCaptcha,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.linkViewModel = linkViewModel;
         this.reCaptcha = reCaptcha;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
 
         logger.LogInformation("[LinkPhoneViewModel-.ctor] LinkPhoneViewModel has been initialized.");
     }
@@ -138,7 +138,7 @@ public partial class LinkPhoneViewModel : ObservableObject
 
         try
         {
-            sessionInfo = await authenticaion.SendVerificationCodeAsync(PhoneNumber, ReCaptchaToken!);
+            sessionInfo = await authentication.SendVerificationCodeAsync(PhoneNumber, ReCaptchaToken!);
             RemoveReCaptchaVerification();
 
             IsCodeVisible = true;

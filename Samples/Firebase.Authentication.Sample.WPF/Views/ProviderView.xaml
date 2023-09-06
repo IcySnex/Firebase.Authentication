@@ -9,49 +9,49 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding FacebookFlow}"
             Style="{StaticResource FacebookButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding GoogleFlow}"
             Style="{StaticResource GoogleButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding AppleFlow}"
             Style="{StaticResource AppleButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding GithubFlow}"
             Style="{StaticResource GithubButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding TwitterFlow}"
             Style="{StaticResource TwitterButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding MicrosoftFlow}"
             Style="{StaticResource MicrosoftButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding SignInWithFlowCommand}"
             CommandParameter="{Binding YahooFlow}"
             Style="{StaticResource YahooButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding NavigateToEmailCommand}"
             Style="{StaticResource EmailAndPasswordButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton
+        <ui:FirebaseAuthenticationButton
             Margin="0,0,0,12"
             Command="{Binding NavigateToPhoneCommand}"
             Style="{StaticResource PhoneNumberButtonStyle}" />
-        <ui:FirebaseAuthenticaionButton Command="{Binding SignUpAnonymouslyCommand}" Style="{StaticResource AnonymouslyButtonStyle}" />
+        <ui:FirebaseAuthenticationButton Command="{Binding SignUpAnonymouslyCommand}" Style="{StaticResource AnonymouslyButtonStyle}" />
     </StackPanel>
 </UserControl>

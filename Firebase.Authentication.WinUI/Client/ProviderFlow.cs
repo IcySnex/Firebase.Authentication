@@ -108,7 +108,7 @@ public abstract class ProviderFlow : IProviderFlow
         IAuthenticationClient authentication,
         CancellationToken cancellationToken = default)
     {
-        logger?.LogInformation($"[ProviderFlow-SignInAsync] Provider ({provider}) flow authenticaion requested.");
+        logger?.LogInformation($"[ProviderFlow-SignInAsync] Provider ({provider}) flow Authentication requested.");
         ProviderRedirect redirect = await authentication.CreateProviderRedirectAsync(provider, redirectTo, cancellationToken);
 
         // Define result
@@ -122,7 +122,7 @@ public abstract class ProviderFlow : IProviderFlow
             taskWaiter.TrySetCanceled();
             window?.DispatcherQueue.TryEnqueue(window.Close);
 
-            logger?.LogInformation($"[ProviderFlow-OnTokenCancelled] Provider ({provider}) flow authenticaion was cancelled");
+            logger?.LogInformation($"[ProviderFlow-OnTokenCancelled] Provider ({provider}) flow Authentication was cancelled");
         });
 
 

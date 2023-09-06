@@ -15,18 +15,18 @@ public partial class HomeViewModel : ObservableObject
     readonly ILogger<HomeViewModel> logger;
     readonly Models.Configuration configuration;
     readonly MainViewModel mainViewModel;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public HomeViewModel(
         ILogger<HomeViewModel> logger,
         IOptions<Models.Configuration> configuration,
         MainViewModel mainViewModel,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.configuration = configuration.Value;
         this.mainViewModel = mainViewModel;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
 
         logger.LogInformation("[HomeViewModel-.ctor] HomeViewModel has been initialized.");
     }
@@ -68,7 +68,7 @@ public partial class HomeViewModel : ObservableObject
         try
         {
             cancelSource = new(configuration.Timeout);
-            await authenticaion.SignInAsync(request, cancelSource.Token);
+            await authentication.SignInAsync(request, cancelSource.Token);
 
             mainViewModel.Navigate<UserViewModel>();
             return true;
@@ -87,7 +87,7 @@ public partial class HomeViewModel : ObservableObject
         try
         {
             cancelSource = new(configuration.Timeout);
-            await authenticaion.SignUpAsync(request, cancelSource.Token);
+            await authentication.SignUpAsync(request, cancelSource.Token);
 
             mainViewModel.Navigate<UserViewModel>();
             return true;

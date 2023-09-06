@@ -21,7 +21,6 @@ public partial class ProviderViewModel : ObservableObject
 
     public ProviderViewModel(
         ILogger<ProviderViewModel> logger,
-        MainViewModel mainViewModel,
         HomeViewModel homeViewModel,
         FacebookProviderFlow facebookFlow,
         GoogleProviderFlow googleFlow,

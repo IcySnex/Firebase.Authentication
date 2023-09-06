@@ -13,18 +13,18 @@ public partial class PhoneViewModel : ObservableObject
     readonly ILogger<PhoneViewModel> logger;
     readonly HomeViewModel homeViewModel;
     readonly IReCaptchaClient reCaptcha;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public PhoneViewModel(
         ILogger<PhoneViewModel> logger,
         HomeViewModel homeViewModel,
         IReCaptchaClient reCaptcha,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.homeViewModel = homeViewModel;
         this.reCaptcha = reCaptcha;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
 
         logger.LogInformation("[PhoneViewModel-.ctor] PhoneViewModel has been initialized.");
     }
@@ -139,7 +139,7 @@ public partial class PhoneViewModel : ObservableObject
 
         try
         {
-            sessionInfo = await authenticaion.SendVerificationCodeAsync(PhoneNumber, ReCaptchaToken!);
+            sessionInfo = await authentication.SendVerificationCodeAsync(PhoneNumber, ReCaptchaToken!);
             RemoveReCaptchaVerification();
 
             IsCodeVisible = true;

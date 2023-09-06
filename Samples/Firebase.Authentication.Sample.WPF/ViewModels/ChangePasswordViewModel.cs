@@ -10,16 +10,16 @@ public partial class ChangePasswordViewModel : ObservableObject
 {
     readonly ILogger<ChangePasswordViewModel> logger;
     readonly MainViewModel mainViewModel;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public ChangePasswordViewModel(
         ILogger<ChangePasswordViewModel> logger,
         MainViewModel mainViewModel,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.mainViewModel = mainViewModel;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
     }
 
 
@@ -55,8 +55,8 @@ public partial class ChangePasswordViewModel : ObservableObject
 
         try
         {
-            await authenticaion.ChangePasswordAsync(NewPassword, CurrentPassword);
-            authenticaion.SignOut();
+            await authentication.ChangePasswordAsync(NewPassword, CurrentPassword);
+            authentication.SignOut();
 
             mainViewModel.CloseModal();
             mainViewModel.Navigate<HomeViewModel>();

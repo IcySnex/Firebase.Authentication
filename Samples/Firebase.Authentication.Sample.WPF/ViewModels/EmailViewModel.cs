@@ -14,16 +14,16 @@ public partial class EmailViewModel : ObservableObject
 {
     readonly ILogger<EmailViewModel> logger;
     readonly HomeViewModel homeViewModel;
-    readonly IAuthenticationClient authenticaion;
+    readonly IAuthenticationClient authentication;
 
     public EmailViewModel(
         ILogger<EmailViewModel> logger,
         HomeViewModel homeViewModel,
-        IAuthenticationClient authenticaion)
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.homeViewModel = homeViewModel;
-        this.authenticaion = authenticaion;
+        this.authentication = authentication;
 
         logger.LogInformation("[EmailViewModel-.ctor] EmailViewModel has been initialized.");
     }
@@ -84,7 +84,7 @@ public partial class EmailViewModel : ObservableObject
     {
         try
         {
-            SignInMethod method = await authenticaion.GetSignInMethodAsync(Email);
+            SignInMethod method = await authentication.GetSignInMethodAsync(Email);
             if (!method.IsRegistered)
             {
                 IsDisplayNameVisible = true;
@@ -125,7 +125,7 @@ public partial class EmailViewModel : ObservableObject
 
         try
         {
-            await authenticaion.SendEmailAsync(EmailRequest.ResetPassword(Email));
+            await authentication.SendEmailAsync(EmailRequest.ResetPassword(Email));
         }
         catch (Exception ex)
         {

@@ -17,7 +17,7 @@
             HorizontalAlignment="Center"
             FontSize="24"
             FontWeight="Medium"
-            Text="Firebase.Authenticaion" />
+            Text="Firebase.Authentication" />
         <Rectangle
             Height="2"
             MinWidth="420"
