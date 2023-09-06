@@ -9,9 +9,24 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="UI\FirebaseAuthenticationDictionary.xaml" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230822000" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+		<PackageReference Include="Svg" Version="3.4.4" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Firebase.Authentication\Firebase.Authentication.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="UI\FirebaseAuthenticationDictionary.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 </Project>
