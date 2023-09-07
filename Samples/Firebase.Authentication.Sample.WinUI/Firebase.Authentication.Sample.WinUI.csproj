@@ -10,7 +10,8 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		
 		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
-		
+
+		<EnableMsixTooling>true</EnableMsixTooling>
 		<UseWinUI>true</UseWinUI>
 		<WindowsPackageType>None</WindowsPackageType>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -25,6 +26,11 @@
 
 	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<ProjectCapability Include="Msix" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Firebase.Authentication.WinUI\Firebase.Authentication.WinUI.csproj" />
+	  <ProjectReference Include="..\..\Firebase.Authentication\Firebase.Authentication.csproj" />
 	</ItemGroup>
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>

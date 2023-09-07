@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebase.Authentication.Sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebase.Authentication.Sample.WinUI", "Samples\Firebase.Authentication.Sample.WinUI\Firebase.Authentication.Sample.WinUI.csproj", "{EAA95AB7-932E-4386-85D7-026A01605BA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Firebase.Authentication.WinUI", "Firebase.Authentication.WinUI\Firebase.Authentication.WinUI.csproj", "{3BB19ACD-AAA6-4827-9CF4-C0A67B543577}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Firebase.Authentication.WinUI", "Firebase.Authentication.WinUI\Firebase.Authentication.WinUI.csproj", "{3BB19ACD-AAA6-4827-9CF4-C0A67B543577}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

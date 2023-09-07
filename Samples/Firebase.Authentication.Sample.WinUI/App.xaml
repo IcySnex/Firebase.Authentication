@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <FirebaseAuthenticationDictionary xmlns="using:Firebase.Authentication.WinUI.UI" />
             </ResourceDictionary.MergedDictionaries>
 
 
