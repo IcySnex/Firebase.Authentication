@@ -3,13 +3,137 @@
     x:Class="Firebase.Authentication.Sample.WinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Firebase.Authentication.Sample.WinUI">
+    xmlns:conv="using:Firebase.Authentication.Sample.WinUI.Converters"
+    xmlns:local="using:Firebase.Authentication.Sample.WinUI"
+    xmlns:ui="using:Firebase.Authentication.WinUI.UI">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <FirebaseAuthenticationDictionary xmlns="using:Firebase.Authentication.WinUI.UI" />
+                <CommonDictionary xmlns="using:ReCaptcha.Desktop.WinUI.UI" />
             </ResourceDictionary.MergedDictionaries>
+
+
+            <!--  Converters  -->
+            <conv:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+            <conv:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
+            <conv:BooleanToSignUpInConverter x:Key="BooleanToSignUpInConverter" />
+            <conv:TimeSpanConverter x:Key="TimeSpanConverter" />
+            <conv:EnumIntConverter x:Key="EnumIntConverter" />
+
+
+            <!--  Styles  -->
+            <Style
+                x:Key="TransparentButton"
+                BasedOn="{StaticResource DefaultButtonStyle}"
+                TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+            </Style>
+
+            <Style
+                x:Key="SignInButtonStyle"
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="ui:FirebaseAuthenticationButton">
+                <Setter Property="Width" Value="125" />
+                <Setter Property="Content" Value="Sign in" />
+                <Setter Property="Background" Value="{ThemeResource SystemColorControlAccentBrush}" />
+                <Setter Property="BackgroundPointerOver" Value="{ThemeResource AccentAAFillColorTertiaryBrush}" />
+                <Setter Property="BackgroundPressed" Value="{ThemeResource AccentFillColorSecondaryBrush}" />
+
+                <Setter Property="BorderBrush" Value="{ThemeResource AccentAAFillColorTertiaryBrush}" />
+                <Setter Property="BorderBrushPointerOver" Value="{ThemeResource AccentFillColorSecondaryBrush}" />
+                <Setter Property="BorderBrushPressed" Value="{ThemeResource AccentFillColorSecondaryBrush}" />
+
+                <Setter Property="Foreground" Value="#ffffffff" />
+                <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
+                <Setter Property="ForegroundPressed" Value="#c5ffffff" />
+                <!--<Setter Property="Icon">
+                    <Setter.Value>
+                        <SymbolIcon Symbol="Accept" />
+                    </Setter.Value>
+                </Setter>-->
+            </Style>
+
+            <Style
+                x:Key="CancelButtonStyle"
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="ui:FirebaseAuthenticationButton">
+                <Setter Property="Width" Value="125" />
+                <Setter Property="Content" Value="Cancel" />
+                <Setter Property="Background" Value="#64333333" />
+                <Setter Property="BackgroundPointerOver" Value="#96444444" />
+                <Setter Property="BackgroundPressed" Value="#4C444444" />
+                <Setter Property="BorderBrush" Value="#64595959" />
+                <Setter Property="BorderBrushPointerOver" Value="#96595959" />
+                <Setter Property="BorderBrushPressed" Value="#4C595959" />
+                <Setter Property="Foreground" Value="#ffffffff" />
+                <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
+                <Setter Property="ForegroundPressed" Value="#c5ffffff" />
+                <!--<Setter Property="Icon">
+                    <Setter.Value>
+                        <SymbolIcon Symbol="ClosePane" />
+                    </Setter.Value>
+                </Setter>-->
+            </Style>
+
+
+            <!--  Controls  -->
+            <ControlTemplate x:Key="SettignsCard" TargetType="ContentControl">
+                <Grid
+                    Padding="8"
+                    HorizontalAlignment="Stretch"
+                    Background="{ThemeResource CardBackgroundFillColorDefault}"
+                    BorderBrush="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                    BorderThickness="2"
+                    CornerRadius="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        FontSize="16"
+                        Text="{TemplateBinding AccessKey}"
+                        TextTrimming="CharacterEllipsis" />
+                    <TextBlock
+                        Margin="0,22,0,0"
+                        FontSize="14"
+                        Opacity="0.7"
+                        Text="{TemplateBinding Tag}"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="Wrap" />
+
+                    <ContentPresenter
+                        Grid.Row="1"
+                        Margin="0,8,0,0"
+                        Opacity="0.7" />
+                </Grid>
+            </ControlTemplate>
+
+            <Style x:Key="Container" TargetType="ContentControl">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Opacity="0.7" Text="{TemplateBinding Tag}" />
+                                <ContentPresenter
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Stretch"
+                                    IsTabStop="False" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 
         </ResourceDictionary>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Firebase.Authentication.Sample.WinUI.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ani="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Firebase.Authentication.WinUI.UI"
+    mc:Ignorable="d">
+
+    <Grid Name="MainGrid" x:FieldModifier="public">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid
+            Name="TitleBarContainer"
+            x:FieldModifier="public"
+            Visibility="Visible">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button
+                    Name="BackButton"
+                    Width="0"
+                    Height="32"
+                    Margin="4,4,0,4"
+                    Padding="0"
+                    x:FieldModifier="public"
+                    Opacity="0"
+                    Style="{StaticResource TransparentButton}">
+                    <Button.OpacityTransition>
+                        <ScalarTransition />
+                    </Button.OpacityTransition>
+                    <Button.Resources>
+                        <Storyboard x:Key="InBoard">
+                            <DoubleAnimation
+                                EnableDependentAnimation="True"
+                                Storyboard.TargetName="BackButton"
+                                Storyboard.TargetProperty="Width"
+                                From="0"
+                                To="32"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+
+                        <Storyboard x:Key="OutBoard">
+                            <DoubleAnimation
+                                EnableDependentAnimation="True"
+                                Storyboard.TargetName="BackButton"
+                                Storyboard.TargetProperty="Width"
+                                From="32"
+                                To="0"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </Button.Resources>
+
+                    <Viewbox Width="16" Height="16">
+                        <AnimatedIcon>
+                            <AnimatedIcon.Source>
+                                <ani:AnimatedBackVisualSource />
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="Back" />
+                            </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
+                    </Viewbox>
+                </Button>
+
+                <Image
+                    Width="19"
+                    Height="19"
+                    HorizontalAlignment="Left"
+                    Source="{x:Bind ui:Icons.ToImageSource(ui:Icons.Firebase, 19, 19)}" />
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Text="WinUI3 Sample - Firebase Authentication" />
+            </StackPanel>
+
+            <Rectangle
+                Name="TitleBarDragArea"
+                Margin="39,0,0,0"
+                HorizontalAlignment="Stretch"
+                x:FieldModifier="public" />
+        </Grid>
+
+        <NavigationView
+            Name="NavigationView"
+            Grid.Row="1"
+            x:FieldModifier="public"
+            IsBackButtonVisible="Collapsed"
+            IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Top">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Home" Icon="Home" />
+                <NavigationViewItem
+                    Content="User"
+                    Icon="Contact"
+                    Visibility="Collapsed" />
+                <NavigationViewItem Content="Settings" Icon="Setting" />
+            </NavigationView.MenuItems>
+            <NavigationView.PaneFooter>
+                <StackPanel
+                    VerticalAlignment="Stretch"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        Margin="0,2"
+                        VerticalAlignment="Stretch"
+                        Click="OnLoggerClick"
+                        Content="Show Logger"
+                        Style="{StaticResource TransparentButton}" />
+                    <Button
+                        Margin="0,2"
+                        VerticalAlignment="Stretch"
+                        Click="OnGithubClick"
+                        Content="GitHub"
+                        Style="{StaticResource TransparentButton}" />
+                </StackPanel>
+            </NavigationView.PaneFooter>
+
+            <ScrollView>
+                <Frame
+                    Name="ContentFrame"
+                    Margin="24"
+                    x:FieldModifier="public" />
+            </ScrollView>
+        </NavigationView>
+    </Grid>
+</Window>
