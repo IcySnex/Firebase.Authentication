@@ -12,15 +12,15 @@
         <Setter Property="Width" Value="220" />
         <Setter Property="Height" Value="40" />
         <Setter Property="Content" Value="Sign in with Firebase" />
-        <Setter Property="Background" Value="#64333333" />
-        <Setter Property="BackgroundPointerOver" Value="#96444444" />
+        <Setter Property="Background" Value="#a6333333" />
+        <Setter Property="BackgroundPointerOver" Value="#c2444444" />
         <Setter Property="BackgroundPressed" Value="#4C444444" />
         <Setter Property="BorderBrush" Value="#64595959" />
         <Setter Property="BorderBrushPointerOver" Value="#96595959" />
         <Setter Property="BorderBrushPressed" Value="#4C595959" />
-        <Setter Property="Foreground" Value="#ffc4c4c4" />
-        <Setter Property="ForegroundPointerOver" Value="#ffc4c4c4" />
-        <Setter Property="ForegroundPressed" Value="#c5c4c4c4" />
+        <Setter Property="Foreground" Value="#ffffffff" />
+        <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
+        <Setter Property="ForegroundPressed" Value="#c5ffffff" />
         <Setter Property="CornerRadius" Value="4" />
         <Setter Property="Padding" Value="16,4" />
         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
@@ -145,8 +145,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with email" />
-        <Setter Property="Background" Value="#74db4437" />
-        <Setter Property="BackgroundPointerOver" Value="#a6db4437" />
+        <Setter Property="Background" Value="#a6db4437" />
+        <Setter Property="BackgroundPointerOver" Value="#c2db4437" />
         <Setter Property="BackgroundPressed" Value="#4Cdb4437" />
         <Setter Property="BorderBrush" Value="#64e37268" />
         <Setter Property="BorderBrushPointerOver" Value="#96e37268" />
@@ -161,8 +161,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with phone" />
-        <Setter Property="Background" Value="#7402bd7e" />
-        <Setter Property="BackgroundPointerOver" Value="#a602bd7e" />
+        <Setter Property="Background" Value="#a602bd7e" />
+        <Setter Property="BackgroundPointerOver" Value="#c202bd7e" />
         <Setter Property="BackgroundPressed" Value="#4c02bd7e" />
         <Setter Property="BorderBrush" Value="#6418D696" />
         <Setter Property="BorderBrushPointerOver" Value="#9618D696" />
@@ -177,8 +177,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Facebook" />
-        <Setter Property="Background" Value="#743b5998" />
-        <Setter Property="BackgroundPointerOver" Value="#a63b5998" />
+        <Setter Property="Background" Value="#a63b5998" />
+        <Setter Property="BackgroundPointerOver" Value="#c23b5998" />
         <Setter Property="BackgroundPressed" Value="#4c3b5998" />
         <Setter Property="BorderBrush" Value="#645a7abf" />
         <Setter Property="BorderBrushPointerOver" Value="#965a7abf" />
@@ -196,9 +196,9 @@
         <Setter Property="Background" Value="#ccffffff" />
         <Setter Property="BackgroundPointerOver" Value="#deffffff" />
         <Setter Property="BackgroundPressed" Value="#99ffffff" />
-        <Setter Property="BorderBrush" Value="#64d9d9d9" />
-        <Setter Property="BorderBrushPointerOver" Value="#96d9d9d9" />
-        <Setter Property="BorderBrushPressed" Value="#4cd9d9d9" />
+        <Setter Property="BorderBrush" Value="#64d0d0d0" />
+        <Setter Property="BorderBrushPointerOver" Value="#96d0d0d0" />
+        <Setter Property="BorderBrushPressed" Value="#4cd0d0d0" />
         <Setter Property="Foreground" Value="#ff111111" />
         <Setter Property="ForegroundPointerOver" Value="#ff111111" />
         <Setter Property="ForegroundPressed" Value="#c5111111" />
@@ -209,8 +209,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Apple" />
-        <Setter Property="Background" Value="#74000000" />
-        <Setter Property="BackgroundPointerOver" Value="#a6222222" />
+        <Setter Property="Background" Value="#a6000000" />
+        <Setter Property="BackgroundPointerOver" Value="#c2222222" />
         <Setter Property="BackgroundPressed" Value="#4c222222" />
         <Setter Property="BorderBrush" Value="#64333333" />
         <Setter Property="BorderBrushPointerOver" Value="#96333333" />
@@ -225,8 +225,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with GitHub" />
-        <Setter Property="Background" Value="#74333333" />
-        <Setter Property="BackgroundPointerOver" Value="#a6444444" />
+        <Setter Property="Background" Value="#a6333333" />
+        <Setter Property="BackgroundPointerOver" Value="#c2444444" />
         <Setter Property="BackgroundPressed" Value="#4c444444" />
         <Setter Property="BorderBrush" Value="#64595959" />
         <Setter Property="BorderBrushPointerOver" Value="#96595959" />
@@ -241,8 +241,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Twitter" />
-        <Setter Property="Background" Value="#7455acee" />
-        <Setter Property="BackgroundPointerOver" Value="#a655acee" />
+        <Setter Property="Background" Value="#a655acee" />
+        <Setter Property="BackgroundPointerOver" Value="#c255acee" />
         <Setter Property="BackgroundPressed" Value="#4c55acee" />
         <Setter Property="BorderBrush" Value="#648bc6f4" />
         <Setter Property="BorderBrushPointerOver" Value="#968bc6f4" />
@@ -257,8 +257,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Microsoft" />
-        <Setter Property="Background" Value="#742f2f2f" />
-        <Setter Property="BackgroundPointerOver" Value="#a6404040" />
+        <Setter Property="Background" Value="#a62f2f2f" />
+        <Setter Property="BackgroundPointerOver" Value="#c2404040" />
         <Setter Property="BackgroundPressed" Value="#4c404040" />
         <Setter Property="BorderBrush" Value="#644d4d4d" />
         <Setter Property="BorderBrushPointerOver" Value="#964d4d4d" />
@@ -273,8 +273,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Yahoo" />
-        <Setter Property="Background" Value="#746d528e" />
-        <Setter Property="BackgroundPointerOver" Value="#a66d528e" />
+        <Setter Property="Background" Value="#a66d528e" />
+        <Setter Property="BackgroundPointerOver" Value="#c26d528e" />
         <Setter Property="BackgroundPressed" Value="#4c6d528e" />
         <Setter Property="BorderBrush" Value="#64896dab" />
         <Setter Property="BorderBrushPointerOver" Value="#96896dab" />
@@ -289,8 +289,8 @@
         BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Continue as guest" />
-        <Setter Property="Background" Value="#74e6a800" />
-        <Setter Property="BackgroundPointerOver" Value="#a6e6a800" />
+        <Setter Property="Background" Value="#a6e6a800" />
+        <Setter Property="BackgroundPointerOver" Value="#c2e6a800" />
         <Setter Property="BackgroundPressed" Value="#4ce6a800" />
         <Setter Property="BorderBrush" Value="#64ffc933" />
         <Setter Property="BorderBrushPointerOver" Value="#96ffc933" />
