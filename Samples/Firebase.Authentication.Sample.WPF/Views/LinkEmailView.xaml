@@ -8,14 +8,21 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <ContentControl Tag="Email" Style="{StaticResource Container}">
+        <ContentControl Style="{StaticResource Container}" Tag="Email">
             <TextBox
                 Padding="6"
                 FontSize="14"
-                Text="{Binding Email, Mode=TwoWay}" />
+                Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding LinkCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
         </ContentControl>
 
-        <ContentControl Tag="Password" Style="{StaticResource Container}">
+        <ContentControl
+            Style="{StaticResource Container}"
+            Tag="Password"
+            Visibility="{Binding IsPasswordVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <TextBox
                 Padding="6"
                 FontSize="14"
