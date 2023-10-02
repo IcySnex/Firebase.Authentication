@@ -29,8 +29,7 @@
             Text="Secure and easy to use authentication for C# and dotnet" />
 
         <ContentPresenter
-            Height="556"
-            Margin="12,24"
+            Margin="12,24,12,64"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Center"
             Content="{x:Bind viewModel.CurrentView, Mode=OneWay}" />
