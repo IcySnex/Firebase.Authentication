@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Firebase.Authentication.Sample.WinUI.Views.UserView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hlp="using:Firebase.Authentication.Sample.WinUI.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Firebase.Authentication.WinUI.UI"
+    xmlns:vm="using:Windows.UI.ViewManagement"
+    NavigationCacheMode="Enabled"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <StackPanel Name="Header" Margin="-24,-24,-24,0">
+            <StackPanel.Background>
+                <RadialGradientBrush x:Name="HeaderGradient" GradientOrigin="0.5,-4" RadiusX="0.55" RadiusY="0.5" />
+            </StackPanel.Background>
+
+            <Grid
+                Width="100"
+                Height="100"
+                Margin="0,24,0,4"
+                CornerRadius="50">
+                <Grid.Background>
+                    <ImageBrush ImageSource="{x:Bind viewModel.Authentication.CurrentUser.PhotoUrl, Mode=OneWay, Converter={StaticResource DefaultAvataerConverter}}" />
+                </Grid.Background>
+
+
+                <Button
+                    Grid.Row="0"
+                    Command="{x:Bind viewModel.UploadAvatarCommand}"
+                    Style="{StaticResource UploadAvatarButton}" />
+                <Button
+                    Grid.Row="0"
+                    Command="{x:Bind viewModel.RemoveAvatarCommand}"
+                    Style="{StaticResource DeleteAvatarButton}" />
+
+            </Grid>
+            <TextBlock
+                Margin="12,0"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                FontWeight="Medium"
+                TextTrimming="CharacterEllipsis">
+                <Run Text="Welcome back," />
+                <Run Text="{x:Bind viewModel.Authentication.CurrentUser.DisplayName, Mode=OneWay, TargetNullValue='User', FallbackValue='User'}" /><Run Text="!" />
+            </TextBlock>
+
+            <TextBlock HorizontalAlignment="Center" Opacity="0.5">
+                <Run Text="Last logged in" />
+                <Run Text="{x:Bind viewModel.Authentication.CurrentUser.LastLoginAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                <Run Text="   |   " />
+                <Run Text="User created" />
+                <Run Text="{x:Bind viewModel.Authentication.CurrentUser.CreatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+            </TextBlock>
+        </StackPanel>
+
+        <Rectangle
+            Height="2"
+            MinWidth="420"
+            Margin="24,24"
+            Fill="{ThemeResource SystemColorWindowTextBrush}"
+            Opacity="0.5" />
+
+        <Grid Margin="0,0,0,12" Visibility="{x:Bind viewModel.IsVerifyEmailVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <Button
+                Command="{x:Bind viewModel.VerifyEmailCommand}"
+                Content="{x:Bind viewModel.Authentication.CurrentUser.Email, Mode=OneWay, TargetNullValue='N/A', FallbackValue='N/A'}"
+                Style="{StaticResource VerifyEmailButton}"
+                Tag="{x:Bind ui:Icons.ToImageSource(hlp:Icons.Warning, 20, 20)}" />
+
+            <Button
+                Margin="8"
+                Padding="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{x:Bind viewModel.CloseVerifyEmailCommand}">
+                <Image
+                    Width="12"
+                    Height="12"
+                    Source="{x:Bind ui:Icons.ToImageSource(hlp:Icons.Cancel, 15, 15)}" />
+            </Button>
+        </Grid>
+
+        <ContentControl
+            Margin="0,0,0,12"
+            Style="{StaticResource Container}"
+            Tag="Display name">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    IsReadOnly="{x:Bind viewModel.IsDisplayNameChangeable, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                    PlaceholderText="None"
+                    Text="{x:Bind viewModel.DisplayName, Mode=TwoWay}" />
+                <ToggleButton
+                    Grid.Column="1"
+                    Width="70"
+                    Margin="4,0,0,0"
+                    Content="{x:Bind viewModel.IsDisplayNameChangeable, Mode=OneWay, Converter={StaticResource BooleanToChangeSaveConverter}, FallbackValue='Change'}"
+                    IsChecked="{x:Bind viewModel.IsDisplayNameChangeable, Mode=TwoWay}" />
+            </Grid>
+        </ContentControl>
+
+        <ContentControl
+            Margin="0,0,0,12"
+            Style="{StaticResource Container}"
+            Tag="{x:Bind viewModel.Authentication.CurrentUser.IsEmailVerified, Mode=OneWay, Converter={StaticResource EmailVerifiedConverter}}"
+            Visibility="{x:Bind viewModel.Authentication.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    IsReadOnly="{x:Bind viewModel.IsEmailChangeable, Mode=OneWay, Converter={StaticResource InverseBooleanConverter}}"
+                    PlaceholderText="None"
+                    Text="{x:Bind viewModel.Email, Mode=TwoWay}" />
+                <ToggleButton
+                    Grid.Column="1"
+                    Width="70"
+                    Margin="4,0,0,0"
+                    Content="{x:Bind viewModel.IsEmailChangeable, Mode=OneWay, Converter={StaticResource BooleanToChangeSaveConverter}, FallbackValue='Change'}"
+                    IsChecked="{x:Bind viewModel.IsEmailChangeable, Mode=TwoWay}" />
+            </Grid>
+        </ContentControl>
+
+        <ContentControl
+            Margin="0,0,0,12"
+            Style="{StaticResource Container}"
+            Tag="Password"
+            Visibility="{x:Bind viewModel.Authentication.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    FontSize="14">
+                    <Run Text="Last updated" />
+                    <Run Text="{x:Bind viewModel.Authentication.CurrentUser.PasswordUpdatedAt, Mode=OneWay, Converter={StaticResource DateTimeDifferenceConverter}, TargetNullValue='N/A', FallbackValue='N/A'}" />
+                </TextBlock>
+                <Button
+                    Grid.Column="1"
+                    Width="70"
+                    Margin="4,0,0,0"
+                    Command="{x:Bind viewModel.ChangePasswordCommand}"
+                    Content="Change" />
+            </Grid>
+        </ContentControl>
+
+
+        <StackPanel
+            Margin="0,24"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal"
+            Spacing="12">
+            <ui:FirebaseAuthenticationButton Command="{x:Bind viewModel.RefreshCommand}" Style="{StaticResource RefreshButtonStyle}" />
+            <ui:FirebaseAuthenticationButton Command="{x:Bind viewModel.SignOutCommand}" Style="{StaticResource SignOutButtonStyle}" />
+            <ui:FirebaseAuthenticationButton Command="{x:Bind viewModel.DeleteCommand}" Style="{StaticResource DeleteButtonStyle}" />
+        </StackPanel>
+    </StackPanel>
+</Page>

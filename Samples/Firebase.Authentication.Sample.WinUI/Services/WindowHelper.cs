@@ -9,6 +9,7 @@ using Firebase.Authentication.Sample.WinUI.Views;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml.Controls;
+using Windows.Storage.Pickers;
 
 namespace Firebase.Authentication.Sample.WinUI.Services;
 
@@ -89,6 +90,15 @@ public class WindowHelper
 
         logger.LogInformation("Created new LoggerWindow and hooked handler");
     }
+
+
+    /// <summary>
+    /// Initializes a target with the current main window
+    /// </summary>
+    /// <param name="target">The target</param>
+    public void Initialize(
+        object target) =>
+        InitializeWithWindow.Initialize(target, HWnd);
 
 
     /// <summary>
@@ -188,12 +198,20 @@ public class WindowHelper
     /// <param name="message">The content of the dialog</param>
     /// <param name="title">The title of the dialog</param>
     public IAsyncOperation<ContentDialogResult> AlertAsync(
-        string message,
-        string title,
+        object content,
+        string? title = null,
         string? closeButton = "Ok",
         string? primaryButton = null)
     {
-        ContentDialog contentDialog = new() { Content = message, Title = title + "!", CloseButtonText = closeButton, PrimaryButtonText = primaryButton, XamlRoot = mainView.Content.XamlRoot, Style = (Style)App.Current.Resources["DefaultContentDialogStyle"] };
+        ContentDialog contentDialog = new()
+        {
+            Content = content,
+            Title = title is null ? null : title + "!",
+            CloseButtonText = closeButton,
+            PrimaryButtonText = primaryButton,
+            XamlRoot = mainView.Content.XamlRoot,
+            Style = (Style)App.Current.Resources["DefaultContentDialogStyle"]
+        };
         return contentDialog.ShowAsync();
     }
 
