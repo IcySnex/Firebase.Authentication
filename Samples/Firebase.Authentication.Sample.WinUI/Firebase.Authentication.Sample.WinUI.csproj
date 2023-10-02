@@ -21,6 +21,9 @@
 	  <None Remove="Views\ChangePasswordView.xaml" />
 	  <None Remove="Views\EmailView.xaml" />
 	  <None Remove="Views\HomeView.xaml" />
+	  <None Remove="Views\LinkEmailView.xaml" />
+	  <None Remove="Views\LinkPhoneView.xaml" />
+	  <None Remove="Views\LinkProviderView.xaml" />
 	  <None Remove="Views\LoggerView.xaml" />
 	  <None Remove="Views\MainView.xaml" />
 	  <None Remove="Views\PhoneView.xaml" />
@@ -50,6 +53,20 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Firebase.Authentication.WinUI\Firebase.Authentication.WinUI.csproj" />
 	  <ProjectReference Include="..\..\Firebase.Authentication\Firebase.Authentication.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Views\LinkPhoneView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="Views\LinkEmailView.xaml">
+	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	    <SubType>Designer</SubType>
+	  </Page>
+	  <Page Update="Views\LinkProviderView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -19,7 +19,6 @@ public class AppStartupHandler
         Navigation navigation,
         JsonConverter converter,
         HomeViewModel homeViewModel,
-        //LinkViewModel linkViewModel,
         IReCaptchaClient reCaptcha,
         FacebookProviderFlow facebookFlow,
         GoogleProviderFlow googleFlow,

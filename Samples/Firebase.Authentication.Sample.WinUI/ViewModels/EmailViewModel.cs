@@ -78,7 +78,7 @@ public partial class EmailViewModel : ObservableObject
         }
 
         if (await (IsDisplayNameVisible ?
-            homeViewModel.SignUpAsync(SignUpRequest.WithEmailPassword(Email, Password, DisplayName)) :
+            homeViewModel.SignUpAsync(SignUpRequest.WithEmailPassword(Email, Password, string.IsNullOrWhiteSpace(DisplayName) ? null : DisplayName)) :
             homeViewModel.SignInAsync(SignInRequest.WithEmailPassword(Email, Password))))
             homeViewModel.Navigate(new ProviderView());
     }

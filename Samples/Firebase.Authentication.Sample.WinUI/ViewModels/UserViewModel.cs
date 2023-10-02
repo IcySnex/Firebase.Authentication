@@ -7,6 +7,7 @@ using Firebase.Authentication.Sample.WinUI.Services;
 using Firebase.Authentication.Sample.WinUI.Views;
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -16,6 +17,7 @@ namespace Firebase.Authentication.Sample.WinUI.ViewModels;
 public partial class UserViewModel : ObservableObject
 {
     readonly ILogger<UserViewModel> logger;
+    readonly LinkViewModel linkViewModel;
     readonly WindowHelper windowHelper;
     readonly Navigation navigation;
     readonly ImageUploader imageUploader;
@@ -24,12 +26,14 @@ public partial class UserViewModel : ObservableObject
 
     public UserViewModel(
         ILogger<UserViewModel> logger,
+        LinkViewModel linkViewModel,
         WindowHelper windowHelper,
         Navigation navigation,
         ImageUploader imageUploader,
         IAuthenticationClient authentication)
     {
         this.logger = logger;
+        this.linkViewModel = linkViewModel;
         this.windowHelper = windowHelper;
         this.navigation = navigation;
         this.imageUploader = imageUploader;
@@ -54,7 +58,7 @@ public partial class UserViewModel : ObservableObject
                 IsVerifyEmailVisible = !(args.NewValue?.IsEmailVerified ?? true) && !string.IsNullOrWhiteSpace(args.NewValue?.Email);
 
                 UsedSignInMethods = args.NewValue?.ProviderUserInfos?.Select(info => info.Provider).ToArray() ?? null;
-                IsAddSignInMethodVisible = UsedSignInMethods is null ? true : Enum.GetValues<Provider>().Except(UsedSignInMethods).Any();
+                IsAddSignInMethodVisible = UsedSignInMethods is null ? true : Enum.GetValues<Provider>().Except(usedSignInMethods).Any();
                 break;
         }
     }
@@ -261,14 +265,15 @@ public partial class UserViewModel : ObservableObject
     [ObservableProperty]
     Provider[]? usedSignInMethods;
 
+
     [ObservableProperty]
     bool isAddSignInMethodVisible = true;
 
     [RelayCommand]
-    void AddSignInMethod()
+    async Task AddSignInMethodAsync()
     {
-
-        //mainViewModel.ShowModal<LinkViewModel>();
+        linkViewModel.NavigateToProvider();
+        await windowHelper.AlertAsync(linkViewModel.Dialog);
     }
 
     [RelayCommand]

@@ -10,6 +10,8 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage.Pickers;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace Firebase.Authentication.Sample.WinUI.Services;
 
@@ -193,9 +195,28 @@ public class WindowHelper
 
 
     /// <summary>
+    /// Dispalys a ContentDialog
+    /// </summary>
+    /// <param name="dialog">The dialog to display</param>
+    public IAsyncOperation<ContentDialogResult> AlertAsync(
+        ContentDialog dialog)
+    {
+        foreach (Popup popup in VisualTreeHelper.GetOpenPopupsForXamlRoot(mainView.Content.XamlRoot))
+            if (popup.Child is ContentDialog openDialog)
+                openDialog.Hide();
+
+        dialog.XamlRoot = mainView.Content.XamlRoot;
+        dialog.PrimaryButtonStyle = (Style)App.Current.Resources["AccentButtonStyle"];
+        dialog.Style = (Style)App.Current.Resources["DefaultContentDialogStyle"];
+
+
+        return dialog.ShowAsync();
+    }
+
+    /// <summary>
     /// Creates a new ContentDialog which displays the content and title and logs the message
     /// </summary>
-    /// <param name="message">The content of the dialog</param>
+    /// <param name="content">The content of the dialog</param>
     /// <param name="title">The title of the dialog</param>
     public IAsyncOperation<ContentDialogResult> AlertAsync(
         object content,
@@ -203,16 +224,14 @@ public class WindowHelper
         string? closeButton = "Ok",
         string? primaryButton = null)
     {
-        ContentDialog contentDialog = new()
+        ContentDialog dialog = new()
         {
             Content = content,
             Title = title is null ? null : title + "!",
             CloseButtonText = closeButton,
-            PrimaryButtonText = primaryButton,
-            XamlRoot = mainView.Content.XamlRoot,
-            Style = (Style)App.Current.Resources["DefaultContentDialogStyle"]
+            PrimaryButtonText = primaryButton
         };
-        return contentDialog.ShowAsync();
+        return AlertAsync(dialog);
     }
 
     /// <summary>

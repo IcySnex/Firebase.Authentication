@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Firebase.Authentication.Sample.WinUI.Views.LinkProviderView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fb="using:Firebase.Authentication.Types"
+    xmlns:hlp="using:Firebase.Authentication.Sample.WinUI.Helpers"
+    xmlns:local="using:Firebase.Authentication.Sample.WinUI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Firebase.Authentication.WinUI.UI"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.FacebookFlow}"
+            Style="{StaticResource FacebookButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Facebook), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.GoogleFlow}"
+            Style="{StaticResource GoogleButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Google), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.AppleFlow}"
+            Style="{StaticResource AppleButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Apple), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.GithubFlow}"
+            Style="{StaticResource GithubButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Github), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.TwitterFlow}"
+            Style="{StaticResource TwitterButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Twitter), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.MicrosoftFlow}"
+            Style="{StaticResource MicrosoftButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Microsoft), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.LinkToFlowCommand}"
+            CommandParameter="{x:Bind viewModel.YahooFlow}"
+            Style="{StaticResource YahooButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.Yahoo), Mode=OneWay}" />
+        <ui:FirebaseAuthenticationButton Margin="0,0,0,12"
+            Command="{x:Bind viewModel.NavigateToEmailCommand}"
+            Style="{StaticResource EmailAndPasswordButtonStyle}"
+            Visibility="{x:Bind viewModel.UserViewModel.Authentication.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNullVisibilityConverter}}" />
+        <ui:FirebaseAuthenticationButton
+            Command="{x:Bind viewModel.NavigateToPhoneCommand}"
+            Style="{StaticResource PhoneNumberButtonStyle}"
+            Visibility="{x:Bind hlp:Extensions.ExcludesProviderToVisibility(viewModel.UserViewModel.UsedSignInMethods, fb:Provider.PhoneNumber), Mode=OneWay}" />
+    </StackPanel>
+</Page>

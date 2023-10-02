@@ -27,6 +27,7 @@
             <conv:DefaultAvataerConverter x:Key="DefaultAvataerConverter" />
             <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             <conv:IsNotNullVisibilityConverter x:Key="IsNotNullVisibilityConverter" />
+            <conv:IsNullVisibilityConverter x:Key="IsNullVisibilityConverter" />
             <conv:EmailVerifiedConverter x:Key="EmailVerifiedConverter" />
 
 
@@ -252,56 +253,109 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border
+                            <Grid
                                 x:Name="RootLayout"
                                 Padding="12"
                                 Background="#40ff5c5c"
                                 BorderBrush="#60ff5c5c"
                                 BorderThickness="2"
                                 CornerRadius="4">
-                                <Grid>
-                                    <Image
-                                        Height="20"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Source="{TemplateBinding Tag}" />
-                                    <TextBlock
-                                        Margin="28,0,0,4"
-                                        FontSize="16"
-                                        FontWeight="Medium"
-                                        Text="Warning" />
-                                    <TextBlock
-                                        Margin="0,24,0,0"
-                                        xml:space="preserve"
-                                        FontSize="14"
-                                        Opacity="0.8"
-                                        TextWrapping="Wrap"><Run Text="Your email" />'<Run Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />'<Run Text="is not verfied yet. Press here to send a verify emal to your account!" /></TextBlock>
-                                </Grid>
+                                <Grid.BackgroundTransition>
+                                    <BrushTransition Duration="0:0:0.15" />
+                                </Grid.BackgroundTransition>
+
+                                <Image
+                                    Height="20"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Source="{TemplateBinding Tag}" />
+                                <TextBlock
+                                    Margin="28,0,0,4"
+                                    FontSize="16"
+                                    FontWeight="Medium"
+                                    Text="Warning" />
+                                <TextBlock
+                                    Margin="0,24,0,0"
+                                    xml:space="preserve"
+                                    FontSize="14"
+                                    Opacity="0.8"
+                                    TextWrapping="Wrap"><Run Text="Your email" />'<Run Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />'<Run Text="is not verfied yet. Press here to send a verify emal to your account!" /></TextBlock>
+
 
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">
-                                            <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetName="RootLayout"
-                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                    To="#40ff5c5c"
-                                                    Duration="0:0:0.1" />
-                                            </Storyboard>
+                                            <VisualState.Setters>
+                                                <Setter Target="RootLayout.Background" Value="#40ff5c5c" />
+                                            </VisualState.Setters>
                                         </VisualState>
 
                                         <VisualState x:Name="PointerOver">
-                                            <Storyboard>
-                                                <ColorAnimation
-                                                    Storyboard.TargetName="RootLayout"
-                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                    To="#60ff5c5c"
-                                                    Duration="0:0:0.1" />
-                                            </Storyboard>
+                                            <VisualState.Setters>
+                                                <Setter Target="RootLayout.Background" Value="#60ff5c5c" />
+                                            </VisualState.Setters>
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                            </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="SignInMethodButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid
+                                x:Name="RootLayout"
+                                Margin="4"
+                                Padding="12"
+                                Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderThickness="2"
+                                CornerRadius="4"
+                                ToolTipService.ToolTip="{TemplateBinding AccessKey}">
+                                <Grid.BackgroundTransition>
+                                    <BrushTransition Duration="0:0:0.15" />
+                                </Grid.BackgroundTransition>
+
+                                <Image
+                                    Name="Image"
+                                    Width="24"
+                                    Height="24"
+                                    Source="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                <SymbolIcon
+                                    Name="Icon"
+                                    Width="24"
+                                    Height="24"
+                                    Opacity="0"
+                                    Symbol="Delete" />
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootLayout.Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <Setter Target="Image.Opacity" Value="1" />
+                                                <Setter Target="Icon.Opacity" Value="0" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootLayout.Background" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <Setter Target="Image.Opacity" Value="0" />
+                                                <Setter Target="Icon.Opacity" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -363,8 +417,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

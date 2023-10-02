@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fb="using:Firebase.Authentication.Types"
     xmlns:hlp="using:Firebase.Authentication.Sample.WinUI.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:Firebase.Authentication.WinUI.UI"
@@ -157,6 +158,117 @@
             </Grid>
         </ContentControl>
 
+        <ContentControl
+            Margin="0,0,0,12"
+            Style="{StaticResource Container}"
+            Tag="Sign-in methods">
+
+            <hlp:WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button
+                    AccessKey="Sign in with email link"
+                    Background="#a6e6a800"
+                    BorderBrush="#64ffc933"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.EmailLink}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.EmailAndPassword, 24, 24)}"
+                    Visibility="{x:Bind viewModel.Authentication.CurrentUser.Email, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}" />
+                <Button
+                    AccessKey="Sign in with email and password"
+                    Background="#a6db4437"
+                    BorderBrush="#64e37268"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.EmailAndPassword}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.EmailAndPassword, 24, 24)}"
+                    Visibility="{x:Bind viewModel.Authentication.CurrentUser.PasswordHash, Mode=OneWay, Converter={StaticResource IsNotNullVisibilityConverter}}" />
+                <Button
+                    AccessKey="Sign in with phone"
+                    Background="#a602bd7e"
+                    BorderBrush="#6418D696"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.PhoneNumber}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.PhoneNumber, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.PhoneNumber), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Facebook"
+                    Background="#a63b5998"
+                    BorderBrush="#645a7abf"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Facebook}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Facebook, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Facebook), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Google"
+                    Background="#ccffffff"
+                    BorderBrush="#64d0d0d0"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Google}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Google, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Google), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Apple"
+                    Background="#a6000000"
+                    BorderBrush="#64333333"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Apple}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Apple, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Apple), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Github"
+                    Background="#a6333333"
+                    BorderBrush="#64595959"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Github}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Github, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Github), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Twitter"
+                    Background="#a655acee"
+                    BorderBrush="#648bc6f4"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Twitter}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Twitter, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Twitter), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Microsoft"
+                    Background="#a62f2f2f"
+                    BorderBrush="#644d4d4d"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Microsoft}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Microsoft, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Microsoft), Mode=OneWay}" />
+                <Button
+                    AccessKey="Sign in with Yahoo"
+                    Background="#a66d528e"
+                    BorderBrush="#64896dab"
+                    Command="{x:Bind viewModel.RemoveSignInMethodCommand}"
+                    CommandParameter="{x:Bind fb:Provider.Yahoo}"
+                    Style="{StaticResource SignInMethodButtonStyle}"
+                    Tag="{x:Bind ui:Icons.ToImageSource(ui:Icons.Yahoo, 24, 24)}"
+                    Visibility="{x:Bind hlp:Extensions.ContainsProviderToVisibility(viewModel.UsedSignInMethods, fb:Provider.Yahoo), Mode=OneWay}" />
+
+                <Button
+                    Margin="4"
+                    Padding="14"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Command="{x:Bind viewModel.AddSignInMethodCommand}"
+                    Visibility="{x:Bind viewModel.IsAddSignInMethodVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                    <Image
+                        Width="24"
+                        Height="24"
+                        Source="{x:Bind ui:Icons.ToImageSource(hlp:Icons.Add, 24, 24)}" />
+                </Button>
+            </hlp:WrapPanel>
+        </ContentControl>
 
         <StackPanel
             Margin="0,24"
