@@ -150,7 +150,7 @@ public partial class UserViewModel : ObservableObject
             return;
         }
 
-        if (MessageBox.Show("If you continue you wont be able to use your old email to sign in anymore. If you press 'Yes' you will get signed out\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+        if (MessageBox.Show("If you continue you wont be able to use your old email to sign in anymore.\nDo you want to continue?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
         {
             Email = user.Email;
             return;
@@ -159,9 +159,6 @@ public partial class UserViewModel : ObservableObject
         try
         {
             await Authentication.ChangeEmailAsync(Email);
-            Authentication.SignOut();
-
-            mainViewModel.Navigate<HomeViewModel>();
         }
         catch (Exception ex)
         {
@@ -208,6 +205,7 @@ public partial class UserViewModel : ObservableObject
             logger.LogErrorAndShow(ex, "Verifying email failed", "UserViewModel-VerifyEmailAsync");
         }
     }
+
 
     [RelayCommand]
     void ChangePassword() =>
