@@ -562,8 +562,9 @@ public class AuthenticationClient : IAuthenticationClient, INotifyPropertyChange
 
         logger?.LogInformation("[AuthenticationClient-UpdateAsync] Changed the current users email.");
 
-        // Refresh current user
-        await GetFreshUserAsync(TimeSpan.FromHours(1), true);
+        // Refresh current user and credential
+        CurrentCredential = new(response.IdToken, response.RefreshToken, response.ExpiresIn ?? TimeSpan.FromHours(1));
+        await GetFreshUserAsync(CurrentCredential.ExpiresIn, true);
     }
 
     /// <summary>
