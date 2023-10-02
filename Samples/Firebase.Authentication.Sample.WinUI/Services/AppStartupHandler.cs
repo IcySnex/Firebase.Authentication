@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.UI.Xaml;
 using ReCaptcha.Desktop.WinUI.Client.Interfaces;
-using System;
 
 namespace Firebase.Authentication.Sample.WinUI.Services;
 
@@ -34,6 +33,9 @@ public class AppStartupHandler
         {
             ((Style)App.Current.Resources["SignInButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.SignIn, 19, 19)));
             ((Style)App.Current.Resources["CancelButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Cancel, 19, 19)));
+            ((Style)App.Current.Resources["RefreshButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Refresh, 19, 19)));
+            ((Style)App.Current.Resources["SignOutButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.SignOut, 19, 19)));
+            ((Style)App.Current.Resources["DeleteButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Delete, 19, 19)));
 
 
             reCaptcha.WindowConfiguration.Owner = mainView;
@@ -48,7 +50,7 @@ public class AppStartupHandler
 
             windowHelper.SetTitleBar(mainView.TitleBarDragArea, mainView.TitleBarContainer);
             windowHelper.SetIcon(Icons.ToBitmap(Icons.Firebase));
-            windowHelper.SetSize(500, 930);
+            windowHelper.SetSize(495, 930);
 
             mainView.Closed += async (s, e) =>
             {
@@ -72,6 +74,5 @@ public class AppStartupHandler
 
             App.Current.Exit();
         }
-
     }
 }

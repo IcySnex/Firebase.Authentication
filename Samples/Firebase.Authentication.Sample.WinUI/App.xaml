@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:conv="using:Firebase.Authentication.Sample.WinUI.Converters"
+    xmlns:hlp="using:Firebase.Authentication.Sample.WinUI.Helpers"
     xmlns:local="using:Firebase.Authentication.Sample.WinUI"
     xmlns:ui="using:Firebase.Authentication.WinUI.UI">
     <Application.Resources>
@@ -19,8 +20,14 @@
             <conv:BooleanToVisibilityConverter x:Key="VisibilityConverter" />
             <conv:InverseBooleanToVisibilityConverter x:Key="InverseVisibilityConverter" />
             <conv:BooleanToSignUpInConverter x:Key="BooleanToSignUpInConverter" />
+            <conv:BooleanToChangeSaveConverter x:Key="BooleanToChangeSaveConverter" />
             <conv:TimeSpanConverter x:Key="TimeSpanConverter" />
             <conv:EnumIntConverter x:Key="EnumIntConverter" />
+            <conv:DateTimeDifferenceConverter x:Key="DateTimeDifferenceConverter" />
+            <conv:DefaultAvataerConverter x:Key="DefaultAvataerConverter" />
+            <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <conv:IsNotNullVisibilityConverter x:Key="IsNotNullVisibilityConverter" />
+            <conv:EmailVerifiedConverter x:Key="EmailVerifiedConverter" />
 
 
             <!--  Styles  -->
@@ -49,11 +56,6 @@
                 <Setter Property="Foreground" Value="#ffffffff" />
                 <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
                 <Setter Property="ForegroundPressed" Value="#c5ffffff" />
-                <!--<Setter Property="Icon">
-                    <Setter.Value>
-                        <SymbolIcon Symbol="Accept" />
-                    </Setter.Value>
-                </Setter>-->
             </Style>
 
             <Style
@@ -71,11 +73,238 @@
                 <Setter Property="Foreground" Value="#ffffffff" />
                 <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
                 <Setter Property="ForegroundPressed" Value="#c5ffffff" />
-                <!--<Setter Property="Icon">
+            </Style>
+
+            <Style
+                x:Key="RefreshButtonStyle"
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="ui:FirebaseAuthenticationButton">
+                <Setter Property="Width" Value="125" />
+                <Setter Property="Content" Value="Refresh" />
+                <Setter Property="Background" Value="{ThemeResource SystemColorControlAccentBrush}" />
+                <Setter Property="BackgroundPointerOver" Value="{ThemeResource AccentAAFillColorTertiaryBrush}" />
+                <Setter Property="BackgroundPressed" Value="{ThemeResource AccentFillColorSecondaryBrush}" />
+
+                <Setter Property="BorderBrush" Value="{ThemeResource AccentAAFillColorTertiaryBrush}" />
+                <Setter Property="BorderBrushPointerOver" Value="{ThemeResource AccentFillColorSecondaryBrush}" />
+                <Setter Property="BorderBrushPressed" Value="{ThemeResource AccentFillColorSecondaryBrush}" />
+
+                <Setter Property="Foreground" Value="#ffffffff" />
+                <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
+                <Setter Property="ForegroundPressed" Value="#c5ffffff" />
+            </Style>
+
+            <Style
+                x:Key="SignOutButtonStyle"
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="ui:FirebaseAuthenticationButton">
+                <Setter Property="Width" Value="125" />
+                <Setter Property="Content" Value="Sign Out" />
+                <Setter Property="Background" Value="#64333333" />
+                <Setter Property="BackgroundPointerOver" Value="#96444444" />
+                <Setter Property="BackgroundPressed" Value="#4C444444" />
+                <Setter Property="BorderBrush" Value="#64595959" />
+                <Setter Property="BorderBrushPointerOver" Value="#96595959" />
+                <Setter Property="BorderBrushPressed" Value="#4C595959" />
+                <Setter Property="Foreground" Value="#ffffffff" />
+                <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
+                <Setter Property="ForegroundPressed" Value="#c5ffffff" />
+            </Style>
+
+            <Style
+                x:Key="DeleteButtonStyle"
+                BasedOn="{StaticResource DefaultFirebaseAuthenticationButtonStyle}"
+                TargetType="ui:FirebaseAuthenticationButton">
+                <Setter Property="Width" Value="125" />
+                <Setter Property="Content" Value="Delete" />
+                <Setter Property="Background" Value="#db4437" />
+                <Setter Property="BackgroundPointerOver" Value="#c2db4437" />
+                <Setter Property="BackgroundPressed" Value="#90db4437" />
+                <Setter Property="BorderBrush" Value="#e37268" />
+                <Setter Property="BorderBrushPointerOver" Value="#96e37268" />
+                <Setter Property="BorderBrushPressed" Value="#4ce37268" />
+                <Setter Property="Foreground" Value="#ffffff" />
+                <Setter Property="ForegroundPointerOver" Value="#ffffff" />
+                <Setter Property="ForegroundPressed" Value="#c5ffffff" />
+            </Style>
+
+
+            <Style x:Key="UploadAvatarButton" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Template">
                     <Setter.Value>
-                        <SymbolIcon Symbol="ClosePane" />
+                        <ControlTemplate TargetType="Button">
+                            <Grid
+                                x:Name="RootLayout"
+                                Height="50"
+                                Background="Transparent"
+                                Opacity="0">
+                                <Grid Margin="0,0,0,-50" IsHitTestVisible="False">
+                                    <Grid.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0.5" Color="#cc000000" />
+                                            <GradientStop Offset="1" Color="#00000000" />
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        FontWeight="Medium"
+                                        Foreground="White"
+                                        Text="Upload&#10;Avatar"
+                                        TextAlignment="Center" />
+                                </Grid>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="RootLayout"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0"
+                                                    Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="RootLayout"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
                     </Setter.Value>
-                </Setter>-->
+                </Setter>
+            </Style>
+
+            <Style x:Key="DeleteAvatarButton" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid
+                                x:Name="RootLayout"
+                                Height="50"
+                                Background="Transparent"
+                                Opacity="1">
+                                <Grid Margin="0,-50,0,0" IsHitTestVisible="False">
+                                    <Grid.Background>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                            <GradientStop Offset="0.5" Color="#cc000000" />
+                                            <GradientStop Offset="1" Color="#00000000" />
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        FontWeight="Medium"
+                                        Foreground="White"
+                                        Text="Delete&#10;Avatar"
+                                        TextAlignment="Center" />
+                                </Grid>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="RootLayout"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0"
+                                                    Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="RootLayout"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="VerifyEmailButton" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                x:Name="RootLayout"
+                                Padding="12"
+                                Background="#40ff5c5c"
+                                BorderBrush="#60ff5c5c"
+                                BorderThickness="2"
+                                CornerRadius="4">
+                                <Grid>
+                                    <Image
+                                        Height="20"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Source="{TemplateBinding Tag}" />
+                                    <TextBlock
+                                        Margin="28,0,0,4"
+                                        FontSize="16"
+                                        FontWeight="Medium"
+                                        Text="Warning" />
+                                    <TextBlock
+                                        Margin="0,24,0,0"
+                                        xml:space="preserve"
+                                        FontSize="14"
+                                        Opacity="0.8"
+                                        TextWrapping="Wrap"><Run Text="Your email" />'<Run Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />'<Run Text="is not verfied yet. Press here to send a verify emal to your account!" /></TextBlock>
+                                </Grid>
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="RootLayout"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#40ff5c5c"
+                                                    Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetName="RootLayout"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    To="#60ff5c5c"
+                                                    Duration="0:0:0.1" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
 

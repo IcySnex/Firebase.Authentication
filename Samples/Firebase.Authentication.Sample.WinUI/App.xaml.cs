@@ -51,7 +51,6 @@ public partial class App : Application
                 services.AddTransient<ProviderViewModel>();
                 services.AddTransient<EmailViewModel>();
                 services.AddTransient<PhoneViewModel>();
-                //services.AddTransient<ChangePasswordViewModel>();
                 //services.AddSingleton<LinkViewModel>();
                 //services.AddSingleton<LinkProviderViewModel>();
                 //services.AddTransient<LinkEmailViewModel>();
@@ -131,6 +130,10 @@ public partial class App : Application
             showAsDialog: config.ShowAsDialog);
 
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args) =>
+    protected override async void OnLaunched(LaunchActivatedEventArgs args)
+    {
         Provider.GetRequiredService<AppStartupHandler>();
+
+        await Provider.GetRequiredService<HomeViewModel>().SignInAsync(Requests.SignInRequest.WithEmailPassword("kevinleier17@gmail.com", "123456"));
+    }
 }
