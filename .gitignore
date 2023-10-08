@@ -21,6 +21,10 @@ Firebase.Authentication.WinUI/bin/
 Firebase.Authentication.WinUI/obj/
 Firebase.Authentication.WinUI/Properties/
 
+Firebase.Authentication.UWP/bin/
+Firebase.Authentication.UWP/obj/
+Firebase.Authentication.UWP/Properties/
+
 Samples/Firebase.Authentication.Sample.WPF/bin/
 Samples/Firebase.Authentication.Sample.WPF/obj/
 Samples/Firebase.Authentication.Sample.WPF/Properties/
@@ -28,5 +32,9 @@ Samples/Firebase.Authentication.Sample.WPF/Properties/
 Samples/Firebase.Authentication.Sample.WinUI/bin/
 Samples/Firebase.Authentication.Sample.WinUI/obj/
 Samples/Firebase.Authentication.Sample.WinUI/Properties/
+
+Samples/Firebase.Authentication.Sample.UWP/bin/
+Samples/Firebase.Authentication.Sample.UWP/obj/
+Samples/Firebase.Authentication.Sample.UWP/Properties/
 
 Development/
