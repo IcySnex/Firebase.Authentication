@@ -122,21 +122,47 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Configuration\WindowConfig.cs" />
-    <Compile Include="Configuration\WindowStartupLocation.cs" />
-    <Compile Include="Configuration\WindowStartupLocation.cs" />
+    <Compile Include="Client\ProviderFlow.cs" />
+    <Compile Include="Configuration\PopupConfig.cs" />
+    <Compile Include="Configuration\PopupStartupLocation.cs" />
+    <Compile Include="Flows\AppleProviderFlow.cs" />
+    <Compile Include="Flows\FacebookProviderFlow.cs" />
+    <Compile Include="Flows\GithubProviderFlow.cs" />
+    <Compile Include="Flows\GoogleProviderFlow.cs" />
+    <Compile Include="Flows\MicrosoftProviderFlow.cs" />
+    <Compile Include="Flows\TwitterProviderFlow.cs" />
+    <Compile Include="Flows\YahooProviderFlow.cs" />
+    <Compile Include="Internal\WindowPopup.xaml.cs">
+      <DependentUpon>WindowPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Firebase.Authentication.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
+      <Version>7.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.8.5</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client\" />
-    <Folder Include="Flows\" />
     <Folder Include="UI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Internal\WindowPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Firebase.Authentication\Firebase.Authentication.csproj">
+      <Project>{46569D99-2E74-4914-9839-49FA5B31BD84}</Project>
+      <Name>Firebase.Authentication</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
