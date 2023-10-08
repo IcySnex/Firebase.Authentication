@@ -149,7 +149,7 @@ public partial class MainViewModel : ObservableObject
 
         Window window = new()
         {
-            Title = "WPF Sample - Firebase Authentication (Logger)",
+            Title = "WPF Sample (Logger) - Firebase Authentication",
             Width = 600,
             Height = 400,
             Content = textBox

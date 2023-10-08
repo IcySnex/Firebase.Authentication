@@ -75,7 +75,7 @@ public class WindowHelper
             return;
         }
 
-        LoggerView = new() { Title = "ReCaptcha.Desktop - WinUI Sample (Logger)" };
+        LoggerView = new() { Title = "WinUI3 Sample (Logger) - Firebase Authentication" };
 
         void handler(object? s, string e) =>
             LoggerView.ContentBlock.Text += e;
@@ -90,7 +90,7 @@ public class WindowHelper
         SetSize(LoggerView, 700, 400);
         LoggerView.Activate();
 
-        logger.LogInformation("Created new LoggerWindow and hooked handler");
+        logger.LogInformation("[WindowHelper-CreateLoggerView] Created new LoggerView and hooked handler");
     }
 
 
