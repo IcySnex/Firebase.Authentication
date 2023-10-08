@@ -179,7 +179,16 @@
       <Version>2.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Firebase.Authentication.UWP\Firebase.Authentication.UWP.csproj">
+      <Project>{A408A934-B094-4573-B620-5006DF074630}</Project>
+      <Name>Firebase.Authentication.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Firebase.Authentication\Firebase.Authentication.csproj">
+      <Project>{46569D99-2E74-4914-9839-49FA5B31BD84}</Project>
+      <Name>Firebase.Authentication</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
