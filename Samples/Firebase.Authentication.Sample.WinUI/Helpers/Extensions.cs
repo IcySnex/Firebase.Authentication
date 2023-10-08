@@ -18,6 +18,6 @@ public static class Extensions
     public static Visibility ExcludesProviderToVisibility(
         Provider[]? providers,
         Provider provider) =>
-        providers is null ? Visibility.Collapsed : providers.Contains(provider) ? Visibility.Collapsed : Visibility.Visible;
+        providers is null ? Visibility.Visible : providers.Contains(provider) ? Visibility.Collapsed : Visibility.Visible;
 
 }

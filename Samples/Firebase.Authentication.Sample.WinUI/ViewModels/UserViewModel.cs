@@ -197,6 +197,7 @@ public partial class UserViewModel : ObservableObject
         try
         {
             await Authentication.ChangeEmailAsync(null);
+            await Authentication.UnlinkAsync(Provider.EmailAndPassword);
         }
 
         catch (Exception ex)

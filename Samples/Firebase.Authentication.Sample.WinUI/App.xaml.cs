@@ -130,10 +130,6 @@ public partial class App : Application
             showAsDialog: config.ShowAsDialog);
 
 
-    protected override async void OnLaunched(LaunchActivatedEventArgs args)
-    {
+    protected override async void OnLaunched(LaunchActivatedEventArgs args) =>
         Provider.GetRequiredService<AppStartupHandler>();
-
-        await Provider.GetRequiredService<HomeViewModel>().SignInAsync(Requests.SignInRequest.WithEmailPassword("kevinleier17@gmail.com", "123456"));
-    }
 }
