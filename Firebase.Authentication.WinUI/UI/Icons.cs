@@ -45,13 +45,16 @@ public static class Icons
         bitmapImage.SetSourceAsync(stream.AsRandomAccessStream()).AsTask();
         return bitmapImage;
 
-        // I would have done this but this is causing memory leaks for some reason:
-        //using MemoryStream stream = new(Encoding.UTF8.GetBytes(svg));
+        //using MemoryStream stream = new(System.Text.Encoding.UTF8.GetBytes(svg));
 
         //stream.Seek(0, SeekOrigin.Begin);
 
-        //SvgImageSource imageSource = new();
-        //imageSource.SetSourceAsync(stream.AsRandomAccessStream()).AsTask();
+        //SvgImageSource imageSource = new()
+        //{
+        //    RasterizePixelWidth = width,
+        //    RasterizePixelHeight = height,
+        //};
+        //imageSource.SetSourceAsync(stream.AsRandomAccessStream()).AsTask(); // This may leak memory
         //return imageSource;
     }
     /// <summary>
