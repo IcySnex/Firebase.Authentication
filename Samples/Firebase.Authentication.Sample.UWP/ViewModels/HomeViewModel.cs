@@ -69,9 +69,12 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     async Task AuthAsync()
     {
-        IProviderFlow flow = new MicrosoftProviderFlow(new());
-        IAuthenticationClient client = new AuthenticationClient(new Configuration.AuthenticationConfig("AIzaSyALFTcLBy2mjtgCjKfIJ82Ivu-wVR3w9Z4"));
+        try
+        {
+            IProviderFlow flow = new MicrosoftProviderFlow(new());
+            IAuthenticationClient client = new AuthenticationClient(new Configuration.AuthenticationConfig("AIzaSyALFTcLBy2mjtgCjKfIJ82Ivu-wVR3w9Z4"));
 
-        await flow.SignInAsync(client);
+            await flow.SignInAsync(client);
+        } catch { }
     }
 }

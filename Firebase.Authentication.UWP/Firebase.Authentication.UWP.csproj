@@ -132,10 +132,16 @@
     <Compile Include="Flows\MicrosoftProviderFlow.cs" />
     <Compile Include="Flows\TwitterProviderFlow.cs" />
     <Compile Include="Flows\YahooProviderFlow.cs" />
+    <Compile Include="Internal\BrushToColorConverter.cs" />
     <Compile Include="Internal\WindowPopup.xaml.cs">
       <DependentUpon>WindowPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\FirebaseAuthenticationButton.cs" />
+    <Compile Include="UI\FirebaseAuthenticationDictionary.xaml.cs">
+      <DependentUpon>FirebaseAuthenticationDictionary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Icons.cs" />
     <EmbeddedResource Include="Properties\Firebase.Authentication.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -150,12 +156,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\" />
+    <Content Include="UI\Assets\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Internal\WindowPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\FirebaseAuthenticationDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

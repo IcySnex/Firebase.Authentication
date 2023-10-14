@@ -52,6 +52,7 @@ sealed partial class App : Application
         Provider = host.Services;
 
         InitializeComponent();
+
     }
 
 
