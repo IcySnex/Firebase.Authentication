@@ -13,15 +13,15 @@
         <Setter Property="Height" Value="40" />
         <Setter Property="Content" Value="Sign in with Firebase" />
         <Setter Property="Background" Value="#a6333333" />
-        <Setter Property="BackgroundPointerOver" Value="#c2444444" />
-        <Setter Property="BackgroundPressed" Value="#4C444444" />
-        <Setter Property="BorderBrush" Value="#64595959" />
-        <Setter Property="BorderBrushPointerOver" Value="#96595959" />
-        <Setter Property="BorderBrushPressed" Value="#4C595959" />
+        <Setter Property="BackgroundPointerOver" Value="#a6333333" />
+        <Setter Property="BackgroundPressed" Value="#c2696969" />
+        <Setter Property="BorderBrush" Value="#a6333333" />
+        <Setter Property="BorderBrushPointerOver" Value="#c2696969" />
+        <Setter Property="BorderBrushPressed" Value="#c2696969" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
-        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="CornerRadius" Value="0" />
         <Setter Property="Padding" Value="16,4" />
         <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
@@ -79,6 +79,8 @@
                                             Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
                                             To="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BrushColorConverter}}"
                                             Duration="0:0:0.083" />
+
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootLayout" />
                                     </Storyboard>
                                 </VisualState>
 
@@ -99,6 +101,8 @@
                                             Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
                                             To="{Binding ForegroundPointerOver.Color, RelativeSource={RelativeSource TemplatedParent}}"
                                             Duration="0:0:0.083" />
+
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootLayout" />
                                     </Storyboard>
                                 </VisualState>
 
@@ -119,6 +123,8 @@
                                             Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
                                             To="{Binding ForegroundPressed.Color, RelativeSource={RelativeSource TemplatedParent}}"
                                             Duration="0:0:0.083" />
+
+                                        <PointerDownThemeAnimation Storyboard.TargetName="RootLayout" />
                                     </Storyboard>
                                 </VisualState>
 
@@ -146,11 +152,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with email" />
         <Setter Property="Background" Value="#a6db4437" />
-        <Setter Property="BackgroundPointerOver" Value="#c2db4437" />
-        <Setter Property="BackgroundPressed" Value="#4Cdb4437" />
-        <Setter Property="BorderBrush" Value="#64e37268" />
-        <Setter Property="BorderBrushPointerOver" Value="#96e37268" />
-        <Setter Property="BorderBrushPressed" Value="#4Ce37268" />
+        <Setter Property="BackgroundPointerOver" Value="#a6db4437" />
+        <Setter Property="BackgroundPressed" Value="#c2f25b4e" />
+        <Setter Property="BorderBrush" Value="#a6db4437" />
+        <Setter Property="BorderBrushPointerOver" Value="#c2f25b4e" />
+        <Setter Property="BorderBrushPressed" Value="#c2f25b4e" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -162,11 +168,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with phone" />
         <Setter Property="Background" Value="#a602bd7e" />
-        <Setter Property="BackgroundPointerOver" Value="#c202bd7e" />
-        <Setter Property="BackgroundPressed" Value="#4c02bd7e" />
-        <Setter Property="BorderBrush" Value="#6418D696" />
-        <Setter Property="BorderBrushPointerOver" Value="#9618D696" />
-        <Setter Property="BorderBrushPressed" Value="#4c18D696" />
+        <Setter Property="BackgroundPointerOver" Value="#a602bd7e" />
+        <Setter Property="BackgroundPressed" Value="#c221d99b" />
+        <Setter Property="BorderBrush" Value="#a602bd7e" />
+        <Setter Property="BorderBrushPointerOver" Value="#c221d99b" />
+        <Setter Property="BorderBrushPressed" Value="#c221d99b" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -178,11 +184,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Facebook" />
         <Setter Property="Background" Value="#a63b5998" />
-        <Setter Property="BackgroundPointerOver" Value="#c23b5998" />
-        <Setter Property="BackgroundPressed" Value="#4c3b5998" />
-        <Setter Property="BorderBrush" Value="#645a7abf" />
-        <Setter Property="BorderBrushPointerOver" Value="#965a7abf" />
-        <Setter Property="BorderBrushPressed" Value="#4c5a7abf" />
+        <Setter Property="BackgroundPointerOver" Value="#a63b5998" />
+        <Setter Property="BackgroundPressed" Value="#c25775b5" />
+        <Setter Property="BorderBrush" Value="#a63b5998" />
+        <Setter Property="BorderBrushPointerOver" Value="#c25775b5" />
+        <Setter Property="BorderBrushPressed" Value="#c25775b5" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -194,11 +200,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Google" />
         <Setter Property="Background" Value="#ccffffff" />
-        <Setter Property="BackgroundPointerOver" Value="#deffffff" />
-        <Setter Property="BackgroundPressed" Value="#99ffffff" />
-        <Setter Property="BorderBrush" Value="#64d0d0d0" />
-        <Setter Property="BorderBrushPointerOver" Value="#96d0d0d0" />
-        <Setter Property="BorderBrushPressed" Value="#4cd0d0d0" />
+        <Setter Property="BackgroundPointerOver" Value="#ccffffff" />
+        <Setter Property="BackgroundPressed" Value="#ddffffff" />
+        <Setter Property="BorderBrush" Value="#ccffffff" />
+        <Setter Property="BorderBrushPointerOver" Value="#ddffffff" />
+        <Setter Property="BorderBrushPressed" Value="#ddffffff" />
         <Setter Property="Foreground" Value="#ff111111" />
         <Setter Property="ForegroundPointerOver" Value="#ff111111" />
         <Setter Property="ForegroundPressed" Value="#c5111111" />
@@ -210,11 +216,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Apple" />
         <Setter Property="Background" Value="#a6000000" />
-        <Setter Property="BackgroundPointerOver" Value="#c2222222" />
-        <Setter Property="BackgroundPressed" Value="#4c222222" />
-        <Setter Property="BorderBrush" Value="#64333333" />
-        <Setter Property="BorderBrushPointerOver" Value="#96333333" />
-        <Setter Property="BorderBrushPressed" Value="#4c333333" />
+        <Setter Property="BackgroundPointerOver" Value="#a6000000" />
+        <Setter Property="BackgroundPressed" Value="#c2383838" />
+        <Setter Property="BorderBrush" Value="#a6000000" />
+        <Setter Property="BorderBrushPointerOver" Value="#c2383838" />
+        <Setter Property="BorderBrushPressed" Value="#c2383838" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -226,11 +232,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with GitHub" />
         <Setter Property="Background" Value="#a6333333" />
-        <Setter Property="BackgroundPointerOver" Value="#c2444444" />
-        <Setter Property="BackgroundPressed" Value="#4c444444" />
-        <Setter Property="BorderBrush" Value="#64595959" />
-        <Setter Property="BorderBrushPointerOver" Value="#96595959" />
-        <Setter Property="BorderBrushPressed" Value="#4c595959" />
+        <Setter Property="BackgroundPointerOver" Value="#a6333333" />
+        <Setter Property="BackgroundPressed" Value="#c25c5c5c" />
+        <Setter Property="BorderBrush" Value="#a6333333" />
+        <Setter Property="BorderBrushPointerOver" Value="#c25c5c5c" />
+        <Setter Property="BorderBrushPressed" Value="#c25c5c5c" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -242,11 +248,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Twitter" />
         <Setter Property="Background" Value="#a655acee" />
-        <Setter Property="BackgroundPointerOver" Value="#c255acee" />
-        <Setter Property="BackgroundPressed" Value="#4c55acee" />
-        <Setter Property="BorderBrush" Value="#648bc6f4" />
-        <Setter Property="BorderBrushPointerOver" Value="#968bc6f4" />
-        <Setter Property="BorderBrushPressed" Value="#4c8bc6f4" />
+        <Setter Property="BackgroundPointerOver" Value="#a655acee" />
+        <Setter Property="BackgroundPressed" Value="#c271bcf5" />
+        <Setter Property="BorderBrush" Value="#a655acee" />
+        <Setter Property="BorderBrushPointerOver" Value="#c271bcf5" />
+        <Setter Property="BorderBrushPressed" Value="#c271bcf5" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -258,11 +264,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Microsoft" />
         <Setter Property="Background" Value="#a62f2f2f" />
-        <Setter Property="BackgroundPointerOver" Value="#c2404040" />
-        <Setter Property="BackgroundPressed" Value="#4c404040" />
-        <Setter Property="BorderBrush" Value="#644d4d4d" />
-        <Setter Property="BorderBrushPointerOver" Value="#964d4d4d" />
-        <Setter Property="BorderBrushPressed" Value="#4c4d4d4d" />
+        <Setter Property="BackgroundPointerOver" Value="#a62f2f2f" />
+        <Setter Property="BackgroundPressed" Value="#c25e5e5e" />
+        <Setter Property="BorderBrush" Value="#a62f2f2f" />
+        <Setter Property="BorderBrushPointerOver" Value="#c25e5e5e" />
+        <Setter Property="BorderBrushPressed" Value="#c25e5e5e" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -274,11 +280,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Sign in with Yahoo" />
         <Setter Property="Background" Value="#a66d528e" />
-        <Setter Property="BackgroundPointerOver" Value="#c26d528e" />
-        <Setter Property="BackgroundPressed" Value="#4c6d528e" />
-        <Setter Property="BorderBrush" Value="#64896dab" />
-        <Setter Property="BorderBrushPointerOver" Value="#96896dab" />
-        <Setter Property="BorderBrushPressed" Value="#4c896dab" />
+        <Setter Property="BackgroundPointerOver" Value="#a66d528e" />
+        <Setter Property="BackgroundPressed" Value="#c28b6fad" />
+        <Setter Property="BorderBrush" Value="#a66d528e" />
+        <Setter Property="BorderBrushPointerOver" Value="#c28b6fad" />
+        <Setter Property="BorderBrushPressed" Value="#c28b6fad" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />
@@ -290,11 +296,11 @@
         TargetType="local:FirebaseAuthenticationButton">
         <Setter Property="Content" Value="Continue as guest" />
         <Setter Property="Background" Value="#a6e6a800" />
-        <Setter Property="BackgroundPointerOver" Value="#c2e6a800" />
-        <Setter Property="BackgroundPressed" Value="#4ce6a800" />
-        <Setter Property="BorderBrush" Value="#64ffc933" />
-        <Setter Property="BorderBrushPointerOver" Value="#96ffc933" />
-        <Setter Property="BorderBrushPressed" Value="#4cffc933" />
+        <Setter Property="BackgroundPointerOver" Value="#a6e6a800" />
+        <Setter Property="BackgroundPressed" Value="#c2edb826" />
+        <Setter Property="BorderBrush" Value="#a6e6a800" />
+        <Setter Property="BorderBrushPointerOver" Value="#c2edb826" />
+        <Setter Property="BorderBrushPressed" Value="#c2edb826" />
         <Setter Property="Foreground" Value="#ffffffff" />
         <Setter Property="ForegroundPointerOver" Value="#ffffffff" />
         <Setter Property="ForegroundPressed" Value="#c5ffffff" />

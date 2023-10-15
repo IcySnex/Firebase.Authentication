@@ -156,9 +156,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UI\Assets\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Internal\WindowPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
