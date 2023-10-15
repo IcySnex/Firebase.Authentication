@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Firebase.Authentication.Sample.UWP.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Firebase.Authentication.UWP.UI"
     mc:Ignorable="d">
 
     <Grid>
@@ -21,7 +22,7 @@
             <Image
                 Width="19"
                 Height="19"
-                Source="../Icon.png" />
+                Source="{x:Bind ui:Icons.ToImageSource(ui:Icons.Firebase)}" />
             <TextBlock
                 VerticalAlignment="Center"
                 FontSize="12"

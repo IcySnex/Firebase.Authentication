@@ -48,32 +48,75 @@
 
         <ContentControl
             AccessKey="Title"
-            Tag="The title of the provider flow window. (Use {provider} to use the provider name)"
+            Tag="The title of the provider flow popup. (Use {provider} to use the provider name)"
             Template="{StaticResource SettingsCard}">
             <TextBox Text="{x:Bind viewModel.Configuration.Title, Mode=TwoWay}" />
         </ContentControl>
 
         <ContentControl
             AccessKey="Icon"
-            Tag="The icon of the provider flow window (empty for provider default)"
+            Tag="The icon of the provider flow popup (empty for provider default)"
             Template="{StaticResource SettingsCard}">
             <TextBox Text="{x:Bind viewModel.Configuration.Icon, Mode=TwoWay}" />
         </ContentControl>
 
-        <!--<ContentControl
+        <ContentControl
+            Margin="0,0,0,12"
+            AccessKey="HasTitleBar"
+            Tag="Wether the provider flow popup has a TitleBar"
+            Template="{StaticResource SettingsCard}">
+            <ToggleSwitch
+                Margin="0,0,-80,0"
+                FontSize="14"
+                IsOn="{x:Bind viewModel.Configuration.HasTitleBar, Mode=TwoWay}" />
+        </ContentControl>
+
+        <ContentControl
+            Margin="0,0,0,12"
+            AccessKey="IsDragable"
+            Tag="Wether the provider flow popup is draggable within the main window"
+            Template="{StaticResource SettingsCard}">
+            <ToggleSwitch
+                Margin="0,0,-80,0"
+                FontSize="14"
+                IsOn="{x:Bind viewModel.Configuration.IsDragable, Mode=TwoWay}" />
+        </ContentControl>
+
+        <ContentControl
+            Margin="0,0,0,12"
+            AccessKey="IsDimmed"
+            Tag="Wether the provider flow popup dims the main windows background"
+            Template="{StaticResource SettingsCard}">
+            <ToggleSwitch
+                Margin="0,0,-80,0"
+                FontSize="14"
+                IsOn="{x:Bind viewModel.Configuration.IsDimmed, Mode=TwoWay}" />
+        </ContentControl>
+
+        <ContentControl
+            Margin="0,0,0,12"
+            AccessKey="HasRoundedCorners"
+            Tag="Wether the provider flow popup has rounded corners"
+            Template="{StaticResource SettingsCard}">
+            <CheckBox
+                Margin="0,0,-100,0"
+                IsChecked="{x:Bind viewModel.Configuration.HasRoundedCorners, Mode=TwoWay}"
+                IsThreeState="True" />
+        </ContentControl>
+
+        <ContentControl
             AccessKey="StartupLocation"
-            Tag="The startup location of the provider flow window"
+            Tag="The startup location of the provider flow popup"
             Template="{StaticResource SettingsCard}">
             <ComboBox SelectedIndex="{x:Bind viewModel.Configuration.StartupLocation, Mode=TwoWay, Converter={StaticResource EnumIntConverter}}">
                 <ComboBoxItem Content="Manual" />
-                <ComboBoxItem Content="CenterScreen" />
-                <ComboBoxItem Content="CenterOwner" />
+                <ComboBoxItem Content="CenterPrimary" />
             </ComboBox>
-        </ContentControl>-->
+        </ContentControl>
 
         <ContentControl
             AccessKey="Left"
-            Tag="The left position of the provider flow window"
+            Tag="The left position of the provider flow popup"
             Template="{StaticResource SettingsCard}">
             <TextBox
                 Width="100"
@@ -84,20 +127,13 @@
 
         <ContentControl
             AccessKey="Top"
-            Tag="The top position of the provider flow window"
+            Tag="The top position of the provider flow popup"
             Template="{StaticResource SettingsCard}">
             <TextBox
                 Width="100"
                 HorizontalAlignment="Left"
                 PreviewKeyDown="OnNumberBoxKeyDown"
                 Text="{x:Bind viewModel.Configuration.Top, Mode=TwoWay}" />
-        </ContentControl>
-
-        <ContentControl
-            AccessKey="ShowAsDialog"
-            Tag="Wether to block the UI thread when showing the provider flow window"
-            Template="{StaticResource SettingsCard}">
-            <ToggleSwitch IsOn="{x:Bind viewModel.Configuration.ShowAsDialog, Mode=TwoWay}" />
         </ContentControl>
 
         <ContentControl

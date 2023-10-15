@@ -2,28 +2,17 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Firebase.Authentication.Client;
 using Firebase.Authentication.Client.Interfaces;
+using Firebase.Authentication.Requests;
+using Firebase.Authentication.Sample.UWP.Helpers;
 using Firebase.Authentication.Sample.UWP.Services;
-using Firebase.Authentication.UWP.Client;
-using Firebase.Authentication.UWP.Configuration;
-using Firebase.Authentication.UWP.Flows;
-using Firebase.Authentication.UWP.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.Security.Authentication.Web;
 using Windows.System;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Windows.UI.ViewManagement;
-using Windows.UI.WebUI;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media.Animation;
 
 namespace Firebase.Authentication.Sample.UWP.ViewModels;
 
@@ -32,15 +21,18 @@ public partial class HomeViewModel : ObservableObject
     readonly ILogger<HomeViewModel> logger;
     readonly Models.Configuration configuration;
     readonly Navigation navigation;
+    readonly IAuthenticationClient authentication;
 
     public HomeViewModel(
         ILogger<HomeViewModel> logger,
         IOptions<Models.Configuration> configuration,
-        Navigation navigation)
+        Navigation navigation,
+        IAuthenticationClient authentication)
     {
         this.logger = logger;
         this.configuration = configuration.Value;
         this.navigation = navigation;
+        this.authentication = authentication;
 
         logger.LogInformation("[HomeViewModel-.ctor] HomeViewModel has been initialized.");
     }
@@ -66,15 +58,47 @@ public partial class HomeViewModel : ObservableObject
     }
 
 
-    [RelayCommand]
-    async Task AuthAsync()
+    CancellationTokenSource? cancelSource;
+
+    public async Task<bool> SignInAsync(
+        SignInRequest request)
     {
         try
         {
-            IProviderFlow flow = new MicrosoftProviderFlow(new());
-            IAuthenticationClient client = new AuthenticationClient(new Configuration.AuthenticationConfig("AIzaSyALFTcLBy2mjtgCjKfIJ82Ivu-wVR3w9Z4"));
+            cancelSource = new(configuration.Timeout);
+            await authentication.SignInAsync(request, cancelSource.Token);
 
-            await flow.SignInAsync(client);
-        } catch { }
+            navigation.NavigateSilent("User");
+            navigation.SetNavigationViewItemVisibility(0, false);
+            navigation.SetNavigationViewItemVisibility(1, true);
+            return true;
+        }
+        catch (TaskCanceledException) { }
+        catch (Exception ex)
+        {
+            await Extensions.AlertErrorAsync(ex, "Signing in failed", "HomeViewModel-SignUpAsync", logger);
+        }
+        return false;
+    }
+
+    public async Task<bool> SignUpAsync(
+        SignUpRequest request)
+    {
+        try
+        {
+            cancelSource = new(configuration.Timeout);
+            await authentication.SignUpAsync(request, cancelSource.Token);
+
+            navigation.NavigateSilent("User");
+            navigation.SetNavigationViewItemVisibility(0, false);
+            navigation.SetNavigationViewItemVisibility(1, true);
+            return true;
+        }
+        catch (TaskCanceledException) { }
+        catch (Exception ex)
+        {
+            await Extensions.AlertErrorAsync(ex, "Signing up failed", "HomeViewModel-SignUpAsync", logger);
+        }
+        return false;
     }
 }

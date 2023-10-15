@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Firebase.Authentication.UWP.Configuration;
 using System;
 
 namespace Firebase.Authentication.Sample.UWP.Models;
@@ -25,40 +26,60 @@ public partial class Configuration : ObservableObject
 
 
     /// <summary>
-    /// The title of the provider flow window. (Use {provider} to use the provider name)
+    /// The title of the provider flow popup. (Use {provider} to use the provider name)
     /// </summary>
     [ObservableProperty]
-    string title = "WinUI Sample - Sign in with {provider}";
+    string title = "UWP Sample - Sign in with {provider}";
 
     /// <summary>
-    /// The icon of the provider flow window (empty for provider default)
+    /// The icon of the provider flow popup (empty for provider default)
     /// </summary>
     [ObservableProperty]
     string icon = "";
 
     /// <summary>
-    /// The startup location of the provider flow window
+    /// Wether the provider flow popup has a TitleBar
     /// </summary>
-    //[ObservableProperty]
-    //WindowStartupLocation startupLocation = WindowStartupLocation.CenterOwner;
+    [ObservableProperty]
+    bool hasTitleBar = true;
 
     /// <summary>
-    /// The left position of the provider flow window
+    /// Wether the provider flow popup is draggable within the main window
+    /// (Only used when HasTitleBar is true)
+    /// </summary>
+    [ObservableProperty]
+    bool isDragable = false;
+
+    /// <summary>
+    /// Wether the provider flow popup dims the main windows background
+    /// </summary>
+    [ObservableProperty]
+    bool isDimmed = true;
+
+    /// <summary>
+    /// Wether the provider flow popup has rounded corners
+    /// (If null the value is true on Windows 11 and false on Windows 10)
+    /// </summary>
+    [ObservableProperty]
+    bool? hasRoundedCorners = null;
+
+    /// <summary>
+    /// The startup location of the provider flow popup
+    /// </summary>
+    [ObservableProperty]
+    PopupStartupLocation startupLocation = PopupStartupLocation.CenterPrimary;
+
+    /// <summary>
+    /// The left position of the provider flow popup
     /// </summary>
     [ObservableProperty]
     int left = 0;
 
     /// <summary>
-    /// The top position of the provider flow window
+    /// The top position of the provider flow popup
     /// </summary>
     [ObservableProperty]
     int top = 0;
-
-    /// <summary>
-    /// Wether to block the UI thread when showing the provider flow window
-    /// </summary>
-    [ObservableProperty]
-    bool showAsDialog = false;
 
 
     /// <summary>
