@@ -29,9 +29,10 @@ public class Navigation
         ILogger<Navigation> logger)
     {
         this.logger = logger;
-        MainView mainView = (MainView)Window.Current.Content;
+        MainView mainView = new();
         navigationView = mainView.NavigationView;
         contentFrame = mainView.ContentFrame;
+        Window.Current.Content = mainView;
 
         items = navigationView.MenuItems
             .Select(item => (NavigationViewItem)item)

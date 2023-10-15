@@ -7,23 +7,4 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:re="using:ReCaptcha.Desktop.UWP.UI"
     xmlns:ui="using:Firebase.Authentication.UWP.UI"
-    mc:Ignorable="d">
-    <!--<Page.Resources>
-        <ResourceDictionary>
-
-            <ResourceDictionary.MergedDictionaries>
-                <FirebaseAuthenticationDictionary xmlns="using:Firebase.Authentication.UWP.UI" />
-
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>-->
-
-    <StackPanel>
-        <ui:FirebaseAuthenticationButton Icon="{x:Bind ui:Icons.ToImageSource(ui:Icons.EmailAndPassword)}" Style="{StaticResource EmailAndPasswordButtonStyle}" />
-        <ui:FirebaseAuthenticationButton Style="{StaticResource EmailAndPasswordButtonStyle}" />
-        <!--  Why do the bottom icon not load correctly?  -->
-
-
-        <Button Click="Button_Click" Content="Fuck" />
-    </StackPanel>
-</Page>
+    mc:Ignorable="d" />
