@@ -2,14 +2,14 @@
 
 using Firebase.Authentication.Types;
 using Microsoft.Extensions.Logging;
-using Serilog.Core;
 using System;
 using System.Linq;
-using System.ServiceModel.Channels;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Firebase.Authentication.Sample.UWP.Helpers;
 
@@ -62,4 +62,34 @@ public static class Extensions
         string caller,
         ILogger? logger = null) =>
         AlertErrorAsync(ex.Message, title, caller, logger);
+
+
+    public static IAsyncOperation<ContentDialogResult> ShowDialogAsync(
+        ContentDialog dialog)
+    {
+        foreach (Popup popup in VisualTreeHelper.GetOpenPopupsForXamlRoot(Window.Current.Content.XamlRoot))
+            if (popup.Child is ContentDialog openDialog)
+                openDialog.Hide();
+
+        dialog.XamlRoot = Window.Current.Content.XamlRoot;
+        dialog.PrimaryButtonStyle = (Style)App.Current.Resources["AccentButtonStyle"];
+
+        return dialog.ShowAsync();
+    }
+
+    public static IAsyncOperation<ContentDialogResult> ShowDialogAsync(
+        object content,
+        string? title = null,
+        string? closeButton = "Ok",
+        string? primaryButton = null)
+    {
+        ContentDialog dialog = new()
+        {
+            Content = content,
+            Title = title is null ? null : title + "!",
+            CloseButtonText = closeButton,
+            PrimaryButtonText = primaryButton
+        };
+        return ShowDialogAsync(dialog);
+    }
 }

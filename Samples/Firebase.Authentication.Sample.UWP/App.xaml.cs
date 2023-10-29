@@ -53,15 +53,20 @@ sealed partial class App : Application
                 // Add ViewModels and MainView
                 services.AddSingleton<HomeViewModel>();
                 services.AddSingleton<SettingsViewModel>();
-                //services.AddSingleton<UserViewModel>();
+                services.AddSingleton<UserViewModel>();
                 services.AddTransient<ProviderViewModel>();
                 services.AddTransient<EmailViewModel>();
                 services.AddTransient<PhoneViewModel>();
+                services.AddSingleton<LinkViewModel>();
+                services.AddSingleton<LinkProviderViewModel>();
+                services.AddSingleton<LinkEmailViewModel>();
+                services.AddSingleton<LinkPhoneViewModel>();
 
                 // Add services
                 services.AddSingleton<AppStartupHandler>();
                 services.AddSingleton<Navigation>();
                 services.AddSingleton<JsonConverter>();
+                services.AddSingleton<ImageUploader>();
                 services.AddSingleton<IReCaptchaClient>(provider => new ReCaptchaClient(
                     new(
                         siteKey: config.ReCaptchaSiteKey,

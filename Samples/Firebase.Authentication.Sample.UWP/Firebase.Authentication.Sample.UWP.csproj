@@ -136,22 +136,43 @@
     <Compile Include="EmailViewModel.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\Icons.cs" />
+    <Compile Include="Helpers\WrapPanel.cs" />
     <Compile Include="Helpers\Xaml.cs" />
     <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\ImageUploadResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppStartupHandler.cs" />
+    <Compile Include="Services\ImageUploader.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Services\InMemorySink.cs" />
     <Compile Include="Services\JsonConverter.cs" />
     <Compile Include="Services\Navigation.cs" />
+    <Compile Include="ViewModels\LinkEmailViewModel.cs" />
+    <Compile Include="ViewModels\LinkPhoneViewModel.cs" />
+    <Compile Include="ViewModels\LinkProviderViewModel.cs" />
+    <Compile Include="ViewModels\LinkViewModel.cs" />
     <Compile Include="ViewModels\PhoneViewModel.cs" />
     <Compile Include="ViewModels\ProviderViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Views\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmailView.xaml.cs">
       <DependentUpon>EmailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LinkEmailView.xaml.cs">
+      <DependentUpon>LinkEmailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LinkPhoneView.xaml.cs">
+      <DependentUpon>LinkPhoneView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LinkProviderView.xaml.cs">
+      <DependentUpon>LinkProviderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -164,6 +185,9 @@
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserView.xaml.cs">
+      <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +242,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ChangePasswordView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EmailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +253,18 @@
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LinkEmailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LinkPhoneView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LinkProviderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
@@ -241,6 +281,10 @@
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

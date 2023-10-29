@@ -38,6 +38,10 @@
             PaneDisplayMode="Top">
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Home" Icon="Home" />
+                <NavigationViewItem
+                    Content="User"
+                    Icon="Contact"
+                    Visibility="Collapsed" />
                 <NavigationViewItem Content="Settings" Icon="Setting" />
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>

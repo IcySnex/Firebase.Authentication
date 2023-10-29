@@ -28,9 +28,9 @@ public class AppStartupHandler
             FirebaseAuthenticationDictionary.LoadIcons(App.Current.Resources);
             ((Style)App.Current.Resources["SignInButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.SignIn, 19, 19)));
             ((Style)App.Current.Resources["CancelButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Cancel, 19, 19)));
-            //((Style)App.Current.Resources["RefreshButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Refresh, 19, 19)));
-            //((Style)App.Current.Resources["SignOutButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.SignOut, 19, 19)));
-            //((Style)App.Current.Resources["DeleteButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Delete, 19, 19)));
+            ((Style)App.Current.Resources["RefreshButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Refresh, 19, 19)));
+            ((Style)App.Current.Resources["SignOutButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.SignOut, 19, 19)));
+            ((Style)App.Current.Resources["DeleteButtonStyle"]).Setters.Add(new Setter(FirebaseAuthenticationButton.IconProperty, Icons.ToImageSource(Helpers.Icons.Delete, 19, 19)));
 
 
             ApplicationView.PreferredLaunchViewSize = new(900, 700);
