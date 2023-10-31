@@ -5,6 +5,8 @@ packages/
 *.user
 _ReSharper.*
 
+Development/
+
 Firebase.Authentication/bin/
 Firebase.Authentication/obj/
 Firebase.Authentication/Properties/
@@ -25,6 +27,10 @@ Firebase.Authentication.UWP/bin/
 Firebase.Authentication.UWP/obj/
 Firebase.Authentication.UWP/Properties/
 
+Firebase.Authentication.WinForms/bin/
+Firebase.Authentication.WinForms/obj/
+Firebase.Authentication.WinForms/Properties/
+
 Samples/Firebase.Authentication.Sample.WPF/bin/
 Samples/Firebase.Authentication.Sample.WPF/obj/
 Samples/Firebase.Authentication.Sample.WPF/Properties/
@@ -37,4 +43,6 @@ Samples/Firebase.Authentication.Sample.UWP/bin/
 Samples/Firebase.Authentication.Sample.UWP/obj/
 Samples/Firebase.Authentication.Sample.UWP/Properties/
 
-Development/
+Samples/Firebase.Authentication.Sample.WinForms/bin/
+Samples/Firebase.Authentication.Sample.WinForms/obj/
+Samples/Firebase.Authentication.Sample.WinForms/Properties/
