@@ -50,7 +50,7 @@
             NavigationPanel.Dock = DockStyle.Top;
             NavigationPanel.Location = new Point(0, 0);
             NavigationPanel.Name = "NavigationPanel";
-            NavigationPanel.Size = new Size(504, 48);
+            NavigationPanel.Size = new Size(504, 45);
             NavigationPanel.TabIndex = 1;
             // 
             // SettingsButton
@@ -62,7 +62,7 @@
             SettingsButton.ForeColor = SystemColors.ButtonFace;
             SettingsButton.Location = new Point(150, 0);
             SettingsButton.Name = "SettingsButton";
-            SettingsButton.Size = new Size(75, 48);
+            SettingsButton.Size = new Size(75, 45);
             SettingsButton.TabIndex = 5;
             SettingsButton.Text = "Settings";
             SettingsButton.UseVisualStyleBackColor = true;
@@ -77,7 +77,7 @@
             UserInfoButton.ForeColor = SystemColors.ButtonFace;
             UserInfoButton.Location = new Point(75, 0);
             UserInfoButton.Name = "UserInfoButton";
-            UserInfoButton.Size = new Size(75, 48);
+            UserInfoButton.Size = new Size(75, 45);
             UserInfoButton.TabIndex = 4;
             UserInfoButton.Text = "User Info";
             UserInfoButton.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@
             LoggerButton.ForeColor = SystemColors.ButtonFace;
             LoggerButton.Location = new Point(324, 0);
             LoggerButton.Name = "LoggerButton";
-            LoggerButton.Size = new Size(90, 48);
+            LoggerButton.Size = new Size(90, 45);
             LoggerButton.TabIndex = 3;
             LoggerButton.Text = "Show Logger";
             LoggerButton.UseVisualStyleBackColor = true;
@@ -108,7 +108,7 @@
             GitHubButton.ForeColor = SystemColors.ButtonFace;
             GitHubButton.Location = new Point(414, 0);
             GitHubButton.Name = "GitHubButton";
-            GitHubButton.Size = new Size(90, 48);
+            GitHubButton.Size = new Size(90, 45);
             GitHubButton.TabIndex = 2;
             GitHubButton.Text = "GitHub";
             GitHubButton.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@
             HomeButton.ForeColor = SystemColors.ButtonFace;
             HomeButton.Location = new Point(0, 0);
             HomeButton.Name = "HomeButton";
-            HomeButton.Size = new Size(75, 48);
+            HomeButton.Size = new Size(75, 45);
             HomeButton.TabIndex = 0;
             HomeButton.Text = "Home";
             HomeButton.UseVisualStyleBackColor = true;
@@ -132,24 +132,25 @@
             // ContentPanel
             // 
             ContentPanel.AutoSize = true;
+            ContentPanel.BackColor = SystemColors.Control;
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(0, 48);
+            ContentPanel.Location = new Point(0, 45);
             ContentPanel.Name = "ContentPanel";
-            ContentPanel.Size = new Size(504, 863);
+            ContentPanel.Size = new Size(504, 809);
             ContentPanel.TabIndex = 2;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 16F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(504, 911);
+            ClientSize = new Size(504, 854);
             Controls.Add(ContentPanel);
             Controls.Add(NavigationPanel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            MinimumSize = new Size(460, 890);
+            MinimumSize = new Size(460, 837);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "WinForms Sample - Firebase Authentication";
@@ -164,9 +165,9 @@
         private Panel NavigationPanel;
         private Button LoggerButton;
         private Button GitHubButton;
-        private Button HomeButton;
         private Button SettingsButton;
-        private Button UserInfoButton;
         private Panel ContentPanel;
+        public Button HomeButton;
+        public Button UserInfoButton;
     }
 }

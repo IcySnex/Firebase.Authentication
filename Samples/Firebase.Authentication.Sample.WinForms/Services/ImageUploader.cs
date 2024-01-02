@@ -1,6 +1,5 @@
 ﻿using Firebase.Authentication.Sample.WinForms.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Firebase.Authentication.Sample.WinForms.Services;
 
@@ -13,13 +12,13 @@ public class ImageUploader
 
     public ImageUploader(
         ILogger<ImageUploader> logger,
-        IOptions<Models.Configuration> configuration,
+        Models.Configuration configuration,
         JsonConverter converter)
     {
         this.logger = logger;
         this.converter = converter;
 
-        client.DefaultRequestHeaders.Authorization = new("Client-ID", configuration.Value.ImgurClientId);
+        client.DefaultRequestHeaders.Authorization = new("Client-ID", configuration.ImgurClientId);
     }
 
 

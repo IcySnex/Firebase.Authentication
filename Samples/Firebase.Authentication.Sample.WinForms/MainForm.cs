@@ -16,10 +16,14 @@ public partial class MainForm : Form
     }
 
 
-    public void Navigate(Control control)
+    public void Navigate(
+        Control control)
     {
         ContentPanel.Controls.Clear();
         ContentPanel.Controls.Add(control);
+        control.Location = new(control.Location.X, (ContentPanel.Size.Height - control.Size.Height) / 2);
+        control.SizeChanged += (s, e) =>
+            control.Location = new(control.Location.X, (ContentPanel.Size.Height - control.Size.Height) / 2);
 
         logger.LogInformation("[MainForm-Navigate] Navigated to control");
     }
@@ -28,15 +32,11 @@ public partial class MainForm : Form
     private void HomeButton_Click(object sender, EventArgs e) =>
         Navigate(new HomeControl());
 
-    private void UserInfoButton_Click(object sender, EventArgs e)
-    {
+    private void UserInfoButton_Click(object sender, EventArgs e) =>
+        Navigate(new UserInfoControl());
 
-    }
-
-    private void SettingsButton_Click(object sender, EventArgs e)
-    {
-
-    }
+    private void SettingsButton_Click(object sender, EventArgs e) =>
+        Navigate(new SettingsControl());
 
 
     private void LoggerButton_Click(object sender, EventArgs e)
