@@ -1,4 +1,5 @@
 ﻿using Svg;
+using System.Runtime.InteropServices;
 
 namespace Firebase.Authentication.WinForms.UI;
 
@@ -30,6 +31,27 @@ public static class Icons
         graphics.DrawImageUnscaled(document.Draw(width, height), new Point(0, 0));
 
         return image;
+    }
+
+    /// <summary>
+    /// Converts a SVG image to an icon
+    /// </summary>
+    /// <param name="svg">The svg data to convert</param>
+    /// <param name="width">The width of the drawn icon</param>
+    /// <param name="height">The height of the drawn icon</param>
+    /// <param name="canvasWidth">The canvas width of the drawn icon</param>
+    /// <param name="canvasHeight">The canvas height of the drawn icon</param>
+    /// <returns>A new Icon</returns>
+    public static Icon ToIcon(
+        string svg,
+        int width = 32,
+        int height = 32,
+        int canvasWidth = 32,
+        int canvasHeight = 32)
+    {
+        Bitmap bitmap = ToBitmap(svg, width, height, canvasWidth, canvasHeight);
+        IntPtr handle = bitmap.GetHicon();
+        return Icon.FromHandle(handle);
     }
 
 
